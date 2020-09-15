@@ -10,6 +10,7 @@
   "dependencies": {
     "@voorhoede/deltares-vuetify-theme": "^1.0.4",
     "core-js": "^3.6.5",
+    "mapbox-gl": "^1.12.0",
     "vue": "^2.6.11",
     "vue2mapbox-gl": "^0.12.5",
     "vuetify": "^2.2.11"
