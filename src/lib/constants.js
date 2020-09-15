@@ -12,7 +12,7 @@ export const MAP_BASELAYERS = [
   'light',
   'satellite',
 ].map(layer => ({
-  style: `mapbox://styles/mapbox/${ layer }-v10`,
+  style: `mapbox://styles/mapbox/${ layer }-v9`,
   title: layer,
   thumbnail: `/thumbnails/${ layer }.png`
 }));

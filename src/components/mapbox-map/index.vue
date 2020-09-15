@@ -13,6 +13,10 @@
       <!-- Map Controls -->
       <v-mapbox-geocoder />
       <v-mapbox-navigation-control position="bottom-right" />
+      <map-control-baselayer
+        :layers="mapBaseLayers"
+        position="bottom-right"
+      />
       <map-control-fitbounds
         :fitToBounds="fitToBounds"
         position="bottom-right"
@@ -31,13 +35,15 @@
 <script>
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-import { MAP_CENTER, MAP_ZOOM, MAP_BASELAYER_DEFAULT } from '@/lib/constants';
+import { MAP_CENTER, MAP_ZOOM, MAP_BASELAYER_DEFAULT, MAP_BASELAYERS } from '@/lib/constants';
 import MapLayer from './map-layer.js';
+import MapControlBaselayer from './map-control-baselayer';
 import MapControlFitbounds from './map-control-fitbounds';
 
 export default {
   components: {
     MapLayer,
+    MapControlBaselayer,
     MapControlFitbounds
   },
 
@@ -46,8 +52,8 @@ export default {
       return process.env.VUE_APP_MAPBOX_TOKEN;
     },
     wmsLayers() {
+      return []
       // return this.$store.getters['mapbox/wmsLayers'];
-      return null
     },
     mapConfig() {
       return {
@@ -55,13 +61,14 @@ export default {
         zoom: MAP_ZOOM,
         style: MAP_BASELAYER_DEFAULT.style
       };
+    },
+    mapBaseLayers() {
+      return MAP_BASELAYERS;
     }
   },
 
   methods: {
     onMapCreated(map) {
-      // @TODO :: We need the updated vue2mapbox!!
-      // console.log(map);
       this.$root.map = map;
       map.on('load', () => {
         this.$root.mapLoaded = true;
