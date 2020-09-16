@@ -2,7 +2,9 @@
   <v-app>
     <app-header />
     <app-sidebar />
-    <mapbox-map />
+    <v-content>
+      <mapbox-map />
+    </v-content>
   </v-app>
 </template>
 
