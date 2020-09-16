@@ -1,9 +1,7 @@
 <template>
   <v-app>
     <app-header />
-
     <app-sidebar />
-
     <mapbox-map />
   </v-app>
 </template>
@@ -22,3 +20,9 @@ export default {
   name: "App",
 };
 </script>
+
+<style>
+#app {
+  height: 100vh;
+}
+</style>
