@@ -1,16 +1,24 @@
 <template>
   <v-app>
+    <app-header />
+
+    <app-sidebar />
+
     <mapbox-map />
   </v-app>
 </template>
 
 <script>
-import MapboxMap from '@/components/mapbox-map'
+import AppHeader from "@/components/app-header";
+import AppSidebar from "@/components/app-sidebar";
+import MapboxMap from "@/components/mapbox-map";
 
 export default {
   components: {
-    MapboxMap
+    MapboxMap,
+    AppSidebar,
+    AppHeader,
   },
-  name: 'App',
+  name: "App",
 };
 </script>
