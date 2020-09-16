@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div>
     Modelling
   </div>
 </template>
@@ -7,9 +7,3 @@
 <script>
 export default {}
 </script>
-
-<style>
-.home {
-  height: 100%;
-}
-</style>
