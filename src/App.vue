@@ -1,16 +1,11 @@
 <template>
-  <v-app>
-    <mapbox-map />
-  </v-app>
+  <div id="app">
+    <router-view/>
+  </div>
 </template>
 
-<script>
-import MapboxMap from '@/components/mapbox-map'
-
-export default {
-  components: {
-    MapboxMap
-  },
-  name: 'App',
-};
-</script>
+<style>
+#app {
+  height: 100vh;
+}
+</style>
