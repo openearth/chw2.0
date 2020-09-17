@@ -10,8 +10,6 @@
       To start, select 2 coordinates using the [add tool icon] tool in the map
     </p>
 
-    <v-btn class="mb-4" @click="handleSimulate">Simulate selection</v-btn>
-
     <template v-if="loading">
       <v-row
         class="py-4"
@@ -21,7 +19,7 @@
       </v-row>
     </template>
 
-    <template v-if="Object.keys(data).length">
+    <template v-if="Object.keys(data).length && !loading">
       <v-tabs fixed-tabs v-model="activeTab">
         <v-tab>Hazard</v-tab>
         <v-tab>Risk</v-tab>
@@ -56,8 +54,14 @@ export default {
       activeTab: "",
     };
   },
+  watch: {
+    coordinates() {
+      this.getDataForSelection()
+    }
+  },
   computed: {
     ...mapState({
+      coordinates: (state) => state.selection.coordinates,
       data: (state) => state.selection.data,
       loading: (state) => state.selection.loading,
     }),
@@ -71,9 +75,6 @@ export default {
     ...mapActions({
       getDataForSelection: "selection/getDataForSelection",
     }),
-    handleSimulate() {
-      this.getDataForSelection();
-    },
   },
 };
 </script>
