@@ -10,7 +10,7 @@ const routes = [
   {
     path: '/',
     name: 'modelling',
-    component: Modelling
+    component: Modelling,
   },
   {
     path: '/data',
