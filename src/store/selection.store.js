@@ -25,7 +25,12 @@ export default {
         "erosion",
       ]),
     riskData: (state) =>
-      pick(state.data, ["gar_distance", "population", "capital_stock", "roads"]),
+      pick(state.data, [
+        "gar_distance",
+        "population",
+        "capital_stock",
+        "roads",
+      ]),
     measuresData: (state) =>
       pick(state.data, [
         "code",
@@ -38,6 +43,13 @@ export default {
         "stormsurgebarriers",
         "beachnourishment",
         "duneconstab",
+        "cliffstab",
+        "wetlandrest",
+        "floodwarning",
+        "floodproofing",
+        "coastalzoning",
+        "groundwatermgmt",
+        "fluvsedmgmt",
       ]),
   },
 

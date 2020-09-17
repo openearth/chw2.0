@@ -9,7 +9,7 @@
       </thead>
       <tbody>
         <tr v-for="(value, key) in data" :key="key">
-          <td class="font-weight-bold">{{ key }}</td>
+          <td class="font-weight-bold">{{ mapPropertyToTitle(key) }}</td>
           <td>{{ value }}</td>
         </tr>
       </tbody>
@@ -18,12 +18,17 @@
 </template>
 
 <script>
+import mapPropertyToTitle from '@/lib/mapPropertyToTitle'
+
 export default {
   props: {
     data: {
       type: Object,
       required: true
     }
+  },
+  methods: {
+    mapPropertyToTitle
   }
 }
 </script>
