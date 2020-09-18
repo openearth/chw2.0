@@ -1,0 +1,57 @@
+[{"layers": [{
+            "foldername":"Sediment Balance",
+            "layers":[{
+                        "title":"Sedimented Areas",
+                        "layername":"SedimentBalance:SedimentedAreas",
+                        "url": "https://chw.openearth.eu/geoserver/wms?"
+                        
+                        },
+                    {
+                        "title":"Sediment balance",
+                        "layername":"SedimentBalance:Sediment balance",
+                        "url": "https://chw.openearth.eu/geoserver/wms?"
+                        }
+                ]
+            },
+        { 
+            "foldername":"Storm Climate",
+            "layers":[{
+                        "title":"Cyclones",
+                        "layername":"StormClimate:diva_points_with_cyclone_risk",
+                        "url": "https://chw.openearth.eu/geoserver/wms?"
+                        }
+                ]
+        },
+        {
+            "foldername":"Geological Layout",
+            "layers":[{
+                        "title":"Global Lithology",
+                        "layername":"geologicallayout:glim_v01_export",
+                        "url": "https://chw.openearth.eu/geoserver/wms?"
+                        
+                        },
+                    {
+                        "title":"Estuaries",
+                        "layername":"geologicallayout:estuaries",
+                        "url": "https://chw.openearth.eu/geoserver/wms?"
+                        }
+                ]
+            },
+
+            {
+                "foldername":"Socio Economics",
+                "layers":[{
+                            "title":"Global Exposure",
+                            "layername":"SocioEconomics:gar_expanded",
+                            "url": "https://chw.openearth.eu/geoserver/wms?"
+                            
+                            },
+                        {
+                            "title":"Roads",
+                            "layername":"SocioEconomics:roads",
+                            "url": "https://chw.openearth.eu/geoserver/wms?"
+                            }
+                    ]
+                }
+    ]
+}]
