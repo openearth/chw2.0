@@ -1,15 +1,16 @@
 <template>
   <div>
-    <h2 class="h2">
-      Modelling
-    </h2>
+    <div class="pa-4">
+      <h2 class="h2">
+        Modelling
+      </h2>
 
-    <v-divider class="mt-4 mb-4" />
+      <v-divider class="mt-4 mb-4" />
 
-    <p>
-      To start, select 2 coordinates using the [add tool icon] tool in the map
-    </p>
-
+      <p class="mb-0">
+        To get started select two points on the map to create a line.
+      </p>
+    </div>
     <template v-if="loading">
       <v-row
         class="py-4"
