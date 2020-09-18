@@ -9,7 +9,6 @@
       dark
       right
       style="width: auto;"
-      v-model="selectedTab"
     >
       <v-tab :to="{ name: 'modelling' }">
         Modelling
