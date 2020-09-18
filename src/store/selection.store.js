@@ -69,7 +69,7 @@ export default {
   },
 
   actions: {
-    async getDataForSelection({ commit }) {
+    async getDataForSelection({ state, commit }) {
       commit("SET_LOADING", true);
       commit("SET_ERROR", null);
 
@@ -78,7 +78,7 @@ export default {
           functionId: "chw_transect",
           lineData: [
             "wktline",
-            "LINESTRING(-75.64579010009734 9.813031445135282,-75.59291839599524 9.800852433811665)",
+            `LINESTRING(${state.coordinates[0].join(' ')}, ${state.coordinates[1].join(' ')})`,
           ],
         });
 

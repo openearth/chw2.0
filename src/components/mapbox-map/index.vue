@@ -22,6 +22,9 @@
         position="bottom-right"
       />
 
+      <!-- Line draw interaction -->
+      <map-draw-line @change="handleSelectionUpdated" />
+
       <!-- Map Layers -->
       <map-layer
         v-for="layer in wmsLayers"
@@ -33,16 +36,19 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { MAP_CENTER, MAP_ZOOM, MAP_BASELAYER_DEFAULT, MAP_BASELAYERS } from '@/lib/constants';
 import MapLayer from './map-layer.js';
+import MapDrawLine from './map-draw-line.js';
 import MapControlBaselayer from './map-control-baselayer';
 import MapControlFitbounds from './map-control-fitbounds';
 
 export default {
   components: {
     MapLayer,
+    MapDrawLine,
     MapControlBaselayer,
     MapControlFitbounds
   },
@@ -67,6 +73,9 @@ export default {
   },
 
   methods: {
+    ...mapMutations({
+      setCoordinates: 'selection/SET_COORDINATES'
+    }),
     onMapCreated(map) {
       this.$root.map = map;
       map.on('load', () => {
@@ -74,11 +83,13 @@ export default {
       });
     },
     fitToBounds() {
-      // @REFACTOR :: We do a simple flyto at the moment, we could also fit to actual bounds of layers
       this.$root.map.flyTo({
         center: this.mapConfig.center,
         zoom: this.mapConfig.zoom
       });
+    },
+    handleSelectionUpdated(features) {
+      this.setCoordinates(features.map(feature => feature.geometry.coordinates))
     }
   }
 };
