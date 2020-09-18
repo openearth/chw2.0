@@ -1,5 +1,5 @@
 export default {
-  name: "draw-line",
+  name: "map-coordinates-selector",
   inject: ["getMap"],
   render() {
     return null;
@@ -26,7 +26,7 @@ export default {
       return this.geojson.features.filter(
         (feature) => feature.geometry.type === "Point"
       );
-    }
+    },
   },
   mounted() {
     if (this.getMap()) {
@@ -91,21 +91,18 @@ export default {
           },
         };
 
-        // if has 1 or more points, reset features
+        // reset for new line
         if (!this.drawing) {
-          this.geojson.features = []
+          this.geojson.features = [];
         }
 
         this.geojson.features.push(point);
 
-        // draw line 
         if (this.drawing) {
-          this.$emit(
-            "change",
-            this.points
-          );
+          // emit points when line is drawn
+          this.$emit("change", this.points);
 
-          this.drawing = false
+          this.drawing = false;
         }
 
         if (this.geojson.features.length === 1) {
@@ -127,7 +124,7 @@ export default {
           ];
 
           this.geojson.features = this.geojson.features.filter(
-            (feature) => (feature.geometry.type !== "LineString")
+            (feature) => feature.geometry.type !== "LineString"
           );
 
           this.geojson.features.push(this.linestring);
