@@ -2,6 +2,7 @@ export default {
   namespaced: true,
 
   state: {
+    layers: [],
     wmsLayers: [],
     layerVisibilityProxies: [],
     legendLayer: "ra2ce:erosieafschuivingwegtalud_stremmingskosten",
@@ -13,6 +14,9 @@ export default {
   },
 
   mutations: {
+    SET_LAYERS(state, layers) {
+      state.layers = layers
+    },
     ADD_WMS_LAYER(state, newLayer) {
       const layerExists = state.wmsLayers.some(
         (storedLayer) => storedLayer.id === newLayer.id
