@@ -1,5 +1,5 @@
 export default {
-  name: "v-mapbox-layer",
+  name: "draw-line",
   inject: ["getMap"],
   render() {
     return null;
@@ -7,6 +7,7 @@ export default {
   data() {
     return {
       isInitialized: false,
+      drawing: false,
       geojson: {
         type: "FeatureCollection",
         features: [],
@@ -19,6 +20,13 @@ export default {
         },
       },
     };
+  },
+  computed: {
+    points() {
+      return this.geojson.features.filter(
+        (feature) => feature.geometry.type === "Point"
+      );
+    }
   },
   mounted() {
     if (this.getMap()) {
@@ -72,11 +80,6 @@ export default {
       });
 
       map.on("click", (e) => {
-        // if has 1 or more points, reset features
-        if (this.geojson.features.length > 1) {
-          this.geojson.features = []
-        }
-
         const point = {
           type: "Feature",
           geometry: {
@@ -88,22 +91,25 @@ export default {
           },
         };
 
-        this.geojson.features.push(point);
-
-        if (this.geojson.features.length === 2) {
-          // emit points before line is drawn
-          this.$emit('change', JSON.parse(JSON.stringify(this.geojson.features)))
+        // if has 1 or more points, reset features
+        if (!this.drawing) {
+          this.geojson.features = []
         }
 
-        
+        this.geojson.features.push(point);
+
         // draw line 
-        if (this.geojson.features.length > 1) {
-          this.linestring.geometry.coordinates = this.geojson.features.map(
-            (point) => point.geometry.coordinates
+        if (this.drawing) {
+          this.$emit(
+            "change",
+            this.points
           );
 
+          this.drawing = false
+        }
 
-          this.geojson.features.push(this.linestring);
+        if (this.geojson.features.length === 1) {
+          this.drawing = true;
         }
 
         map.getSource("geojson").setData(this.geojson);
@@ -113,6 +119,21 @@ export default {
         var features = map.queryRenderedFeatures(e.point, {
           layers: ["measure-points"],
         });
+
+        if (this.drawing && this.points.length) {
+          this.linestring.geometry.coordinates = [
+            this.points[0].geometry.coordinates,
+            [e.lngLat.lng, e.lngLat.lat],
+          ];
+
+          this.geojson.features = this.geojson.features.filter(
+            (feature) => (feature.geometry.type !== "LineString")
+          );
+
+          this.geojson.features.push(this.linestring);
+
+          map.getSource("geojson").setData(this.geojson);
+        }
 
         map.getCanvas().style.cursor = features.length
           ? "pointer"
