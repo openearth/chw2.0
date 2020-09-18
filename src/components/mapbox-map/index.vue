@@ -23,7 +23,7 @@
       />
 
       <!-- Line draw interaction -->
-      <map-draw-line @change="handleSelectionUpdated" />
+      <map-coordinates-selector @change="handleSelectionUpdated" />
 
       <!-- Map Layers -->
       <map-layer
@@ -41,21 +41,21 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { MAP_CENTER, MAP_ZOOM, MAP_BASELAYER_DEFAULT, MAP_BASELAYERS } from '@/lib/constants';
 import MapLayer from './map-layer.js';
-import MapDrawLine from './map-draw-line.js';
+import MapCoordinatesSelector from './map-coordinates-selector.js';
 import MapControlBaselayer from './map-control-baselayer';
 import MapControlFitbounds from './map-control-fitbounds';
 
 export default {
   components: {
     MapLayer,
-    MapDrawLine,
+    MapCoordinatesSelector,
     MapControlBaselayer,
     MapControlFitbounds
   },
 
   computed: {
     mapBoxToken() {
-      return process.env.VUE_APP_MAPBOX_TOKEN;
+      return process.env.VUE_APP_MAPBOX_TOKEN; 
     },
     wmsLayers() {
       return this.$store.getters['mapbox/wmsLayers'];
