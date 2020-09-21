@@ -11,50 +11,7 @@
         <v-toolbar-title>Coastal Hazard Wheel User Agreement Deltares</v-toolbar-title>
       </v-card-title>
 
-      <div class="px-5 flex-grow-1 overflow-y-auto">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-          nostrum voluptates molestias dolorem iste, voluptas natus quibusdam
-          culpa debitis velit neque. Tenetur quod saepe, minus in sunt
-          consectetur veritatis non.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-          nostrum voluptates molestias dolorem iste, voluptas natus quibusdam
-          culpa debitis velit neque. Tenetur quod saepe, minus in sunt
-          consectetur veritatis non.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-          nostrum voluptates molestias dolorem iste, voluptas natus quibusdam
-          culpa debitis velit neque. Tenetur quod saepe, minus in sunt
-          consectetur veritatis non.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-          nostrum voluptates molestias dolorem iste, voluptas natus quibusdam
-          culpa debitis velit neque. Tenetur quod saepe, minus in sunt
-          consectetur veritatis non.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-          nostrum voluptates molestias dolorem iste, voluptas natus quibusdam
-          culpa debitis velit neque. Tenetur quod saepe, minus in sunt
-          consectetur veritatis non.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-          nostrum voluptates molestias dolorem iste, voluptas natus quibusdam
-          culpa debitis velit neque. Tenetur quod saepe, minus in sunt
-          consectetur veritatis non.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-          nostrum voluptates molestias dolorem iste, voluptas natus quibusdam
-          culpa debitis velit neque. Tenetur quod saepe, minus in sunt
-          consectetur veritatis non.
-        </p>
-      </div>
+      <div class="px-5 flex-grow-1 overflow-y-auto" v-html="content" />
 
       <v-card-actions>
         <div class="pa-2" style="width:100%">
@@ -90,8 +47,11 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex';
+import content from '../../content/legal.md'
+
 export default {
   data: () => ({
+    content,
     accepted1: false,
     accepted2: false,
   }),

@@ -1,51 +1,15 @@
 <template>
-  <div class="pa-4">
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-      nostrum voluptates molestias dolorem iste, voluptas natus quibusdam
-      culpa debitis velit neque. Tenetur quod saepe, minus in sunt
-      consectetur veritatis non.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-      nostrum voluptates molestias dolorem iste, voluptas natus quibusdam
-      culpa debitis velit neque. Tenetur quod saepe, minus in sunt
-      consectetur veritatis non.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-      nostrum voluptates molestias dolorem iste, voluptas natus quibusdam
-      culpa debitis velit neque. Tenetur quod saepe, minus in sunt
-      consectetur veritatis non.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-      nostrum voluptates molestias dolorem iste, voluptas natus quibusdam
-      culpa debitis velit neque. Tenetur quod saepe, minus in sunt
-      consectetur veritatis non.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-      nostrum voluptates molestias dolorem iste, voluptas natus quibusdam
-      culpa debitis velit neque. Tenetur quod saepe, minus in sunt
-      consectetur veritatis non.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-      nostrum voluptates molestias dolorem iste, voluptas natus quibusdam
-      culpa debitis velit neque. Tenetur quod saepe, minus in sunt
-      consectetur veritatis non.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-      nostrum voluptates molestias dolorem iste, voluptas natus quibusdam
-      culpa debitis velit neque. Tenetur quod saepe, minus in sunt
-      consectetur veritatis non.
-    </p>
-  </div>
+  <div class="pa-4" v-html="content" />
 </template>
 
 <script>
+import content from '../content/legal.md'
+
 export default {
+  data() {
+    return {
+      content
+    }
+  }
 }
 </script>
