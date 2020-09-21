@@ -38,10 +38,6 @@
 import { mapActions, mapGetters, mapState } from "vuex";
 import ResultsViewer from '@/components/results-viewer'
 import SelectionWizard from '@/components/selection-wizard'
-const localStorageKey = 'chw_wizard'
-const showWizard = JSON.parse(localStorage.getItem(localStorageKey))
-
-console.log(showWizard)
 
 export default {
   components: {
@@ -51,7 +47,7 @@ export default {
   data() {
     return {
       activeTab: "",
-      wizard: showWizard === null ? true : showWizard,
+      wizard: true,
     };
   },
   watch: {
@@ -73,14 +69,17 @@ export default {
       measuresData: "selection/measuresData",
     }),
   },
+  mounted() {
+    if (this.coordinates.length >= 1) {
+      this.wizard = false
+    }
+  },
   methods: {
     ...mapActions({
       getDataForSelection: "selection/getDataForSelection",
     }),
     handleComplete() {
       this.wizard = false
-      console.log('hoi')
-      localStorage.setItem(localStorageKey, false)
     }
   },
 };
