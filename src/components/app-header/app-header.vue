@@ -1,6 +1,6 @@
 <template>
   <v-app-bar app color="primary" dark clipped-left>
-    <v-toolbar-title>CHW</v-toolbar-title>
+    <v-toolbar-title><router-link to="/" class="">CHW</router-link></v-toolbar-title>
 
     <v-spacer />
 
