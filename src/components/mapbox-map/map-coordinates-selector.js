@@ -98,9 +98,10 @@ export default {
 
         this.geojson.features.push(point);
 
+        this.$emit("change", this.points);
+
         if (this.drawing) {
           // emit points when line is drawn
-          this.$emit("change", this.points);
 
           this.drawing = false;
         }

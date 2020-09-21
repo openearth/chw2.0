@@ -7,57 +7,58 @@
 
       <v-divider class="mt-4 mb-4" />
 
-      <p class="mb-0">
-        To get started select two points on the map to create a line.
+      <selection-wizard v-if="wizard" @complete="handleComplete" />
+
+      <p class="mb-0" v-else>
+        To get started select two points on the map to select a coast.
       </p>
     </div>
-    <template v-if="loading">
-      <v-row
-        class="py-4"
-        justify="center"
-      >
-        <v-progress-circular indeterminate color="primary"></v-progress-circular>
-      </v-row>
-    </template>
 
-    <template v-if="Object.keys(data).length && !loading">
-      <v-tabs fixed-tabs v-model="activeTab">
-        <v-tab>Hazard</v-tab>
-        <v-tab>Risk</v-tab>
-        <v-tab>Measures</v-tab>
-      </v-tabs>
+    <template v-if="!wizard">
+      <template v-if="loading">
+        <v-row
+          class="py-4"
+          justify="center"
+        >
+          <v-progress-circular indeterminate color="primary"></v-progress-circular>
+        </v-row>
+      </template>
 
-      <v-tabs-items v-model="activeTab">
-        <v-tab-item>
-          <data-table :data="hazardData" />
-        </v-tab-item>
-        <v-tab-item>
-          <data-table :data="riskData" />
-        </v-tab-item>
-        <v-tab-item>
-          <data-table :data="measuresData" />
-        </v-tab-item>
-      </v-tabs-items>
+      <results-viewer
+        v-if="Object.keys(data).length && !loading"
+        :hazardData="hazardData"
+        :riskData="riskData"
+        :measuresData="measuresData"
+      />
     </template>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
-import DataTable from "@/components/data-table";
+import ResultsViewer from '@/components/results-viewer'
+import SelectionWizard from '@/components/selection-wizard'
+const localStorageKey = 'chw_wizard'
+const showWizard = JSON.parse(localStorage.getItem(localStorageKey))
+
+console.log(showWizard)
 
 export default {
   components: {
-    DataTable,
+    ResultsViewer,
+    SelectionWizard
   },
   data() {
     return {
       activeTab: "",
+      wizard: showWizard === null ? true : showWizard,
     };
   },
   watch: {
-    coordinates() {
-      this.getDataForSelection()
+    coordinates(value) {
+      if (value.length === 2) {
+        this.getDataForSelection()
+      }
     }
   },
   computed: {
@@ -76,6 +77,11 @@ export default {
     ...mapActions({
       getDataForSelection: "selection/getDataForSelection",
     }),
+    handleComplete() {
+      this.wizard = false
+      console.log('hoi')
+      localStorage.setItem(localStorageKey, false)
+    }
   },
 };
 </script>
