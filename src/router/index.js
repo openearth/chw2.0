@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Modelling from "../views/Modelling.vue";
 import Data from "../views/Data.vue";
 import Sources from "../views/Sources.vue";
+import Legal from "../views/Legal.vue";
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/sources',
     name: 'sources',
     component: Sources
+  },
+  {
+    path: '/legal',
+    name: 'legal',
+    component: Legal 
   },
 ]
 
