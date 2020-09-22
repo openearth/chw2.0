@@ -1,63 +1,55 @@
 <template>
   <div>
-    <div class="pa-4">
+    <div class="px-4 pt-4">
       <h2 class="h2">
         Modelling
       </h2>
 
       <v-divider class="mt-4 mb-4" />
 
-      <p class="mb-0">
-        To get started select two points on the map to create a line.
-      </p>
+      <selection-wizard v-if="wizard" @complete="handleWizardComplete" />
     </div>
-    <template v-if="loading">
-      <v-row
-        class="py-4"
-        justify="center"
-      >
-        <v-progress-circular indeterminate color="primary"></v-progress-circular>
-      </v-row>
-    </template>
 
-    <template v-if="Object.keys(data).length && !loading">
-      <v-tabs fixed-tabs v-model="activeTab">
-        <v-tab>Hazard</v-tab>
-        <v-tab>Risk</v-tab>
-        <v-tab>Measures</v-tab>
-      </v-tabs>
-
-      <v-tabs-items v-model="activeTab">
-        <v-tab-item>
-          <data-table :data="hazardData" />
-        </v-tab-item>
-        <v-tab-item>
-          <data-table :data="riskData" />
-        </v-tab-item>
-        <v-tab-item>
-          <data-table :data="measuresData" />
-        </v-tab-item>
-      </v-tabs-items>
+    <template v-if="!wizard">
+      <template v-if="loading">
+        <v-row
+          class="py-4"
+          justify="center"
+        >
+          <v-progress-circular indeterminate color="primary"></v-progress-circular>
+        </v-row>
+      </template>
+      <results-viewer
+        v-if="Object.keys(data).length && !loading"
+        :hazardData="hazardData"
+        :riskData="riskData"
+        :measuresData="measuresData"
+      />
     </template>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from "vuex";
-import DataTable from "@/components/data-table";
+import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
+import ResultsViewer from '@/components/results-viewer'
+import SelectionWizard from '@/components/selection-wizard'
 
 export default {
   components: {
-    DataTable,
+    ResultsViewer,
+    SelectionWizard
   },
   data() {
     return {
       activeTab: "",
+      wizard: true,
     };
   },
   watch: {
-    coordinates() {
-      this.getDataForSelection()
+    coordinates(value) {
+      if (value.length === 2) {
+        this.getDataForSelection()
+      }
     }
   },
   computed: {
@@ -72,10 +64,26 @@ export default {
       measuresData: "selection/measuresData",
     }),
   },
+  mounted() {
+    this.SET_ENABLED(true)
+
+    if (this.coordinates.length >= 1) {
+      this.wizard = false
+    }
+  },
+  beforeDestroy() {
+    this.SET_ENABLED(false)
+  },
   methods: {
     ...mapActions({
       getDataForSelection: "selection/getDataForSelection",
     }),
+    ...mapMutations({
+      SET_ENABLED: 'selection/SET_ENABLED'
+    }),
+    handleWizardComplete() {
+      this.wizard = false
+    }
   },
 };
 </script>

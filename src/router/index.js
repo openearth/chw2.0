@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Modelling from "../views/Modelling.vue";
 import Data from "../views/Data.vue";
 import Sources from "../views/Sources.vue";
+import Home from "../views/Home.vue";
 import Legal from "../views/Legal.vue";
 
 Vue.use(VueRouter)
@@ -10,6 +11,11 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'home',
+    component: Home
+  },
+  {
+    path: '/modelling',
     name: 'modelling',
     component: Modelling,
   },
