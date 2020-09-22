@@ -64,7 +64,7 @@ export default {
       measuresData: "selection/measuresData",
     }),
   },
-  mounted() {
+  beforeMount() {
     this.SET_ENABLED(true)
 
     if (this.coordinates.length >= 1) {
