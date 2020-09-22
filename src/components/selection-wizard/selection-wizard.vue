@@ -29,18 +29,11 @@
         </v-card>
       </v-stepper-content>
 
-      <v-stepper-step :complete="step > 3" step="3"
-        >Select second point</v-stepper-step
-      >
+      <v-stepper-step :complete="step > 3" step="3">Select second point</v-stepper-step>
 
       <v-stepper-content step="3">
         <p>
-          The points form a line that is used to derive coastal characteristics.
-          These characteristics are the basis for a description of the coastal
-          environment. Bear in mind that the data used is global data and there
-          can deviate from the local situation. In general the global data can
-          be quite coarse. If you want to use your own datasets, please get in
-          contact with the coastalhazardwheel.org foundation.
+          Set the second (and end) point of your transect.
         </p>
 
         <v-card>
@@ -67,7 +60,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapMutations, mapState } from "vuex";
 
 export default {
   data() {
@@ -81,21 +74,25 @@ export default {
     }),
     step() {
       if (this.zoomCompleted) {
-        if (this.coordinates.length === 1) {
-          return 3;
-        }
-
-        if (this.coordinates.length === 2) {
-          return 4;
-        }
-
-        return 2;
+        return this.coordinates.length + 2
       } else {
         return 1;
       }
     },
   },
+  watch: {
+    step(value) {
+      // disable selection on step 1
+      this.SET_ENABLED(!(value === 1))
+    }
+  },
+  mounted() {
+    this.SET_ENABLED(false)
+  },
   methods: {
+    ...mapMutations({
+      SET_ENABLED: 'selection/SET_ENABLED'
+    }),
     handleCompleteClick() {
       this.$emit("complete");
     }

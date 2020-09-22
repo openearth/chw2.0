@@ -4,6 +4,12 @@ export default {
   render() {
     return null;
   },
+  props: {
+    disabled: {
+      type: Boolean,
+      required: true
+    }
+  },
   data() {
     return {
       isInitialized: false,
@@ -33,9 +39,6 @@ export default {
       this.rerender();
       this.isInitialized = true;
     }
-  },
-  destroyed() {
-    this.removeLayer();
   },
   methods: {
     deferredMountedTo() {
@@ -80,6 +83,8 @@ export default {
       });
 
       map.on("click", (e) => {
+        if (this.disabled) return
+
         const point = {
           type: "Feature",
           geometry: {
@@ -114,9 +119,11 @@ export default {
       });
 
       map.on("mousemove", (e) => {
-        var features = map.queryRenderedFeatures(e.point, {
-          layers: ["measure-points"],
-        });
+        map.getCanvas().style.cursor = this.disabled
+          ? "pointer"
+          : "crosshair";
+
+        if (this.disabled) return;
 
         if (this.drawing && this.points.length) {
           this.linestring.geometry.coordinates = [
@@ -132,10 +139,6 @@ export default {
 
           map.getSource("geojson").setData(this.geojson);
         }
-
-        map.getCanvas().style.cursor = features.length
-          ? "pointer"
-          : "crosshair";
       });
     },
   },

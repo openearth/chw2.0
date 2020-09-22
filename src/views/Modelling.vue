@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from "vuex";
+import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
 import ResultsViewer from '@/components/results-viewer'
 import SelectionWizard from '@/components/selection-wizard'
 
@@ -65,13 +65,21 @@ export default {
     }),
   },
   mounted() {
+    this.SET_ENABLED(true)
+
     if (this.coordinates.length >= 1) {
       this.wizard = false
     }
   },
+  beforeDestroy() {
+    this.SET_ENABLED(false)
+  },
   methods: {
     ...mapActions({
       getDataForSelection: "selection/getDataForSelection",
+    }),
+    ...mapMutations({
+      SET_ENABLED: 'selection/SET_ENABLED'
     }),
     handleWizardComplete() {
       this.wizard = false

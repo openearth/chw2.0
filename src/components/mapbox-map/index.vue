@@ -23,7 +23,7 @@
       />
 
       <!-- Line draw interaction -->
-      <map-coordinates-selector @change="handleSelectionUpdated" />
+      <map-coordinates-selector :disabled="!selectionEnabled" @change="handleSelectionUpdated" />
 
       <!-- Map Layers -->
       <map-layer
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { MAP_CENTER, MAP_ZOOM, MAP_BASELAYER_DEFAULT, MAP_BASELAYERS } from '@/lib/constants';
@@ -54,6 +54,9 @@ export default {
   },
 
   computed: {
+    ...mapState({
+      selectionEnabled: (state) => state.selection.enabled,
+    }),
     mapBoxToken() {
       return process.env.VUE_APP_MAPBOX_TOKEN; 
     },

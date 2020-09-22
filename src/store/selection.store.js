@@ -5,7 +5,7 @@ export default {
   namespaced: true,
 
   state: {
-    enabled: true,
+    enabled: false,
     coordinates: [],
     loading: false,
     error: null,
@@ -67,6 +67,9 @@ export default {
     SET_DATA(state, data) {
       state.data = data;
     },
+    SET_ENABLED(state, value) {
+      state.enabled = value
+    }
   },
 
   actions: {
