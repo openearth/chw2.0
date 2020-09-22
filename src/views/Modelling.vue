@@ -1,17 +1,13 @@
 <template>
   <div>
-    <div class="pa-4">
+    <div class="px-4 pt-4">
       <h2 class="h2">
         Modelling
       </h2>
 
       <v-divider class="mt-4 mb-4" />
 
-      <selection-wizard v-if="wizard" @complete="handleComplete" />
-
-      <p class="mb-0" v-else>
-        To get started select two points on the map to select a coast.
-      </p>
+      <selection-wizard v-if="wizard" @complete="handleWizardComplete" />
     </div>
 
     <template v-if="!wizard">
@@ -23,7 +19,6 @@
           <v-progress-circular indeterminate color="primary"></v-progress-circular>
         </v-row>
       </template>
-
       <results-viewer
         v-if="Object.keys(data).length && !loading"
         :hazardData="hazardData"
@@ -78,7 +73,7 @@ export default {
     ...mapActions({
       getDataForSelection: "selection/getDataForSelection",
     }),
-    handleComplete() {
+    handleWizardComplete() {
       this.wizard = false
     }
   },

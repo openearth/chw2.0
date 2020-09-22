@@ -2,25 +2,65 @@
   <div>
     <v-stepper v-model="step" vertical>
       <v-stepper-step :complete="step > 1" step="1">
-        Select first point
+        Zoom in
       </v-stepper-step>
 
       <v-stepper-content step="1">
-        <p>Select the first point on the [?] side of the coast.</p>
+        <p>
+          Please zoom in to your area of interest somewhere on the coast, you
+          can do this either by zooming with you mousewheel or by typing in the
+          area of interest in the search bar.
+        </p>
+
+        <v-btn @click="zoomCompleted = true" class="primary">Continue</v-btn>
+      </v-stepper-content>
+
+      <v-stepper-step :complete="step > 2" step="2">
+        Select first point
+      </v-stepper-step>
+
+      <v-stepper-content step="2">
+        <p>
+          Set the first point of your transect in see in front of the coast.
+        </p>
 
         <v-card>
           <img src="@/assets/step1.png" width="100%" class="d-flex" />
         </v-card>
       </v-stepper-content>
 
-      <v-stepper-step :complete="step > 2" step="2">Select second point</v-stepper-step>
+      <v-stepper-step :complete="step > 3" step="3"
+        >Select second point</v-stepper-step
+      >
 
-      <v-stepper-content step="2">
-        <p>Select the second point on the [?] side of the coast.</p>
+      <v-stepper-content step="3">
+        <p>
+          The points form a line that is used to derive coastal characteristics.
+          These characteristics are the basis for a description of the coastal
+          environment. Bear in mind that the data used is global data and there
+          can deviate from the local situation. In general the global data can
+          be quite coarse. If you want to use your own datasets, please get in
+          contact with the coastalhazardwheel.org foundation.
+        </p>
 
         <v-card>
           <img src="@/assets/step2.png" width="100%" class="d-flex" />
         </v-card>
+      </v-stepper-content>
+
+      <v-stepper-step :complete="step === 4" step="4">Info</v-stepper-step>
+
+      <v-stepper-content step="4">
+        <p>
+          The points form a line that is used to derive coastal characteristics.
+          These characteristics are the basis for a description of the coastal
+          environment. Bear in mind that the data used is global data and there
+          can deviate from the local situation. In general the global data can
+          be quite coarse. If you want to use your own datasets, please get in
+          contact with the <a href="https://coastalhazardwheel.org" rel="noopener noreferrer" target="_blank">coastalhazardwheel.org</a> foundation.
+        </p>
+
+        <v-btn @click="handleCompleteClick" class="primary">See results</v-btn>
       </v-stepper-content>
     </v-stepper>
   </div>
@@ -28,21 +68,37 @@
 
 <script>
 import { mapState } from "vuex";
+
 export default {
+  data() {
+    return {
+      zoomCompleted: false,
+    };
+  },
   computed: {
     ...mapState({
       coordinates: (state) => state.selection.coordinates,
     }),
     step() {
-      return this.coordinates.length + 1;
+      if (this.zoomCompleted) {
+        if (this.coordinates.length === 1) {
+          return 3;
+        }
+
+        if (this.coordinates.length === 2) {
+          return 4;
+        }
+
+        return 2;
+      } else {
+        return 1;
+      }
     },
   },
-  watch: {
-    step(value) {
-      if (value === 3) {
-        this.$emit("complete");
-      }
+  methods: {
+    handleCompleteClick() {
+      this.$emit("complete");
     }
-  },
+  }
 };
 </script>

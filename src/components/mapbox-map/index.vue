@@ -23,10 +23,7 @@
       />
 
       <!-- Line draw interaction -->
-      <map-coordinates-selector
-        v-if="$route.name === 'modelling'"
-        @change="handleSelectionUpdated"
-      />
+      <map-coordinates-selector @change="handleSelectionUpdated" />
 
       <!-- Map Layers -->
       <map-layer

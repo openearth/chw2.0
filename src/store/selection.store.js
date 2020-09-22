@@ -5,6 +5,7 @@ export default {
   namespaced: true,
 
   state: {
+    enabled: true,
     coordinates: [],
     loading: false,
     error: null,

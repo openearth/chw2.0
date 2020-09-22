@@ -10,7 +10,7 @@
       right
       style="width: auto;"
     >
-      <v-tab :to="{ name: 'home' }">
+      <v-tab :to="{ name: 'home' }" exact>
         Introduction 
       </v-tab>
       <v-tab :to="{ name: 'modelling' }">
