@@ -23,7 +23,11 @@
       />
 
       <!-- Line draw interaction -->
-      <map-coordinates-selector :disabled="!selectionEnabled" @change="handleSelectionUpdated" />
+      <map-coordinates-selector
+        :disabled="!selectionEnabled"
+        :coordinates="coordinates"
+        @change="handleSelectionUpdated"
+      />
 
       <!-- Map Layers -->
       <map-layer
@@ -55,6 +59,7 @@ export default {
 
   computed: {
     ...mapState({
+      coordinates: (state) => state.selection.coordinates,
       selectionEnabled: (state) => state.selection.enabled,
     }),
     mapBoxToken() {

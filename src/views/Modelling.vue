@@ -67,7 +67,7 @@ export default {
   beforeMount() {
     this.SET_ENABLED(true)
 
-    if (this.coordinates.length >= 1) {
+    if (this.coordinates.length >= 1 || this.$route.params.wizard === false) {
       this.wizard = false
     }
   },

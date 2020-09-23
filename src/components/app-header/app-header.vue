@@ -24,16 +24,39 @@
       </v-tab>
     </v-tabs>
 
-    <v-btn @click="handleSaveClick">Save 💾</v-btn>
-    <v-btn @click="handleSaveClick">Load 📂</v-btn>
+    <v-divider
+      inset
+      vertical
+    ></v-divider>
+
+    <load-project-button />
+
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          icon
+          @click="handleSaveClick"
+          v-bind="attrs"
+          v-on="on"
+        >
+          <v-icon>mdi-content-save</v-icon>
+        </v-btn>
+      </template>
+      <span>Save project</span>
+    </v-tooltip>
   </v-app-bar>
 </template>
 
 <script>
+import LoadProjectButton from '@/components/load-project-button'
 import { mapActions } from 'vuex'
+
 export default {
+  components: {
+    LoadProjectButton
+  },
   methods: {
-    ...mapActions(['saveProject']),
+    ...mapActions(['loadProject', 'saveProject']),
     handleSaveClick() {
       this.saveProject()
     }

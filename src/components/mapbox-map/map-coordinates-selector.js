@@ -5,10 +5,14 @@ export default {
     return null;
   },
   props: {
+    coordinates: {
+      type: Array,
+      required: false,
+    },
     disabled: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
@@ -26,6 +30,21 @@ export default {
         },
       },
     };
+  },
+  watch: {
+    coordinates(value) {
+      const map = this.getMap();
+
+      this.geojson.features = [];
+      this.setLineString(value);
+
+      value.forEach((coordinate) => {
+        const point = this.generateFeature(coordinate);
+        this.geojson.features.push(point);
+      });
+
+      map.getSource("geojson").setData(this.geojson);
+    },
   },
   computed: {
     points() {
@@ -83,18 +102,9 @@ export default {
       });
 
       map.on("click", (e) => {
-        if (this.disabled) return
+        if (this.disabled) return;
 
-        const point = {
-          type: "Feature",
-          geometry: {
-            type: "Point",
-            coordinates: [e.lngLat.lng, e.lngLat.lat],
-          },
-          properties: {
-            id: String(new Date().getTime()),
-          },
-        };
+        const point = this.generateFeature([e.lngLat.lng, e.lngLat.lat]);
 
         // reset for new line
         if (!this.drawing) {
@@ -119,27 +129,42 @@ export default {
       });
 
       map.on("mousemove", (e) => {
-        map.getCanvas().style.cursor = this.disabled
-          ? "pointer"
-          : "crosshair";
+        map.getCanvas().style.cursor = this.disabled ? "pointer" : "crosshair";
 
         if (this.disabled) return;
 
         if (this.drawing && this.points.length) {
-          this.linestring.geometry.coordinates = [
+          this.setLineString([
             this.points[0].geometry.coordinates,
             [e.lngLat.lng, e.lngLat.lat],
-          ];
-
-          this.geojson.features = this.geojson.features.filter(
-            (feature) => feature.geometry.type !== "LineString"
-          );
-
-          this.geojson.features.push(this.linestring);
-
-          map.getSource("geojson").setData(this.geojson);
+          ]);
         }
       });
+    },
+    generateFeature(coordinates) {
+      return {
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates,
+        },
+        properties: {
+          id: String(new Date().getTime()),
+        },
+      };
+    },
+    setLineString(coordinates) {
+      const map = this.getMap();
+
+      this.linestring.geometry.coordinates = coordinates;
+
+      this.geojson.features = this.geojson.features.filter(
+        (feature) => feature.geometry.type !== "LineString"
+      );
+
+      this.geojson.features.push(this.linestring);
+
+      map.getSource("geojson").setData(this.geojson);
     },
   },
 };
