@@ -75,6 +75,10 @@ export default {
     }
   },
 
+  mounted() {
+    window.__map = this.$root.map
+  },
+
   methods: {
     ...mapMutations({
       setCoordinates: 'selection/SET_COORDINATES'

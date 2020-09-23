@@ -23,5 +23,20 @@
         Sources
       </v-tab>
     </v-tabs>
+
+    <v-btn @click="handleSaveClick">Save 💾</v-btn>
+    <v-btn @click="handleSaveClick">Load 📂</v-btn>
   </v-app-bar>
 </template>
+
+<script>
+import { mapActions } from 'vuex'
+export default {
+  methods: {
+    ...mapActions(['saveProject']),
+    handleSaveClick() {
+      this.saveProject()
+    }
+  }
+}
+</script>
