@@ -8,7 +8,13 @@
       <v-divider class="mt-4 mb-4" />
     </div>
 
-    <div v-html="content" class="home__content" />
+    <div class="home__content">
+      <div class="home__logos mb-6">
+        <img src="@/assets/img/deltares-logo.png" class="mr-8" />
+        <img src="@/assets/img/chw-logo.png" />
+      </div>
+      <div v-html="content" />
+    </div>
 
     <div class="d-flex pt-4">
       <v-btn class="primary ml-auto" :to="{ name: 'modelling', params: { wizard: true } }">Get started</v-btn>
@@ -54,5 +60,14 @@ export default {
   .home__content {
     overflow-y: auto;
     flex: 1;
+  }
+
+  .home__logos {
+    display: flex;
+    height: 3rem;
+  }
+
+  .home__logos img {
+    height: 100%;
   }
 </style>
