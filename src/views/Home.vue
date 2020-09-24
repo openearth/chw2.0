@@ -9,13 +9,15 @@
     <div v-html="content" />
 
     <div class="d-flex mt-8">
-      <v-btn class="primary ml-auto" :to="{ name: 'modelling' }">Get started</v-btn>
+      <v-btn class="primary ml-auto" :to="{ name: 'modelling', params: { wizard: true } }">Get started</v-btn>
     </div>
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import content from "@/content/introduction.md";
+import { MAP_CENTER, MAP_ZOOM } from '@/lib/constants';
 
 export default {
   data() {
@@ -23,5 +25,20 @@ export default {
       content,
     };
   },
+  mounted() {
+    if (this.$root.map) {
+      this.$root.map.flyTo({
+        center: MAP_CENTER,
+        zoom: MAP_ZOOM
+      });
+    }
+
+    this.setCoordinates([])
+  },
+  methods: {
+    ...mapMutations({
+      setCoordinates: 'selection/SET_COORDINATES'
+    })
+  }
 };
 </script>

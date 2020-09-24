@@ -43,7 +43,7 @@ export default {
         this.geojson.features.push(point);
       });
 
-      map.getSource("geojson").setData(this.geojson);
+      map.getSource("geojson")?.setData(this.geojson);
     },
   },
   computed: {
@@ -125,7 +125,7 @@ export default {
           this.drawing = true;
         }
 
-        map.getSource("geojson").setData(this.geojson);
+        map.getSource("geojson")?.setData(this.geojson);
       });
 
       map.on("mousemove", (e) => {
@@ -164,7 +164,7 @@ export default {
 
       this.geojson.features.push(this.linestring);
 
-      map.getSource("geojson").setData(this.geojson);
+      map.getSource("geojson")?.setData(this.geojson);
     },
   },
 };
