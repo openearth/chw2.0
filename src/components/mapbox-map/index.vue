@@ -13,37 +13,32 @@
       <!-- Map Controls -->
       <v-mapbox-geocoder />
       <v-mapbox-navigation-control position="bottom-right" />
-      <map-control-baselayer
-        :layers="mapBaseLayers"
-        position="bottom-right"
-      />
-      <map-control-fitbounds
-        :fitToBounds="fitToBounds"
-        position="bottom-right"
-      />
+      <map-control-baselayer :layers="mapBaseLayers" position="bottom-right" />
+      <map-control-fitbounds :fitToBounds="fitToBounds" position="bottom-right" />
 
       <!-- Line draw interaction -->
       <map-draw-line @change="handleSelectionUpdated" />
 
       <!-- Map Layers -->
-      <map-layer
-        v-for="layer in wmsLayers"
-        :key="layer.id"
-        :options="layer"
-      />
+      <map-layer v-for="layer in wmsLayers" :key="layer.id" :options="layer" />
     </v-mapbox>
   </div>
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-import 'mapbox-gl/dist/mapbox-gl.css';
-import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-import { MAP_CENTER, MAP_ZOOM, MAP_BASELAYER_DEFAULT, MAP_BASELAYERS } from '@/lib/constants';
-import MapLayer from './map-layer.js';
-import MapDrawLine from './map-draw-line.js';
-import MapControlBaselayer from './map-control-baselayer';
-import MapControlFitbounds from './map-control-fitbounds';
+import { mapMutations } from "vuex";
+import "mapbox-gl/dist/mapbox-gl.css";
+import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
+import {
+  MAP_CENTER,
+  MAP_ZOOM,
+  MAP_BASELAYER_DEFAULT,
+  MAP_BASELAYERS
+} from "@/lib/constants";
+import MapLayer from "./map-layer.js";
+import MapDrawLine from "./map-draw-line.js";
+import MapControlBaselayer from "./map-control-baselayer";
+import MapControlFitbounds from "./map-control-fitbounds";
 
 export default {
   components: {
@@ -58,7 +53,7 @@ export default {
       return process.env.VUE_APP_MAPBOX_TOKEN;
     },
     wmsLayers() {
-      return this.$store.getters['mapbox/wmsLayers'];
+      return this.$store.getters["mapbox/wmsLayers"];
     },
     mapConfig() {
       return {
@@ -74,11 +69,11 @@ export default {
 
   methods: {
     ...mapMutations({
-      setCoordinates: 'selection/SET_COORDINATES'
+      setCoordinates: "selection/SET_COORDINATES"
     }),
     onMapCreated(map) {
       this.$root.map = map;
-      map.on('load', () => {
+      map.on("load", () => {
         this.$root.mapLoaded = true;
       });
     },
@@ -89,7 +84,9 @@ export default {
       });
     },
     handleSelectionUpdated(features) {
-      this.setCoordinates(features.map(feature => feature.geometry.coordinates))
+      this.setCoordinates(
+        features.map(feature => feature.geometry.coordinates)
+      );
     }
   }
 };
