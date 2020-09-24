@@ -1,62 +1,71 @@
 <template>
-  <div class="layers-layout">
-     <div class="header">
-      <v-card small flat>
-        <v-card-title>
-          <h1>
-            Layers
-          </h1>
-        </v-card-title>
-      </v-card>
+  <div>
+    <div class="pa-4">
+      <h2 class="h2">Data</h2>
+      <v-divider class="mt-4 mb-4" />
+    </div>
+    <data-layers
+      :layers="visibleLayers"
+      @updateVisibility="onVisibilityChange"
+      @updateLegend="onLegendChange"
+    ></data-layers>
   </div>
-  <div class="layer-div">
-    <v-list >
-      <v-list-group v-for="layer in layers" :key="layer.folder">
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title v-text="layer.folder"></v-list-item-title>
-            </v-list-item-content>
-          </template>
-
-          <li
-            class=""
-            v-for="lyr in layer.layers"
-            :key="lyr.title"
-          >
-            <v-btn text icon @click.stop="$emit('updateVisibility', lyr.id)">
-          <v-icon>{{ lyr.visible ? 'mdi-eye' : 'mdi-eye-off' }}</v-icon>
-        </v-btn>
-        <v-btn text icon @click.stop="$emit('updateLegend', lyr.layer)">
-          <v-icon>{{ lyr.layer === activeLegendLayer ? 'mdi-card-bulleted' : 'mdi-card-bulleted-off' }}</v-icon>
-        </v-btn>
-        <span class="layer-list__item-title">
-          {{ lyr.title }}
-        </span>
-          </li>
-    
-      </v-list-group>
-    </v-list>
-  </div>
-  </div>
-
 </template>
 
 <script>
-import { mapState } from "vuex"; 
+import buildWmsLayer from "@/lib/build-wms-layer";
+import DataLayers from "@/components/data-layers";
+import { mapGetters } from "vuex";
+import layers from "@/data/datalayers.json";
 export default {
-  
+  components: {
+    DataLayers
+  },
+  data() {
+    return {
+      layers
+    };
+  },
   computed: {
-    ...mapState({
-      layers: (state) => state.mapbox.layers
-    })
-  }, 
+    ...mapGetters({
+      layersWithVisibility: "mapbox/layersWithVisibility"
+    }),
+    visibleLayers() {
+      console.log("layerswithvisibility", this.layersWithVisibility);
+      return this.layers.map(folder => {
+        folder.layers = folder.layers.map(layer => {
+          const layerWithVisibility = this.layersWithVisibility.find(
+            item => item.id === layer.id
+          );
+          layer.visible = layerWithVisibility.visible;
+          return layer;
+        });
+        return folder;
+      });
+    }
+  },
+  created() {
+    this.$store.commit("mapbox/SET_LEGEND_LAYER", null);
+    this.layers.forEach(name => {
+      name.layers.map(buildWmsLayer).forEach(layer => {
+        this.$store.commit("mapbox/ADD_WMS_LAYER", layer);
+      });
+    });
+  },
   methods: {
-    doit() {
-      console.log('succeed')
+    onVisibilityChange(id) {
+      const map = this.$root.map;
+      this.$store.commit("mapbox/UPDATE_LAYER_VISIBILITY", { id, map });
+    },
+    onLegendChange(layer) {
+      this.$store.commit(
+        "mapbox/SET_LEGEND_LAYER",
+        this.legendLayer === layer ? null : layer
+      );
     }
   }
-}
+};
 </script>
-
+    
 <style>
 </style>
