@@ -25,25 +25,18 @@ export default {
     },
     ADD_WMS_LAYER(state, newLayer) {
       const layerExists = state.wmsLayers.some(storedLayer => storedLayer.id === newLayer.id);
+
       if(!layerExists) {
         state.wmsLayers = [
-          ...state.wmsLayers, {
-            ...newLayer
-          }
+          ...state.wmsLayers, 
+          newLayer
         ];
+
         state.layerVisibilityProxies = [
           ...state.layerVisibilityProxies, {
             id: newLayer.id,
             visible: false
           }
-        ];
-      }
-      if (!layerExists) {
-        state.wmsLayers = [
-          ...state.wmsLayers,
-          {
-            ...newLayer,
-          },
         ];
       }
     },
