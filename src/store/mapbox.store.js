@@ -12,7 +12,6 @@ export default {
     legendLayer: (state) => state.legendLayer,
     layersWithVisibility: state => state.wmsLayers.map(layer => {
       const { visible } = state.layerVisibilityProxies.find(p => p.id === layer.id);
-      console.log('layer', layer)
       return {
         ...layer,
         visible

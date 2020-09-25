@@ -52,16 +52,18 @@ export default {
 
   methods: {
     switchBaseLayer() {
+      const map = this.getMap();
       const nextIndex = (this.currentLayerIndex + 1) % this.layers.length;
       const { style } = this.layers[nextIndex];
-      const map = this.getMap();
       const mapboxSourceId = 'mapbox';
 
       // extract custom layers & sources from current style
       const { layers, sources } = map.getStyle();
+
       const rasterLayers = layers.filter(
         layer => layer.type === 'raster' && layer.source !== mapboxSourceId
       );
+
       const rasterSources = Object.keys(sources)
         .filter(id => id !== mapboxSourceId)
         .map(id => ({ id, ...sources[id] }))

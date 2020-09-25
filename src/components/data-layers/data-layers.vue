@@ -4,8 +4,8 @@
       <v-app id="inspire">
         <v-container fluid>
           <v-row align="center">
-            <v-expansion-panels :multiple="true" :flat="true">
-              <v-expansion-panel v-for="folder in layers" :key="folder.name">
+            <v-expansion-panels :multiple="true" :flat="true" v-model="panels">
+              <v-expansion-panel v-for="folder in layers" :key="folder.name" >
                 <v-expansion-panel-header>{{ folder.name }}</v-expansion-panel-header>
                 <v-expansion-panel-content>
                   <ul class="layers-list">
@@ -37,6 +37,14 @@ export default {
       type: Array,
       required: true
     }
+  },
+  data() {
+    return  {
+      panels: []
+    }
+  },
+  mounted() {
+    this.panels = [...Array(this.layers).keys()].map((k, i) => i)
   },
   computed: {
     ...mapState({

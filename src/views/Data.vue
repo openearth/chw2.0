@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="pa-4">
+    <div class="pa-4 pb-0">
       <h2 class="h2">Data</h2>
-      <v-divider class="mt-4 mb-4" />
+      <v-divider class="mt-4" />
     </div>
     <data-layers
       :layers="visibleLayers"
@@ -31,7 +31,6 @@ export default {
       layersWithVisibility: "mapbox/layersWithVisibility"
     }),
     visibleLayers() {
-      console.log("layerswithvisibility", this.layersWithVisibility);
       return this.layers.map(folder => {
         folder.layers = folder.layers.map(layer => {
           const layerWithVisibility = this.layersWithVisibility.find(
