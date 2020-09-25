@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <welcome-dialog />
+    <legal-dialog />
     <app-header />
     <template v-if="acceptedLegal">
       <app-sidebar />
@@ -15,7 +15,7 @@
 import AppHeader from "@/components/app-header";
 import AppSidebar from "@/components/app-sidebar";
 import MapboxMap from "@/components/mapbox-map";
-import WelcomeDialog from '@/components/welcome-dialog'
+import LegalDialog from '@/components/legal-dialog'
 import { mapState } from 'vuex';
 
 export default {
@@ -24,7 +24,7 @@ export default {
     MapboxMap,
     AppSidebar,
     AppHeader,
-    WelcomeDialog
+    LegalDialog
   },
   computed: {
     ...mapState({
