@@ -6,6 +6,8 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import router from './router'
 import store from './store'
 
+import './main.css'
+
 Vue.config.productionTip = false
 
 Vue.use(Vue2MapboxGL);

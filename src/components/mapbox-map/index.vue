@@ -17,7 +17,11 @@
       <map-control-fitbounds :fitToBounds="fitToBounds" position="bottom-right" />
 
       <!-- Line draw interaction -->
-      <map-draw-line @change="handleSelectionUpdated" />
+      <map-coordinates-selector
+        :disabled="!selectionEnabled"
+        :coordinates="coordinates"
+        @change="handleSelectionUpdated"
+      />
 
       <!-- Map Layers -->
       <map-layer v-for="layer in wmsLayers" :key="layer.id" :options="layer" />
@@ -26,31 +30,30 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
-import "mapbox-gl/dist/mapbox-gl.css";
-import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
-import {
-  MAP_CENTER,
-  MAP_ZOOM,
-  MAP_BASELAYER_DEFAULT,
-  MAP_BASELAYERS
-} from "@/lib/constants";
-import MapLayer from "./map-layer.js";
-import MapDrawLine from "./map-draw-line.js";
-import MapControlBaselayer from "./map-control-baselayer";
-import MapControlFitbounds from "./map-control-fitbounds";
+import { mapMutations, mapState } from 'vuex';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+import { MAP_CENTER, MAP_ZOOM, MAP_BASELAYER_DEFAULT, MAP_BASELAYERS } from '@/lib/constants';
+import MapLayer from './map-layer.js';
+import MapCoordinatesSelector from './map-coordinates-selector.js';
+import MapControlBaselayer from './map-control-baselayer';
+import MapControlFitbounds from './map-control-fitbounds';
 
 export default {
   components: {
     MapLayer,
-    MapDrawLine,
+    MapCoordinatesSelector,
     MapControlBaselayer,
     MapControlFitbounds
   },
 
   computed: {
+    ...mapState({
+      coordinates: (state) => state.selection.coordinates,
+      selectionEnabled: (state) => state.selection.enabled,
+    }),
     mapBoxToken() {
-      return process.env.VUE_APP_MAPBOX_TOKEN;
+      return process.env.VUE_APP_MAPBOX_TOKEN; 
     },
     wmsLayers() {
       return this.$store.getters["mapbox/wmsLayers"];
@@ -65,6 +68,10 @@ export default {
     mapBaseLayers() {
       return MAP_BASELAYERS;
     }
+  },
+
+  mounted() {
+    window.__map = this.$root.map
   },
 
   methods: {

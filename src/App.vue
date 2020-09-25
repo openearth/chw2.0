@@ -1,10 +1,13 @@
 <template>
   <v-app>
+    <legal-dialog />
     <app-header />
-    <app-sidebar />
-    <v-main>
-      <mapbox-map />
-    </v-main>
+    <template v-if="acceptedLegal">
+      <app-sidebar />
+      <v-main>
+        <mapbox-map />
+      </v-main>
+    </template>
   </v-app>
 </template>
 
@@ -12,14 +15,22 @@
 import AppHeader from "@/components/app-header";
 import AppSidebar from "@/components/app-sidebar";
 import MapboxMap from "@/components/mapbox-map";
+import LegalDialog from '@/components/legal-dialog'
+import { mapState } from 'vuex';
 
 export default {
+  name: "App",
   components: {
     MapboxMap,
     AppSidebar,
-    AppHeader
+    AppHeader,
+    LegalDialog
   },
-  name: "App"
+  computed: {
+    ...mapState({
+      acceptedLegal: state => state.acceptedLegal
+    })
+  }
 };
 </script>
 
