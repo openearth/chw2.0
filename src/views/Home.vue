@@ -17,7 +17,7 @@
     </div>
 
     <div class="d-flex pt-4">
-      <v-btn class="primary ml-auto" :to="{ name: 'modelling', params: { wizard: true } }">Get started</v-btn>
+      <v-btn class="primary ml-auto" :to="{ name: 'hazard-maps', params: { wizard: true } }">Get started</v-btn>
     </div>
   </div>
 </template>

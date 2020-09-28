@@ -13,7 +13,7 @@
       <v-tab :to="{ name: 'home' }" exact>
         Introduction 
       </v-tab>
-      <v-tab :to="{ name: 'modelling' }">
+      <v-tab :to="{ name: 'hazard-maps' }">
         Modelling
       </v-tab>
       <v-tab :to="{ name: 'data' }">

@@ -13,7 +13,7 @@ export default {
   },
 
   getters: {
-    hazardData: (state) =>
+    dataResults: (state) =>
       pick(state.data, [
         "geological_layout",
         "wave_exposure",
@@ -21,6 +21,9 @@ export default {
         "flora_fauna",
         "sediment",
         "storm_climate",
+      ]),
+    coastalEnvironment: (state) =>
+      pick(state.data, [
         "slope",
         "coastenv",
         "erosion",
