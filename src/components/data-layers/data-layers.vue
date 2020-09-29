@@ -38,7 +38,15 @@ export default {
     input: null,
     selected: null
   }),
+  mounted() {
+    this.selectFirst()
+  },
   methods: {
+    selectFirst() {
+      this.selected = this.layers[0].layer || this.layers[0].children[0]?.layer
+      this.opened()
+      this.$emit('change', this.findInTree(this.selected))
+    },
     changed (value) {
       this.selected = this.valueFor(value)
       this.$emit('change', this.findInTree(this.selected))
@@ -95,9 +103,9 @@ export default {
       }
       return null
     },
-    opened (list) {
+    opened () {
       if (!this.input && this.selected) {
-        const selected = this.findInTree(this.selected, list)
+        const selected = this.findInTree(this.selected)
         if (selected) {
           this.input = this.valueFor(selected)
         }
