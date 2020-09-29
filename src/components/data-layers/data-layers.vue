@@ -11,6 +11,7 @@
       dense
       shaped
       hoverable
+      open-all
     >
       <template
         v-slot:label="{ item }"
@@ -112,10 +113,20 @@ export default {
 .radio-tree.v-input--radio-group > .v-input__control {
   width: 100%;
 }
+
 .radio-tree.v-input--radio-group > .v-input__control > .v-input__slot {
   margin: 0;
 }
+
 .radio-tree.v-input--radio-group .v-treeview-node__label {
   overflow: visible;
+}
+
+.v-treeview-node__level:empty {
+  display: none;
+}
+
+.v-treeview-node__children .v-treeview-node__level {
+  display: block;
 }
 </style>
