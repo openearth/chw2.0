@@ -5,9 +5,9 @@
       <v-divider class="mt-4" />
     </div>
     <data-layers
-      :layers="visibleLayers"
-      @updateVisibility="onVisibilityChange"
-      @updateLegend="onLegendChange"
+      :layers="layers"
+      @showLayer="handleShowLayer"
+      @hideLayer="handleHideLayer"
     ></data-layers>
   </div>
 </template>
@@ -15,8 +15,9 @@
 <script>
 import buildWmsLayer from "@/lib/build-wms-layer";
 import DataLayers from "@/components/data-layers";
-import { mapGetters } from "vuex";
+
 import layers from "@/data/datalayers.json";
+
 export default {
   components: {
     DataLayers
@@ -26,45 +27,14 @@ export default {
       layers
     };
   },
-  computed: {
-    ...mapGetters({
-      layersWithVisibility: "mapbox/layersWithVisibility"
-    }),
-    visibleLayers() {
-      return this.layers.map(folder => {
-        folder.layers = folder.layers.map(layer => {
-          const layerWithVisibility = this.layersWithVisibility.find(
-            item => item.id === layer.id
-          );
-          layer.visible = layerWithVisibility.visible;
-          return layer;
-        });
-        return folder;
-      });
-    }
-  },
-  created() {
-    this.$store.commit("mapbox/SET_LEGEND_LAYER", null);
-    this.layers.forEach(name => {
-      name.layers.map(buildWmsLayer).forEach(layer => {
-        this.$store.commit("mapbox/ADD_WMS_LAYER", layer);
-      });
-    });
-  },
   methods: {
-    onVisibilityChange(id) {
-      const map = this.$root.map;
-      this.$store.commit("mapbox/UPDATE_LAYER_VISIBILITY", { id, map });
+    handleShowLayer(layer) {
+      const wmsLayer = buildWmsLayer(layer)
+      this.$store.commit("mapbox/ADD_WMS_LAYER", wmsLayer) 
     },
-    onLegendChange(layer) {
-      this.$store.commit(
-        "mapbox/SET_LEGEND_LAYER",
-        this.legendLayer === layer ? null : layer
-      );
+    handleHideLayer(id) {
+      this.$store.commit("mapbox/REMOVE_WMS_LAYER", id) 
     }
   }
 };
 </script>
-    
-<style>
-</style>

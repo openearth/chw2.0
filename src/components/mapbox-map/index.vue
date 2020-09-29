@@ -56,7 +56,7 @@ export default {
       return process.env.VUE_APP_MAPBOX_TOKEN; 
     },
     wmsLayers() {
-      return this.$store.getters["mapbox/wmsLayers"];
+      return this.$store.getters["mapbox/wmsLayers"]
     },
     mapConfig() {
       return {

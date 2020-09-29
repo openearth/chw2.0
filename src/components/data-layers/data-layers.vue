@@ -10,13 +10,10 @@
                 <v-expansion-panel-content>
                   <ul class="layers-list">
                     <li class="layers-list__item" v-for="layer in folder.layers" :key="layer.id">
-                      <v-btn text icon @click.stop="$emit('updateVisibility', layer.id)">
-                        <v-icon>{{ layer.visible ? 'mdi-eye' : 'mdi-eye-off' }}</v-icon>
+                      <v-btn text icon @click.stop="toggleLayer(layer)">
+                        <v-icon>{{ visibleLayers.includes(layer.id) ? 'mdi-eye' : 'mdi-eye-off' }}</v-icon>
                       </v-btn>
-                      <v-btn text icon @click.stop="$emit('updateLegend', layer.layer)">
-                        <v-icon>{{ layer.layer === legendLayer ? 'mdi-card-bulleted' : 'mdi-card-bulleted-off' }}</v-icon>
-                      </v-btn>
-                      <span class="risks-list__item-title">{{ layer.id }}</span>
+                      <span class="risks-list__item-title">{{ layer.name }}</span>
                     </li>
                   </ul>
                 </v-expansion-panel-content>
@@ -30,7 +27,6 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
 export default {
   props: {
     layers: {
@@ -40,19 +36,23 @@ export default {
   },
   data() {
     return  {
-      panels: []
+      panels: [],
+      visibleLayers: []
     }
   },
   mounted() {
     this.panels = [...Array(this.layers).keys()].map((k, i) => i)
   },
-  computed: {
-    ...mapState({
-      wmsLayers: state => state.mapbox.wmsLayers
-    }),
-    ...mapGetters({
-      legendLayer: "mapbox/legendLayer"
-    })
+  methods: {
+    toggleLayer(layer) {
+      if (this.visibleLayers.includes(layer.id)) {
+        this.$emit('hideLayer', layer.id)
+        this.visibleLayers = this.visibleLayers.filter(l => l !== layer.id)
+      } else {
+        this.$emit('showLayer', layer)
+        this.visibleLayers.push(layer.id)
+      }
+    },
   }
 };
 </script>

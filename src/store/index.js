@@ -29,7 +29,9 @@ export default new Vuex.Store({
       window.__map.setCenter(data.map.center);
       window.__map.setZoom(data.map.zoom);
 
-      commit("selection/SET_COORDINATES", data.selection.coordinates, { root: true });
+      commit("selection/SET_COORDINATES", data.selection.coordinates, {
+        root: true,
+      });
     },
     saveProject({ state }) {
       const map = {
