@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-tabs>
+    <v-tabs height="60" grow>
       <v-tab :to="{ name: 'hazard-maps' }">
         Hazard map 
       </v-tab>

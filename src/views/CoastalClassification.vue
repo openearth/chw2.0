@@ -79,6 +79,7 @@ export default {
     }
   },
   beforeDestroy() {
+    this.SET_COORDINATES([])
     this.SET_ENABLED(false)
   },
   methods: {
@@ -86,7 +87,8 @@ export default {
       getDataForSelection: "selection/getDataForSelection",
     }),
     ...mapMutations({
-      SET_ENABLED: 'selection/SET_ENABLED'
+      SET_ENABLED: 'selection/SET_ENABLED',
+      SET_COORDINATES: 'selection/SET_COORDINATES'
     }),
     handleWizardComplete() {
       this.wizard = false
