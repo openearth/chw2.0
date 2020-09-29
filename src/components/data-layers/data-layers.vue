@@ -6,7 +6,7 @@
     :mandatory="false"
   >
     <v-treeview
-      :items="items"
+      :items="layers"
       @update:open="opened"
       dense
       shaped
@@ -31,8 +31,8 @@
 <script>
 export default {
   props: {
-    items: Array,
-    value: null // accept any type
+    layers: Array,
+    value: null
   },
   data: () => ({
     input: null,
@@ -51,22 +51,22 @@ export default {
 
       return value
     },
-    findInTree (value, path = '*', key = null, items = null) {
+    findInTree (value, path = '*', key = null, layers = null) {
       if (!key) {
         key = this.id
       }
       if (!key) {
         key = 'id'
       }
-      if (!items) {
-        items = this.items
+      if (!layers) {
+        layers = this.layers
       }
-      if (items && items.length) {
+      if (layers && layers.length) {
         if (typeof value === 'object') {
           value = value[key]
         }
-        for (let i = 0; i < items.length; i++) {
-          const item = items[i]
+        for (let i = 0; i < layers.length; i++) {
+          const item = layers[i]
           if (!item) {
             continue
           }

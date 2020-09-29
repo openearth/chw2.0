@@ -5,7 +5,7 @@
       <v-divider class="mt-4" />
     </div>
     <data-layers
-      :items="layers"
+      :layers="layers"
       @change="handleChange"
     />
   </div>
@@ -25,6 +25,9 @@ export default {
     return {
       layers,
     };
+  },
+  destroyed() {
+    this.$store.commit("mapbox/CLEAR_WMS_LAYERS") 
   },
   methods: {
     handleChange(layer) {
