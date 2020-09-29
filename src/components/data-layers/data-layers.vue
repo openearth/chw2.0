@@ -1,75 +1,140 @@
 <template>
-  <div>
-    <div>
-      <v-app id="inspire">
-        <v-container fluid>
-          <v-row align="center">
-            <v-expansion-panels :multiple="true" :flat="true" v-model="panels">
-              <v-expansion-panel v-for="folder in layers" :key="folder.name" >
-                <v-expansion-panel-header>{{ folder.name }}</v-expansion-panel-header>
-                <v-expansion-panel-content>
-                  <ul class="layers-list">
-                    <li class="layers-list__item" v-for="layer in folder.layers" :key="layer.id">
-                      <v-btn text icon @click.stop="$emit('updateVisibility', layer.id)">
-                        <v-icon>{{ layer.visible ? 'mdi-eye' : 'mdi-eye-off' }}</v-icon>
-                      </v-btn>
-                      <v-btn text icon @click.stop="$emit('updateLegend', layer.layer)">
-                        <v-icon>{{ layer.layer === legendLayer ? 'mdi-card-bulleted' : 'mdi-card-bulleted-off' }}</v-icon>
-                      </v-btn>
-                      <span class="risks-list__item-title">{{ layer.id }}</span>
-                    </li>
-                  </ul>
-                </v-expansion-panel-content>
-              </v-expansion-panel>
-            </v-expansion-panels>
-          </v-row>
-        </v-container>
-      </v-app>
-    </div>
-  </div>
+  <v-radio-group
+    class="radio-tree"
+    @change="changed"
+    v-model="input"
+    :mandatory="false"
+  >
+    <v-treeview
+      :items="layers"
+      @update:open="opened"
+      dense
+      shaped
+      hoverable
+      open-all
+    >
+      <template
+        v-slot:label="{ item }"
+      >
+        <v-radio
+          v-if="item.layer"
+          :label="item.name"
+          :value="valueFor(item)"
+        ></v-radio>
+        <template v-else>
+          {{ item.name }}
+        </template>
+      </template>
+    </v-treeview>
+  </v-radio-group>
 </template>
-
 <script>
-import { mapState, mapGetters } from "vuex";
 export default {
   props: {
-    layers: {
-      type: Array,
-      required: true
-    }
+    layers: Array,
+    value: null
   },
-  data() {
-    return  {
-      panels: []
-    }
-  },
+  data: () => ({
+    input: null,
+    selected: null
+  }),
   mounted() {
-    this.panels = [...Array(this.layers).keys()].map((k, i) => i)
+    this.selectFirst()
   },
-  computed: {
-    ...mapState({
-      wmsLayers: state => state.mapbox.wmsLayers
-    }),
-    ...mapGetters({
-      legendLayer: "mapbox/legendLayer"
-    })
+  methods: {
+    selectFirst() {
+      this.selected = this.layers[0].layer || this.layers[0].children[0]?.layer
+      this.opened()
+      this.$emit('change', this.findInTree(this.selected))
+    },
+    changed (value) {
+      this.selected = this.valueFor(value)
+      this.$emit('change', this.findInTree(this.selected))
+    },
+    valueFor (value) {
+      // eslint-disable-next-line no-prototype-builtins
+      if (value && typeof value === 'object' && value.hasOwnProperty('id')) {
+        value = value.id
+      }
+
+      return value
+    },
+    findInTree (value, path = '*', key = null, layers = null) {
+      if (!key) {
+        key = this.id
+      }
+      if (!key) {
+        key = 'id'
+      }
+      if (!layers) {
+        layers = this.layers
+      }
+      if (layers && layers.length) {
+        if (typeof value === 'object') {
+          value = value[key]
+        }
+        for (let i = 0; i < layers.length; i++) {
+          const item = layers[i]
+          if (!item) {
+            continue
+          }
+          if (item[key] === value) {
+            return item
+          }
+          else if (item.children && item.children.length) {
+            let checkChildren = true
+            if (Array.isArray(path)) {
+              const pathIndex = path.findIndex(check => (check === item[key]))
+              if (pathIndex !== -1) {
+                path.splice(pathIndex, 1)
+              }
+              else {
+                checkChildren = false
+              }
+            }
+            if (checkChildren) {
+              const foundInChild = this.findInTree(value, path, key, item.children)
+              if (foundInChild) {
+                return foundInChild
+              }
+            }
+          }
+        }
+      }
+      return null
+    },
+    opened () {
+      if (!this.input && this.selected) {
+        const selected = this.findInTree(this.selected)
+        if (selected) {
+          this.input = this.valueFor(selected)
+        }
+      }
+    }
   }
-};
+}
 </script>
-
 <style>
-.layers-list {
-  padding: 0 !important;
-  list-style: none outside none;
-  border-top: thin solid #eee;
+.radio-tree {
+  margin: 0;
+}
+.radio-tree.v-input--radio-group > .v-input__control {
+  width: 100%;
 }
 
-.layers-list__item {
-  padding: 0.5rem 0;
-  border-bottom: thin solid #eee;
+.radio-tree.v-input--radio-group > .v-input__control > .v-input__slot {
+  margin: 0;
 }
 
-.layers-list__item-title {
-  text-transform: capitalize;
+.radio-tree.v-input--radio-group .v-treeview-node__label {
+  overflow: visible;
+}
+
+.v-treeview-node__level:empty {
+  display: none;
+}
+
+.v-treeview-node__children .v-treeview-node__level {
+  display: block;
 }
 </style>

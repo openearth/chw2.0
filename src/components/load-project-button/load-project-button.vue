@@ -31,7 +31,7 @@ export default {
   methods: {
     ...mapActions(['loadProject']),
     onFileInput(event) {
-      const destination = 'modelling'
+      const destination = 'coastal-classification'
       const params = { wizard: false }
 
       this.loadProject(event)

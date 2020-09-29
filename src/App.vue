@@ -2,8 +2,8 @@
   <v-app>
     <legal-dialog />
     <app-header />
-    <template v-if="acceptedLegal">
-      <app-sidebar />
+    <template >
+      <app-sidebar v-if="acceptedLegal" />
       <v-main>
         <mapbox-map />
       </v-main>
