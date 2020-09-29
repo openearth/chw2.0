@@ -1,44 +1,47 @@
 [
   {
+    "id": "sediment-balance",
     "name": "Sediment Balance",
-    "layers": [
+    "children": [
       {
-        "name": "Sedimented Areas",
         "id": "SedimentBalance:SedimentedAreas",
+        "name": "Sedimented Areas",
         "layer": "SedimentBalance:SedimentedAreas",
         "url": "https://chw.openearth.eu/geoserver/ows"
       },
       {
-        "name": "Sediment balance",
         "id": "SedimentBalance:Sediment balance",
+        "name": "Sediment balance",
         "layer": "SedimentBalance:Sediment balance",
         "url": "https://chw.openearth.eu/geoserver/ows"
       }
     ]
   },
   {
+    "id": "storm-climate",
     "name": "Storm Climate",
-    "layers": [
+    "children": [
       {
-        "name": "Cyclones",
         "id": "StormClimate:diva_points_with_cyclone_risk",
+        "name": "Cyclones",
         "layer": "StormClimate:diva_points_with_cyclone_risk",
         "url": "https://chw.openearth.eu/geoserver/ows"
       }
     ]
   },
   {
+    "id": "geological-layout",
     "name": "Geological Layout",
-    "layers": [
+    "children": [
       {
-        "name": "Global Lithology",
         "id": "geologicallayout:glim_v01_export",
+        "name": "Global Lithology",
         "layer": "geologicallayout:glim_v01_export",
         "url": "https://chw.openearth.eu/geoserver/ows"
       },
       {
-        "name": "Estuaries",
         "id": "geologicallayout:estuaries",
+        "name": "Estuaries",
         "layer": "geologicallayout:estuaries",
         "url": "https://chw.openearth.eu/geoserver/ows"
       }
@@ -46,8 +49,9 @@
   },
 
   {
+    "id": "socio-economics",
     "name": "Socio Economics",
-    "layers": [
+    "children": [
       {
         "name": "Global Exposure",
         "id": "SocioEconomics:gar_expanded",

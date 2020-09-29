@@ -1,37 +1,32 @@
 [
   {
-    "name": "Layers",
-    "layers": [
-      {
-        "name": "Coast flooding",
-        "id": "chw2:coast_segments",
-        "layer": "chw2:coast_segments",
-        "url": "https://deltaresdata.openearth.eu/geoserver/chw2/ows"
-      },
-      {
-        "name": "Ecosystem disruption",
-        "id": "chw2:coast_segments_ecosystem",
-        "layer": "chw2:coast_segments_ecosystem",
-        "url": "https://deltaresdata.openearth.eu/geoserver/chw2/ows"
-      },
-      {
-        "name": "Gradual inundation",
-        "id": "chw2:coast_segments_inundation",
-        "layer": "chw2:coast_segments_inundation",
-        "url": "https://deltaresdata.openearth.eu/geoserver/chw2/ows"
-      },
-      {
-        "name": "Saltwater intrusion",
-        "id": "chw2:coast_segment_salt",
-        "layer": "chw2:coast_segment_salt",
-        "url": "https://deltaresdata.openearth.eu/geoserver/chw2/ows"
-      },
-      {
-        "name": "Erosion",
-        "id": "chw2:coast_segments_erosion",
-        "layer": "chw2:coast_segments_erosion",
-        "url": "https://deltaresdata.openearth.eu/geoserver/chw2/ows"
-      }
-    ]
+    "id": "chw2:coast_segments",
+    "name": "Coast flooding",
+    "layer": "chw2:coast_segments",
+    "url": "https://deltaresdata.openearth.eu/geoserver/chw2/ows"
+  },
+  {
+    "name": "Ecosystem disruption",
+    "id": "chw2:coast_segments_ecosystem",
+    "layer": "chw2:coast_segments_ecosystem",
+    "url": "https://deltaresdata.openearth.eu/geoserver/chw2/ows"
+  },
+  {
+    "name": "Gradual inundation",
+    "id": "chw2:coast_segments_inundation",
+    "layer": "chw2:coast_segments_inundation",
+    "url": "https://deltaresdata.openearth.eu/geoserver/chw2/ows"
+  },
+  {
+    "name": "Saltwater intrusion",
+    "id": "chw2:coast_segment_salt",
+    "layer": "chw2:coast_segment_salt",
+    "url": "https://deltaresdata.openearth.eu/geoserver/chw2/ows"
+  },
+  {
+    "name": "Erosion",
+    "id": "chw2:coast_segments_erosion",
+    "layer": "chw2:coast_segments_erosion",
+    "url": "https://deltaresdata.openearth.eu/geoserver/chw2/ows"
   }
 ]

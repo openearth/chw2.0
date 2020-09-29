@@ -26,6 +26,9 @@ export default {
     REMOVE_WMS_LAYER(state, id) {
       state.wmsLayers = state.wmsLayers.filter((layer) => layer.id !== id);
     },
+    CLEAR_WMS_LAYERS(state) {
+      state.wmsLayers = []
+    },
     SET_LEGEND_LAYER(state, layer) {
       state.legendLayer = layer;
     },

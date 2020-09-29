@@ -5,10 +5,9 @@
       <v-divider class="mt-4" />
     </div>
     <data-layers
-      :layers="layers"
-      @showLayer="handleShowLayer"
-      @hideLayer="handleHideLayer"
-    ></data-layers>
+      :items="layers"
+      @change="handleChange"
+    />
   </div>
 </template>
 
@@ -20,21 +19,19 @@ import layers from "@/data/datalayers.json";
 
 export default {
   components: {
-    DataLayers
+    DataLayers,
   },
   data() {
     return {
-      layers
+      layers,
     };
   },
   methods: {
-    handleShowLayer(layer) {
+    handleChange(layer) {
       const wmsLayer = buildWmsLayer(layer)
+      this.$store.commit("mapbox/CLEAR_WMS_LAYERS") 
       this.$store.commit("mapbox/ADD_WMS_LAYER", wmsLayer) 
     },
-    handleHideLayer(id) {
-      this.$store.commit("mapbox/REMOVE_WMS_LAYER", id) 
-    }
-  }
+  },
 };
 </script>

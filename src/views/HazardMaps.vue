@@ -1,10 +1,9 @@
 <template>
   <div>
     <data-layers
-      :layers="layers"
-      @showLayer="handleShowLayer"
-      @hideLayer="handleHideLayer"
-    ></data-layers>
+      :items="layers"
+      @change="handleChange"
+    />
   </div>
 </template>
 
@@ -24,13 +23,11 @@ export default {
     };
   },
   methods: {
-    handleShowLayer(layer) {
+    handleChange(layer) {
       const wmsLayer = buildWmsLayer(layer)
+      this.$store.commit("mapbox/CLEAR_WMS_LAYERS") 
       this.$store.commit("mapbox/ADD_WMS_LAYER", wmsLayer) 
     },
-    handleHideLayer(id) {
-      this.$store.commit("mapbox/REMOVE_WMS_LAYER", id) 
-    }
   }
 };
 </script>
