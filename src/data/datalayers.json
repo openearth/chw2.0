@@ -4,28 +4,10 @@
     "name": "Sediment Balance",
     "children": [
       {
-        "id": "SedimentBalance:SedimentedAreas",
-        "name": "Sedimented Areas",
-        "layer": "SedimentBalance:SedimentedAreas",
-        "url": "https://chw.openearth.eu/geoserver/ows"
-      },
-      {
-        "id": "SedimentBalance:Sediment balance",
+        "id": "chw2:sediment",
         "name": "Sediment balance",
-        "layer": "SedimentBalance:Sediment balance",
-        "url": "https://chw.openearth.eu/geoserver/ows"
-      }
-    ]
-  },
-  {
-    "id": "storm-climate",
-    "name": "Storm Climate",
-    "children": [
-      {
-        "id": "StormClimate:diva_points_with_cyclone_risk",
-        "name": "Cyclones",
-        "layer": "StormClimate:diva_points_with_cyclone_risk",
-        "url": "https://chw.openearth.eu/geoserver/ows"
+        "layer": "chw2:sediment",
+        "url": "https://deltaresdata.openearth.eu/geoserver/chw2/ows"
       }
     ]
   },
@@ -34,16 +16,16 @@
     "name": "Geological Layout",
     "children": [
       {
-        "id": "geologicallayout:glim_v01_export",
+        "id": "chw2:GLiM",
         "name": "Global Lithology",
-        "layer": "geologicallayout:glim_v01_export",
-        "url": "https://chw.openearth.eu/geoserver/ows"
+        "layer": "chw2:GLiM",
+        "url": "https://deltaresdata.openearth.eu/geoserver/chw2/ows"
       },
       {
-        "id": "geologicallayout:estuaries",
+        "id": "chw2:estuaries",
         "name": "Estuaries",
-        "layer": "geologicallayout:estuaries",
-        "url": "https://chw.openearth.eu/geoserver/ows"
+        "layer": "chw2:estuaries",
+        "url": "https://deltaresdata.openearth.eu/geoserver/chw2/ows"
       }
     ]
   },
@@ -53,16 +35,10 @@
     "name": "Socio Economics",
     "children": [
       {
+        "id": "chw2:gar",
         "name": "Global Exposure",
-        "id": "SocioEconomics:gar_expanded",
-        "layer": "SocioEconomics:gar_expanded",
-        "url": "https://chw.openearth.eu/geoserver/ows"
-      },
-      {
-        "name": "Roads",
-        "id": "SocioEconomics:roads",
-        "layer": "SocioEconomics:roads",
-        "url": "https://chw.openearth.eu/geoserver/ows"
+        "layer": "chw2:gar",
+        "url": "https://deltaresdata.openearth.eu/geoserver/chw2/ows"
       }
     ]
   }

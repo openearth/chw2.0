@@ -4,7 +4,7 @@
       <h2 class="h2">Data</h2>
       <v-divider class="mt-4" />
     </div>
-    <data-layers
+    <data-layers-multiple
       :layers="layers"
       @change="handleChange"
     />
@@ -12,28 +12,38 @@
 </template>
 
 <script>
+import arrayCompare from 'array-compare'
 import buildWmsLayer from "@/lib/build-wms-layer";
-import DataLayers from "@/components/data-layers";
+import DataLayersMultiple from "@/components/data-layers-multiple";
 
 import layers from "@/data/datalayers.json";
 
 export default {
   components: {
-    DataLayers,
+    DataLayersMultiple,
   },
   data() {
     return {
       layers,
     };
   },
+  computed: {
+    wmsLayers() {
+      return this.$store.getters["mapbox/wmsLayers"]
+    },
+  },
   destroyed() {
     this.$store.commit("mapbox/CLEAR_WMS_LAYERS") 
   },
   methods: {
-    handleChange(layer) {
-      const wmsLayer = buildWmsLayer(layer)
-      this.$store.commit("mapbox/CLEAR_WMS_LAYERS") 
-      this.$store.commit("mapbox/ADD_WMS_LAYER", wmsLayer) 
+    handleChange(layers) {
+      const diff = arrayCompare(this.wmsLayers.map(({ id }) => id), layers.map(({ id }) => id))
+      const addedLayers = diff.added.map(({ b })=> layers.find(layer => layer.id === b))
+      const addedWmsLayers = addedLayers.map(layer => buildWmsLayer(layer))
+      const removedWmsLayers = diff.missing.map(layer => layer.a)
+
+      addedWmsLayers.forEach(wmsLayer => this.$store.commit("mapbox/ADD_WMS_LAYER", wmsLayer))
+      removedWmsLayers.forEach(wmsLayer => this.$store.commit("mapbox/REMOVE_WMS_LAYER", wmsLayer))
     },
   },
 };

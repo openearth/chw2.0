@@ -28,7 +28,10 @@
     </v-treeview>
   </v-radio-group>
 </template>
+
 <script>
+import findInTree from '@/lib/find-in-tree'
+
 export default {
   props: {
     layers: Array,
@@ -45,11 +48,11 @@ export default {
     selectFirst() {
       this.selected = this.layers[0].layer || this.layers[0].children[0]?.layer
       this.opened()
-      this.$emit('change', this.findInTree(this.selected))
+      this.$emit('change', findInTree(this.layers, 'id', this.selected))
     },
     changed (value) {
       this.selected = this.valueFor(value)
-      this.$emit('change', this.findInTree(this.selected))
+      this.$emit('change', findInTree(this.layers, 'id', this.selected))
     },
     valueFor (value) {
       // eslint-disable-next-line no-prototype-builtins
@@ -59,53 +62,10 @@ export default {
 
       return value
     },
-    findInTree (value, path = '*', key = null, layers = null) {
-      if (!key) {
-        key = this.id
-      }
-      if (!key) {
-        key = 'id'
-      }
-      if (!layers) {
-        layers = this.layers
-      }
-      if (layers && layers.length) {
-        if (typeof value === 'object') {
-          value = value[key]
-        }
-        for (let i = 0; i < layers.length; i++) {
-          const item = layers[i]
-          if (!item) {
-            continue
-          }
-          if (item[key] === value) {
-            return item
-          }
-          else if (item.children && item.children.length) {
-            let checkChildren = true
-            if (Array.isArray(path)) {
-              const pathIndex = path.findIndex(check => (check === item[key]))
-              if (pathIndex !== -1) {
-                path.splice(pathIndex, 1)
-              }
-              else {
-                checkChildren = false
-              }
-            }
-            if (checkChildren) {
-              const foundInChild = this.findInTree(value, path, key, item.children)
-              if (foundInChild) {
-                return foundInChild
-              }
-            }
-          }
-        }
-      }
-      return null
-    },
+    findInTree,
     opened () {
       if (!this.input && this.selected) {
-        const selected = this.findInTree(this.selected)
+        const selected = findInTree(this.layers, 'id', this.selected)
         if (selected) {
           this.input = this.valueFor(selected)
         }
