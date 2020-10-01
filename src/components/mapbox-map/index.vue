@@ -24,13 +24,13 @@
       />
 
       <!-- Map Layers -->
-      <map-layer v-for="layer in wmsLayers" :key="layer.id" :options="layer" />
+      <map-layer v-for="layer in wmsLayers" :key="layer.id" :options="layer" :before="layer.before"/>
     </v-mapbox>
   </div>
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex';
+import { mapGetters, mapMutations, mapState } from 'vuex';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { MAP_CENTER, MAP_ZOOM, MAP_BASELAYER_DEFAULT, MAP_BASELAYERS } from '@/lib/constants';
@@ -52,11 +52,11 @@ export default {
       coordinates: (state) => state.selection.coordinates,
       selectionEnabled: (state) => state.selection.enabled,
     }),
+    ...mapGetters({
+      wmsLayers: 'mapbox/wmsLayers',
+    }),
     mapBoxToken() {
       return process.env.VUE_APP_MAPBOX_TOKEN; 
-    },
-    wmsLayers() {
-      return this.$store.getters["mapbox/wmsLayers"]
     },
     mapConfig() {
       return {

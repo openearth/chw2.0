@@ -1,53 +1,91 @@
 <template>
   <v-treeview
-    :items="layers"
+    :items="layersWithParents"
     @input="handleChange"
     selectable
     open-all
-  ></v-treeview>
+  >
+    <template v-slot:label="{ item }">
+      <span
+        class="sortable-handle"
+        :data-id="item.id"
+        :data-parent-id="item.parentId"
+      >{{ item.name }}</span>
+    </template>
+  </v-treeview>
 </template>
 
 <script>
-import findInTree from '@/lib/find-in-tree'
+import findInTree from "@/lib/find-in-tree";
+import { Sortable  } from "sortablejs";
+const idSelector = 'data-id'
+const parentIdSelector = 'data-parent-id'
 
 export default {
   props: {
     layers: Array,
-    value: null
+    value: null,
   },
   data: () => ({
     input: null,
-    selected: null
+    selected: null,
   }),
-  methods: {
-    handleChange(ids) {
-      const layers = ids.map(id => findInTree(this.layers, 'id', id)) 
-      this.$emit('change', layers)
+  computed: {
+    layersWithParents() {
+      return this.layers.map((layer) => {
+        if (layer.children) {
+          return {
+            ...layer,
+            children: layer.children.map((child) => {
+              return {
+                ...child,
+                parentId: layer.id,
+              }
+            }),
+          };
+        }
+
+        return layer;
+      });
+    },
+    sortableConfig() {
+      return {
+        animation: 150,
+        onUpdate: (event) => {
+          const { oldDraggableIndex, newDraggableIndex, item: $item } = event
+          const $handle = $item.querySelector('.sortable-handle')
+          const id = $handle.getAttribute(idSelector)
+          const parentId = $handle.getAttribute(parentIdSelector)
+          this.$emit('reorder', { oldDraggableIndex, newDraggableIndex, id, parentId })
+        }
+      }
     }
-  }
-}
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.initSortable()
+    })
+  },
+  methods: {
+    initSortable() {
+      const $rootEl= document.querySelector('.v-treeview')
+      const $childEls = document.querySelectorAll('.v-treeview-node__children')
+      const $sortableEls = [$rootEl, ...$childEls]
+      $sortableEls.forEach(this.makeSortable)
+    },
+    makeSortable(el) {
+      Sortable.create(el, this.sortableConfig)
+    },
+    handleChange(ids) {
+      const layers = ids.map((id) => findInTree(this.layers, "id", id));
+      this.$emit("change", layers);
+    },
+  },
+};
 </script>
+
 <style>
-.radio-tree {
-  margin: 0;
-}
-.radio-tree.v-input--radio-group > .v-input__control {
-  width: 100%;
-}
-
-.radio-tree.v-input--radio-group > .v-input__control > .v-input__slot {
-  margin: 0;
-}
-
-.radio-tree.v-input--radio-group .v-treeview-node__label {
-  overflow: visible;
-}
-
-.v-treeview-node__level:empty {
-  display: none;
-}
-
-.v-treeview-node__children .v-treeview-node__level {
-  display: block;
+.sortable-handle {
+  cursor: move;
 }
 </style>
