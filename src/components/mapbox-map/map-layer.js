@@ -25,15 +25,13 @@ export default {
   },
   // watch props and rerender if they change
   watch: {
-    // options: {
-    //   deep: true,
-    //   handler() {
-    //     this.rerender();
-    //   }
-    // },
     before(value) {
       const map = this.getMap()
-      map.moveLayer(value, this.options.id);
+      if (value) {
+        map.moveLayer(value, this.options.id);
+      } else {
+        map.moveLayer(this.options.id)
+      }
     }
   },
   mounted() {
