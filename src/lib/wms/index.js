@@ -1,4 +1,4 @@
-export default function({ id, layer, tiles=[], tileSize=512, paint={} }) {
+export default function({ id, layer, tiles=[], tileSize=512, paint={}, ...rest }) {
   return {
     id,
     layer,
@@ -8,6 +8,7 @@ export default function({ id, layer, tiles=[], tileSize=512, paint={} }) {
       tiles,
       tileSize,
     },
-    paint
+    paint,
+    ...rest
   };
 }

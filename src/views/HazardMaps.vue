@@ -1,6 +1,6 @@
 <template>
   <div>
-    <data-layers
+    <data-layers-single
       :layers="layers"
       @change="handleChange"
     />
@@ -9,13 +9,13 @@
 
 <script>
 import buildWmsLayer from "@/lib/build-wms-layer";
-import DataLayers from "@/components/data-layers";
+import DataLayersSingle from "@/components/data-layers-single";
 
 import layers from "@/data/hazardlayers.json";
 
 export default {
   components: {
-    DataLayers
+    DataLayersSingle
   },
   data() {
     return {

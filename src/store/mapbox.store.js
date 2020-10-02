@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 export default {
   namespaced: true,
 
@@ -8,7 +10,8 @@ export default {
   },
 
   getters: {
-    wmsLayers: (state) => state.wmsLayers,
+    wmsLayers: (state) => state.wmsLayers
+      .sort((a, b) => b.index - a.index),
     legendLayer: (state) => state.legendLayer,
   },
 
@@ -32,5 +35,9 @@ export default {
     SET_LEGEND_LAYER(state, layer) {
       state.legendLayer = layer;
     },
+    UPDATE_LAYER_INDEX(state, { id, index}) {
+      const wmsLayer = state.wmsLayers.find(layer => id === layer.id)
+      Vue.set(wmsLayer, 'index', index)
+    }
   },
 };
