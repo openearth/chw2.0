@@ -11,8 +11,7 @@ export default {
 
   getters: {
     wmsLayers: (state) => state.wmsLayers
-      .sort((a, b) => a.index - b.index)
-      .map((layer, index) => ({ ...layer, before: state.wmsLayers[index - 1]?.id })),
+      .sort((a, b) => b.index - a.index),
     legendLayer: (state) => state.legendLayer,
   },
 

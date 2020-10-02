@@ -24,7 +24,12 @@
       />
 
       <!-- Map Layers -->
-      <map-layer v-for="layer in wmsLayers" :key="layer.id" :options="layer" :before="layer.before"/>
+      <map-layer
+        v-for="(layer, index) in wmsLayers"
+        :key="layer.index"
+        :options="layer"
+        :before="wmsLayers[index + 1] && wmsLayers[index + 1].id"
+      />
     </v-mapbox>
   </div>
 </template>
