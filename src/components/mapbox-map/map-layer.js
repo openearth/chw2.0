@@ -34,10 +34,6 @@ export default {
   destroyed() {
     this.removeLayer();
   },
-  updated() {
-    console.log('updated')
-    this.moveLayer()
-  },
   methods: {
     deferredMountedTo() {
       // only execute when layer is not already initialized
@@ -69,8 +65,6 @@ export default {
       } else {
         map.addLayer(this.options);
       }
-
-      this.moveLayer()
     },
     rerender() {
       this.removeLayer();
