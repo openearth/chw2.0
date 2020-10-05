@@ -108,27 +108,32 @@ export default {
     sortLayers() {
       const { map } = this.$root
 
-      Promise.all(this.wmsLayers.map(async (layer, index) => {
+      this.wmsLayers.map(async (layer, index) => {
         const before = this.wmsLayers[index - 1] && this.wmsLayers[index - 1].id
 
         await Promise.all([layer.id, before].map(async id => {
-          if (!map.getLayer(id)) {
-            await new Promise((resolve) => {
-              this.cb = e => {
-                if (e.sourceDataType === 'metadata' && e.sourceId === id) {
-                  resolve()
-                }
-  
-                map.off('sourcedata', this.cb)
-              }
-  
-              map.on('sourcedata', this.cb);
-            })
-          }
+          await this.layerLoaded(id) 
         }))
 
         map.moveLayer(layer.id, before);
-      }))
+      })
+    },
+    async layerLoaded(id) {
+      const { map } = this.$root
+
+      if (!map.getLayer(id)) {
+        await new Promise((resolve) => {
+          this.cb = e => {
+            if (e.sourceDataType === 'metadata' && e.sourceId === id) {
+              resolve()
+            }
+
+            map.off('sourcedata', this.cb)
+          }
+
+          map.on('sourcedata', this.cb);
+        })
+      }
     }
   }
 };
