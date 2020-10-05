@@ -25,10 +25,9 @@
 
       <!-- Map Layers -->
       <map-layer
-        v-for="(layer, index) in wmsLayers"
-        :key="layer.index"
+        v-for="layer in wmsLayers"
+        :key="layer.id"
         :options="layer"
-        :before="wmsLayers[index + 1] && wmsLayers[index + 1].id"
       />
     </v-mapbox>
   </div>
@@ -75,6 +74,12 @@ export default {
     }
   },
 
+  watch: {
+    wmsLayers() {
+      this.sortLayers() 
+    }
+  },
+
   mounted() {
     window.__map = this.$root.map
   },
@@ -99,6 +104,32 @@ export default {
       this.setCoordinates(
         features.map(feature => feature.geometry.coordinates)
       );
+    },
+    sortLayers() {
+      const { map } = this.$root
+
+      Promise.all(this.wmsLayers.map(async (layer, index) => {
+        const before = this.wmsLayers[index - 1] && this.wmsLayers[index - 1].id
+
+        await Promise.all([layer.id, before].map(async id => {
+          if (!map.getLayer(id)) {
+            await new Promise((resolve) => {
+              this.cb = e => {
+                if (e.sourceDataType === 'metadata' && e.sourceId === id) {
+                  console.log('here 1')
+                  resolve()
+                }
+  
+                map.off('sourcedata', this.cb)
+              }
+  
+              map.on('sourcedata', this.cb);
+            })
+          }
+        }))
+
+        map.moveLayer(layer.id, before);
+      }))
     }
   }
 };
