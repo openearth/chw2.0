@@ -5,6 +5,7 @@ export default {
 
   state: {
     wmsLayers: [],
+    layers: [],
     layerVisibilityProxies: [],
     legendLayer: "ra2ce:erosieafschuivingwegtalud_stremmingskosten",
   },

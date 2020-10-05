@@ -17,6 +17,7 @@ import arrayCompare from 'array-compare'
 import buildWmsLayer from "@/lib/build-wms-layer";
 import arrayMove from "@/lib/array-move";
 import findInTree from "@/lib/find-in-tree";
+import addZIndex from "@/lib/add-z-index";
 import DataLayersMultiple from "@/components/data-layers-multiple";
 
 
@@ -36,39 +37,13 @@ export default {
       return this.$store.getters["mapbox/wmsLayers"]
     },
     layersWithSortIndex() {
-      return this.layers.map((layer, index) => {
-        if (layer.children) {
-          const inversedIndex = this.inverseIndex(this.layers, index)
-
-          return {
-            ...layer,
-            children: layer.children.map((child, childIndex) => {
-              const inversedChildIndex = this.inverseIndex(layer.children, childIndex)
-
-              return {
-                ...child,
-                // index is used render layers in order, so highest one gets on top
-                index: 10 * inversedIndex + inversedChildIndex,
-              }
-            }),
-          };
-        }
-
-        return layer;
-      });
+      return addZIndex(this.layers)
     },
-  },
-  mounted() {
-    // console.log(this.layersWithSortIndex)
   },
   destroyed() {
     this.$store.commit("mapbox/CLEAR_WMS_LAYERS") 
   },
   methods: {
-    // indexed need to be inversed, so first one gets the highest index
-    inverseIndex(arr, index) {
-      return arr.length - index 
-    }, 
     handleChange(layers) {
       const diff = arrayCompare(this.wmsLayers.map(({ id }) => id), layers.map(({ id }) => id))
       const addedLayers = diff.added.map(({ b })=> layers.find(layer => layer.id === b))
