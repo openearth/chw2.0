@@ -116,7 +116,6 @@ export default {
             await new Promise((resolve) => {
               this.cb = e => {
                 if (e.sourceDataType === 'metadata' && e.sourceId === id) {
-                  console.log('here 1')
                   resolve()
                 }
   
