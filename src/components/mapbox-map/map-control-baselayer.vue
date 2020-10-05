@@ -11,10 +11,7 @@
       height="24"
       viewBox="0 0 24 24"
     >
-      <path
-        d="M0 0h24v24H0z"
-        fill="none"
-      />
+      <path d="M0 0h24v24H0z" fill="none" />
       <path
         d="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16z"
       />
@@ -24,28 +21,28 @@
 
 <script>
 export default {
-  inject: ['getMap'],
+  inject: ["getMap"],
 
   props: {
     layers: {
       type: Array,
-      required: true
+      required: true,
     },
     position: {
       type: String,
-      required: false
-    }
+      required: false,
+    },
   },
 
   data: () => ({
     showControl: false,
-    currentLayerIndex: 0
+    currentLayerIndex: 0,
   }),
 
   mounted() {
     const map = this.getMap();
     // If we are already loaded
-    if(map && map.loaded()) {
+    if (map && map.loaded()) {
       this.addToMap(map);
     }
   },
@@ -55,33 +52,48 @@ export default {
       const map = this.getMap();
       const nextIndex = (this.currentLayerIndex + 1) % this.layers.length;
       const { style } = this.layers[nextIndex];
-      const mapboxSourceId = 'mapbox';
+      const mapboxSourceId = "mapbox";
 
       // extract custom layers & sources from current style
       const { layers, sources } = map.getStyle();
 
-      const rasterLayers = layers.filter(
-        layer => layer.type === 'raster' && layer.source !== mapboxSourceId
+      const customLayers = layers.filter(
+        (layer) =>
+          (layer.type === "raster" ||
+            layer.id === "measure-points" ||
+            layer.id === "measure-lines") &&
+          layer.source !== mapboxSourceId
       );
 
-      const rasterSources = Object.keys(sources)
-        .filter(id => id !== mapboxSourceId)
-        .map(id => ({ id, ...sources[id] }))
-        .filter(source => source.type === 'raster');
+      const customSources = Object.keys(sources)
+        .filter((id) => id !== mapboxSourceId)
+        .map((id) => ({ id, ...sources[id] }))
+        .filter(
+          (source) => source.type === "raster" || source.type === "geojson"
+        );
+
+      console.log(customSources, customLayers);
 
       // switch style
       map.setStyle(style);
       this.currentLayerIndex = nextIndex;
 
       // re-add all custom layers when style is loaded
-      map.once('style.load', () => {
-        rasterSources.forEach(source => {
-          if (map.getSource(source.id)) {
-            map.removeSource(source.id);
+      map.once("style.load", () => {
+        customSources.forEach((source) => {
+          const id = source.id;
+
+          delete source.id;
+
+          if (map.getSource(id)) {
+            map.removeSource(id);
           }
-          map.addSource(source.id, source);
+
+          map.addSource(id, source);
         });
-        rasterLayers.forEach(layer => map.addLayer(layer));
+        customLayers.forEach((layer) => map.addLayer(layer));
+
+        console.log(map.getStyle());
       });
     },
 
@@ -94,8 +106,8 @@ export default {
       const control = new MapControlBaselayer($control);
       map.addControl(control, this.position);
       this.showControl = true;
-    }
-  }
+    },
+  },
 };
 
 class MapControlBaselayer {
