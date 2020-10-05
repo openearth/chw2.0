@@ -105,12 +105,17 @@ export default {
         features.map(feature => feature.geometry.coordinates)
       );
     },
+    // makes sure the layers are rendered in the order or the wmsLayers array
+    // position 1 gets rendered on top, 2 below that etc.
     sortLayers() {
       const { map } = this.$root
 
+      // processing needs te be done in order, otherwise the internal layer order
+      // of mapbox will be messed up
       this.wmsLayers.map(async (layer, index) => {
         const before = this.wmsLayers[index - 1] && this.wmsLayers[index - 1].id
 
+        // wait until layers are both loaded before proceeding
         await Promise.all([layer.id, before].map(async id => {
           await this.layerLoaded(id) 
         }))
@@ -118,6 +123,7 @@ export default {
         map.moveLayer(layer.id, before);
       })
     },
+    // listens for when a layer is loaded by mapbox
     async layerLoaded(id) {
       const { map } = this.$root
 
