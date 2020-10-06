@@ -1,11 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Modelling from "../views/Modelling.vue";
-import Data from "../views/Data.vue";
-import Home from "../views/Home.vue";
-import Legal from "../views/Legal.vue";
-import CoastalClassification from "../views/CoastalClassification.vue";
-import HazardMaps from "../views/HazardMaps.vue";
+
+// views
+const Modelling = () => import("../views/Modelling.vue")
+const Data = () => import("../views/Data.vue")
+const Home = () => import("../views/Home.vue")
+const Legal = () => import("../views/Legal.vue")
+const CoastalClassification = () => import("../views/CoastalClassification.vue")
+const HazardMaps = () => import("../views/HazardMaps.vue")
 
 Vue.use(VueRouter);
 
