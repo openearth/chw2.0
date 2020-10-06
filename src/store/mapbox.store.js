@@ -11,6 +11,7 @@ export default {
   },
 
   getters: {
+    // layers need to be displayed sorted by z-index, so sort from high to low
     wmsLayers: (state) => state.wmsLayers
       .sort((a, b) => b.index - a.index),
     legendLayer: (state) => state.legendLayer,

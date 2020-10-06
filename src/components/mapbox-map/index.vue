@@ -128,15 +128,19 @@ export default {
       const { map } = this.$root
 
       if (!map.getLayer(id)) {
+        // we need to wait for when a layer is loaded, hence the Promise
         await new Promise((resolve) => {
           this.cb = e => {
+            // check if the loaded layer has the current id
             if (e.sourceDataType === 'metadata' && e.sourceId === id) {
               resolve()
             }
 
+            // remove callback since it will likely be re-added later
             map.off('sourcedata', this.cb)
           }
 
+          // add callback when sourcedata is updated
           map.on('sourcedata', this.cb);
         })
       }
