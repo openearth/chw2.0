@@ -14,14 +14,13 @@
 <script>
 import AppHeader from "@/components/app-header";
 import AppSidebar from "@/components/app-sidebar";
-import MapboxMap from "@/components/mapbox-map";
 import LegalDialog from '@/components/legal-dialog'
 import { mapState } from 'vuex';
 
 export default {
   name: "App",
   components: {
-    MapboxMap,
+    MapboxMap: () => import(/* webpackChunkName: "MapboxMap" */ "@/components/mapbox-map"),
     AppSidebar,
     AppHeader,
     LegalDialog

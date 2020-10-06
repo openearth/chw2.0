@@ -2,12 +2,12 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 // views
-const Modelling = () => import("../views/Modelling.vue")
-const Data = () => import("../views/Data.vue")
-const Home = () => import("../views/Home.vue")
-const Legal = () => import("../views/Legal.vue")
-const CoastalClassification = () => import("../views/CoastalClassification.vue")
-const HazardMaps = () => import("../views/HazardMaps.vue")
+const Modelling = () => import(/* webpackChunkName: "Modelling" */ "../views/Modelling.vue")
+const Data = () => import(/* webpackChunkName: "Data" */ "../views/Data.vue")
+const Home = () => import(/* webpackChunkName: "Home" */ "../views/Home.vue")
+const Legal = () => import(/* webpackChunkName: "Legal" */ "../views/Legal.vue")
+const CoastalClassification = () => import(/* webpackChunkName: "CoastalClassification" */ "../views/CoastalClassification.vue")
+const HazardMaps = () => import(/* webpackChunkName: "HazardMaps" */ "../views/HazardMaps.vue")
 
 Vue.use(VueRouter);
 
