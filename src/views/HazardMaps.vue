@@ -30,6 +30,7 @@ export default {
       const wmsLayer = buildWmsLayer(layer)
       this.$store.commit("mapbox/CLEAR_WMS_LAYERS") 
       this.$store.commit("mapbox/ADD_WMS_LAYER", wmsLayer) 
+      this.$store.commit("mapbox/SET_LEGEND_LAYER", layer.id) 
     },
   }
 };

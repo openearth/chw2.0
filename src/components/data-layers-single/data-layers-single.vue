@@ -45,7 +45,7 @@ export default {
     this.selectFirst()
   },
   methods: {
-    selectFirst() {
+    slectFirst() {
       this.selected = this.layers[0].layer || this.layers[0].children[0]?.layer
       this.opened()
       this.$emit('change', findInTree(this.layers, 'id', this.selected))
@@ -62,7 +62,6 @@ export default {
 
       return value
     },
-    findInTree,
     opened () {
       if (!this.input && this.selected) {
         const selected = findInTree(this.layers, 'id', this.selected)
@@ -70,6 +69,9 @@ export default {
           this.input = this.valueFor(selected)
         }
       }
+    },
+    handleLegendClick(id) {
+      this.$emit('legendChange', id)
     }
   }
 }
