@@ -15,7 +15,7 @@ export default new Vuex.Store({
     selection,
   },
   state: {
-    acceptedLegal: false,
+    acceptedLegal: true || false,
   },
   mutations: {
     SET_ACCEPTED_LEGAL(state, value) {
