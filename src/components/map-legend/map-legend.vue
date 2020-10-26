@@ -10,6 +10,7 @@
 
 <script>
 import buildLegendUrl from '@/lib/build-legend-url';
+import debounce from 'lodash/debounce'
 
 export default {
   props: {
@@ -18,10 +19,31 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      zoomLevel: 10
+    }
+  },
   computed: {
     legendUrl() {
-      return buildLegendUrl(this.legendLayer, 40, 20);
+      const scale = this.zoomLevel
+
+      return buildLegendUrl(this.legendLayer, 40, 20, scale);
     },
+  },
+  mounted() {
+    const map = this.$root.map
+
+    map.on('zoom', () => {
+      this.setZoomLevel()
+    })
+  },
+  methods: {
+    setZoomLevel: debounce(function () {
+      const map = this.$root.map
+      const zoom = map.getZoom()
+      this.zoomLevel = zoom
+    }, 200)
   }
 };
 </script>
