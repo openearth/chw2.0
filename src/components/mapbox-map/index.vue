@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapState } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { MAP_CENTER, MAP_ZOOM, MAP_BASELAYER_DEFAULT, MAP_BASELAYERS } from '@/lib/constants';
@@ -50,14 +50,11 @@ export default {
     MapControlBaselayer,
     MapControlFitbounds
   },
-
   computed: {
     ...mapState({
       coordinates: (state) => state.selection.coordinates,
       selectionEnabled: (state) => state.selection.enabled,
-    }),
-    ...mapGetters({
-      wmsLayers: 'mapbox/wmsLayers',
+      wmsLayers: (state) => state.mapbox.wmsLayers,
     }),
     mapBoxToken() {
       return process.env.VUE_APP_MAPBOX_TOKEN; 
@@ -73,17 +70,14 @@ export default {
       return MAP_BASELAYERS;
     }
   },
-
   watch: {
     wmsLayers() {
       this.sortLayers() 
     }
   },
-
   mounted() {
     window.__map = this.$root.map
   },
-
   methods: {
     ...mapMutations({
       setCoordinates: "selection/SET_COORDINATES"

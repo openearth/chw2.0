@@ -9,25 +9,9 @@ export default {
     layerVisibilityProxies: [],
     legendLayer: null,
   },
-
-  getters: {
-    // layers need to be displayed sorted by z-index, so sort from high to low
-    wmsLayers: (state) => state.wmsLayers.sort((a, b) => b.index - a.index),
-    legendLayer: (state) => state.legendLayer,
-  },
-
   mutations: {
-    ADD_WMS_LAYER(state, newLayer) {
-      const layerExists = state.wmsLayers.some(
-        (storedLayer) => storedLayer.id === newLayer.id
-      );
-
-      if (!layerExists) {
-        state.wmsLayers = [...state.wmsLayers, newLayer];
-      }
-    },
-    REMOVE_WMS_LAYER(state, id) {
-      state.wmsLayers = state.wmsLayers.filter((layer) => layer.id !== id);
+    SET_LAYERS(state, layers) {
+      state.wmsLayers = layers
     },
     CLEAR_WMS_LAYERS(state) {
       state.wmsLayers = [];

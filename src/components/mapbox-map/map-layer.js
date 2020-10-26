@@ -18,12 +18,6 @@ export default {
       isInitialized: false
     };
   },
-  // watch props and rerender if they change
-  watch: {
-    options() {
-      this.rerender()
-    }
-  },
   mounted() {
     // only execute when map is available and layer is not already initialized
     if (this.getMap()) {

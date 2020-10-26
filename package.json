@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@voorhoede/deltares-vuetify-theme": "^1.0.4",
-    "array-compare": "^2.0.0",
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
     "file-saver": "^2.0.2",
