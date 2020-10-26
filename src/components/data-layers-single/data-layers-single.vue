@@ -45,7 +45,7 @@ export default {
     this.selectFirst()
   },
   methods: {
-    slectFirst() {
+    selectFirst() {
       this.selected = this.layers[0].layer || this.layers[0].children[0]?.layer
       this.opened()
       this.$emit('change', findInTree(this.layers, 'id', this.selected))
