@@ -6,7 +6,6 @@
       <app-sidebar v-if="acceptedLegal" />
       <v-main>
         <mapbox-map />
-        <map-legend v-if="legendLayer" :legendLayer="legendLayer" />
       </v-main>
     </template>
   </v-app>
@@ -16,7 +15,6 @@
 import AppHeader from "@/components/app-header";
 import AppSidebar from "@/components/app-sidebar";
 import LegalDialog from '@/components/legal-dialog'
-import MapLegend from '@/components/map-legend'
 
 import { mapState } from 'vuex';
 
@@ -27,7 +25,6 @@ export default {
     AppSidebar,
     AppHeader,
     LegalDialog,
-    MapLegend
   },
   computed: {
     ...mapState({

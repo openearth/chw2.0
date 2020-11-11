@@ -13,6 +13,7 @@ import buildLegendUrl from '@/lib/build-legend-url';
 import debounce from 'lodash/debounce'
 
 export default {
+  inject: ["getMap"],
   props: {
     legendLayer: {
       type: String,
@@ -21,29 +22,46 @@ export default {
   },
   data() {
     return {
-      zoomLevel: 10
+      scale: 0,
+      initialized: false
     }
   },
   computed: {
     legendUrl() {
-      const scale = this.zoomLevel
-
-      return buildLegendUrl(this.legendLayer, 40, 20, scale);
+      return buildLegendUrl(this.legendLayer, 40, 20, this.scale);
     },
   },
   mounted() {
-    const map = this.$root.map
-
-    map.on('zoom', () => {
-      this.setZoomLevel()
-    })
+    if (!this.initialized && this.getMap()) {
+      this.addZoomListener()
+      this.initialized = true
+    }
   },
   methods: {
-    setZoomLevel: debounce(function () {
+    deferredMountedTo() {
+      if (!this.initialized) {
+        this.addZoomListener()
+        this.initialized = true
+      }
+    },
+    addZoomListener() {
+      const map = this.getMap()
+
+      this.calculateScale()
+  
+      map.on('zoom', () => {
+        this.calculateScale()
+      })
+    },
+    calculateScale: debounce(function () {
       const map = this.$root.map
-      const zoom = map.getZoom()
-      this.zoomLevel = zoom
-    }, 200)
+      const left = map.unproject([0, 0]);
+      const right = map.unproject([1, 0]);
+      const kmPerPixel = left.distanceTo(right)
+      const mPerPixel = kmPerPixel * 1000
+
+      this.scale = Math.ceil(mPerPixel)
+    }, 200),
   }
 };
 </script>

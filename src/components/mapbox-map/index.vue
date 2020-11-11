@@ -29,6 +29,8 @@
         :key="layer.id"
         :options="layer"
       />
+
+      <map-legend v-if="legendLayer" :legendLayer="legendLayer" /> 
     </v-mapbox>
   </div>
 </template>
@@ -42,19 +44,22 @@ import MapLayer from './map-layer.js';
 import MapCoordinatesSelector from './map-coordinates-selector.js';
 import MapControlBaselayer from './map-control-baselayer';
 import MapControlFitbounds from './map-control-fitbounds';
+import MapLegend from './map-legend';
 
 export default {
   components: {
     MapLayer,
     MapCoordinatesSelector,
     MapControlBaselayer,
-    MapControlFitbounds
+    MapControlFitbounds,
+    MapLegend
   },
   computed: {
     ...mapState({
       coordinates: (state) => state.selection.coordinates,
       selectionEnabled: (state) => state.selection.enabled,
       wmsLayers: (state) => state.mapbox.wmsLayers,
+      legendLayer: (state) => state.mapbox.legendLayer
     }),
     mapBoxToken() {
       return process.env.VUE_APP_MAPBOX_TOKEN; 
