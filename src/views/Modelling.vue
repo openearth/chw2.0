@@ -1,10 +1,15 @@
 <template>
   <div>
+    <div class="pa-4 pb-0">
+      <h2 class="h2">Coastal classification</h2>
+      <v-divider class="mt-4" />
+    </div>
+
     <div v-if="wizard" class="pa-4">
       <selection-wizard @complete="handleWizardComplete" />
     </div>
 
-    <template v-if="!wizard">
+    <template v-else>
       <template v-if="loading">
         <v-row class="py-4" justify="center">
           <v-progress-circular
