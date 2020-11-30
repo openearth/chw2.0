@@ -8,60 +8,57 @@
 
     <v-tabs-items v-model="activeTab">
       <v-tab-item>
-        <v-card class="mb-4">
-          <v-card-title class="subtitle-1 font-weight-bold">Data results</v-card-title>
-          <data-table :data="dataResults" />
-        </v-card>
-        <v-card>
-          <v-card-title class="subtitle-1 font-weight-bold">Coastal environment</v-card-title>
-          <data-table :data="coastalEnvironment" />
-        </v-card>
+        <collapsible-data-card title="Data results" :data="dataResults" />
+        <collapsible-data-card
+          title="Coastal environment"
+          :data="coastalEnvironment"
+        />
       </v-tab-item>
       <v-tab-item>
-        <v-card>
-          <v-card-title class="subtitle-1 font-weight-bold">Risk</v-card-title>
-          <data-table :data="riskData" />
-        </v-card>
+        <collapsible-data-card title="Risk" :data="riskData" />
       </v-tab-item>
       <v-tab-item>
-        <v-card>
-          <v-card-title class="subtitle-1 font-weight-bold">Measures</v-card-title>
-          <data-table :data="measuresData" />
-        </v-card>
+        <collapsible-data-card title="Risk" :data="riskData" />
+        <collapsible-data-card title="Measures" :data="measuresData" />
       </v-tab-item>
     </v-tabs-items>
   </div>
 </template>
 
 <script>
-import DataTable from "@/components/data-table";
+import CollapsibleDataCard from '@/components/collapsible-data-card';
 
 export default {
   components: {
-    DataTable
-  },
-  data() {
-    return {
-      activeTab: ''
-    }
+    CollapsibleDataCard,
   },
   props: {
     dataResults: {
       type: Object,
-      required: true
+      required: true,
     },
     coastalEnvironment: {
       type: Object,
-      required: true
+      required: true,
     },
     riskData: {
       type: Object,
-      required: true
+      required: true,
     },
     measuresData: {
       type: Object,
-      required: true
-    }
-  }
-}
+      required: true,
+    },
+  },
+  data() {
+    return {
+      activeTab: '',
+    };
+  },
+  methods: {
+    generateState() {
+      return [1];
+    },
+  },
+};
 </script>
