@@ -1,58 +1,110 @@
 <template>
   <div>
     <v-tabs fixed-tabs v-model="activeTab" class="mb-4">
-      <v-tab>Hazard</v-tab>
-      <v-tab>Risk</v-tab>
-      <v-tab>Measures</v-tab>
+      <v-tab v-for="tab in data" :key="tab.title">{{ tab.title }}</v-tab>
     </v-tabs>
 
     <v-tabs-items v-model="activeTab">
-      <v-tab-item>
-        <collapsible-data-card title="Data results" :data="dataResults" />
-        <collapsible-data-card
-          title="Coastal environment"
-          :data="coastalEnvironment"
-        />
-      </v-tab-item>
-      <v-tab-item>
-        <collapsible-data-card title="Risk" :data="riskData" />
-      </v-tab-item>
-      <v-tab-item>
-        <collapsible-data-card title="Risk" :data="riskData" />
-        <collapsible-data-card title="Measures" :data="measuresData" />
+      <v-tab-item v-for="tab in data" :key="tab.title">
+        <collapsible-card
+          v-for="item in tab.info"
+          :key="item.title"
+          :title="item.title"
+        >
+          <data-table v-if="item.info" :data="item.info" />
+          <data-list v-if="item.measures" :data="item.measures" />
+        </collapsible-card>
       </v-tab-item>
     </v-tabs-items>
   </div>
 </template>
 
 <script>
-import CollapsibleDataCard from '@/components/collapsible-data-card';
+import CollapsibleCard from '@/components/collapsible-card';
+import DataTable from '@/components/data-table';
+import DataList from '@/components/data-list';
 
 export default {
   components: {
-    CollapsibleDataCard,
+    CollapsibleCard,
+    DataTable,
+    DataList,
   },
   props: {
-    dataResults: {
-      type: Object,
-      required: true,
-    },
-    coastalEnvironment: {
-      type: Object,
-      required: true,
-    },
-    riskData: {
-      type: Object,
-      required: true,
-    },
-    measuresData: {
-      type: Object,
-      required: true,
-    },
+    // data
   },
   data() {
     return {
       activeTab: '',
+      data: [
+        {
+          title: 'Hazards',
+          info: [
+            {
+              title: 'CHW information layers',
+              info: {
+                'Geological layout': 'Any',
+                'Wave exposure': 'Any',
+                'Tidal range': 'Any',
+                'Flora fauna': 'Any',
+                'Sediment balance': 'Any',
+                'Storm climate': 'Any',
+              },
+            },
+            {
+              title: 'Coastal environment',
+              info: {
+                code: 'Sample',
+                slope: 'Sample',
+                'Ecosystem disruption': 'Sample',
+                'Gradual inundation': 'Sample',
+                'Salt water intrusion': 'Sample',
+                Erosion: 'Sample',
+                Flooding: 'Sample',
+              },
+            },
+          ],
+        },
+        {
+          title: 'Risk',
+          info: [
+            {
+              title: 'Risk',
+              info: {
+                'Distance to measurement point': 'Sample',
+                Population: 'Sample',
+                'Capital stock at closest GAR point': 'Sample',
+                'Key roads within 100m of the coast': 'Sample',
+              },
+            },
+          ],
+        },
+        {
+          title: 'Measures',
+          info: [
+            {
+              title: 'Measures for Ecosystem disruption',
+              measures: ['Sample1', 'Sample2'],
+            },
+            {
+              title: 'Measures for Gradual inundation',
+              measures: ['Sample1', 'Sample2'],
+            },
+            {
+              title: 'Measures for Salt water intrusion',
+              measures: ['Sample1', 'Sample2'],
+            },
+            {
+              title: 'Measures for Erosion',
+              measures: ['Sample1', 'Sample2'],
+            },
+            {
+              title: 'Measures for Flooding',
+              measures: ['Sample1', 'Sample2'],
+            },
+          ],
+        },
+      ],
     };
   },
   methods: {
