@@ -81,12 +81,9 @@ export default {
       commit("SET_ERROR", null);
 
       try {
+        console.log(state.coordinates)
         const data = await wps({
-          functionId: "chw_transect",
-          lineData: [
-            "wktline",
-            `LINESTRING(${state.coordinates[0].join(' ')}, ${state.coordinates[1].join(' ')})`,
-          ],
+          data:  state.coordinates,
         });
 
         commit("SET_DATA", data);

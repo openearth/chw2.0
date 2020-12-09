@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { xmlRequestTemplate } from './template';
 
-export default function({ functionId, lineData, ...rest }) {
-  const template = xmlRequestTemplate({ functionId, lineData, ...rest });
+export default function({  data}) {
+  const template = xmlRequestTemplate({  data });
 
   return axios({
     method: "post",
