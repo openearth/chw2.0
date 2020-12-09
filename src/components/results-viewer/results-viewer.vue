@@ -31,80 +31,14 @@ export default {
     DataList,
   },
   props: {
-    // data
+    data: {
+      type: Array,
+      required: true
+    }
   },
   data() {
     return {
       activeTab: '',
-      data: [
-        {
-          title: 'Hazards',
-          info: [
-            {
-              title: 'CHW information layers',
-              info: {
-                'Geological layout': 'Any',
-                'Wave exposure': 'Any',
-                'Tidal range': 'Any',
-                'Flora fauna': 'Any',
-                'Sediment balance': 'Any',
-                'Storm climate': 'Any',
-              },
-            },
-            {
-              title: 'Coastal environment',
-              info: {
-                code: 'Sample',
-                slope: 'Sample',
-                'Ecosystem disruption': 'Sample',
-                'Gradual inundation': 'Sample',
-                'Salt water intrusion': 'Sample',
-                Erosion: 'Sample',
-                Flooding: 'Sample',
-              },
-            },
-          ],
-        },
-        {
-          title: 'Risk',
-          info: [
-            {
-              title: 'Risk',
-              info: {
-                'Distance to measurement point': 'Sample',
-                Population: 'Sample',
-                'Capital stock at closest GAR point': 'Sample',
-                'Key roads within 100m of the coast': 'Sample',
-              },
-            },
-          ],
-        },
-        {
-          title: 'Measures',
-          info: [
-            {
-              title: 'Measures for Ecosystem disruption',
-              measures: ['Sample1', 'Sample2'],
-            },
-            {
-              title: 'Measures for Gradual inundation',
-              measures: ['Sample1', 'Sample2'],
-            },
-            {
-              title: 'Measures for Salt water intrusion',
-              measures: ['Sample1', 'Sample2'],
-            },
-            {
-              title: 'Measures for Erosion',
-              measures: ['Sample1', 'Sample2'],
-            },
-            {
-              title: 'Measures for Flooding',
-              measures: ['Sample1', 'Sample2'],
-            },
-          ],
-        },
-      ],
     };
   },
   methods: {
