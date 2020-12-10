@@ -37,7 +37,7 @@
         </p>
 
         <results-viewer
-          :dataResults="dataResults"
+          :data="data"
           :coastalEnvironment="coastalEnvironment"
           :riskData="riskData"
           :measuresData="measuresData"
