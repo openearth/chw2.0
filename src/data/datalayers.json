@@ -104,6 +104,12 @@
         "name": "Estuaries",
         "layer": "chw2:estuaries",
         "url": "https://deltaresdata.openearth.eu/geoserver/chw2/ows"
+      },
+      {
+        "id": "chw2-vector:osm_coastline",
+        "name": "coastline",
+        "layer": "chw2-vector:osm_coastline",
+        "url": "https://coastalhazardwheel.avi.deltares.nl/geoserver/ows"
       }
     ]
   },
