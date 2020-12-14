@@ -35,9 +35,7 @@ export default {
       const params = { wizard: false }
 
       this.$router.push({ name: destination, params  })
-        .catch((err) => {
-          console.log(err)
-        })
+        .catch(() => {})
 
       this.loadProject(event)
 
