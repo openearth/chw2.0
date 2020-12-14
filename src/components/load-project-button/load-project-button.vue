@@ -34,9 +34,14 @@ export default {
       const destination = 'coastal-classification'
       const params = { wizard: false }
 
-      this.loadProject(event)
       this.$router.push({ name: destination, params  })
-        .catch(() => {})
+        .catch((err) => {
+          console.log(err)
+        })
+
+      this.loadProject(event)
+
+      event.target.value = ''
     }
   }
 }
