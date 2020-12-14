@@ -19,6 +19,15 @@
         </v-row>
       </template>
 
+      <div class="pa-4" v-if="error">
+        <v-alert
+          type="error"
+        >
+          {{ error.code }}: There was an error getting the results
+        </v-alert>
+      </div>
+
+
       <div v-if="Object.keys(data).length && !loading" class="pa-4">
         <p>
           The points form a line that is used to derive coastal characteristics.
@@ -75,6 +84,7 @@ export default {
       coordinates: (state) => state.selection.coordinates,
       data: (state) => state.selection.data,
       loading: (state) => state.selection.loading,
+      error: (state) => state.selection.error
     }),
     ...mapGetters({
       dataResults: 'selection/dataResults',

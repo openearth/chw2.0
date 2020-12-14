@@ -79,6 +79,7 @@ export default {
     async getDataForSelection({ state, commit }) {
       commit("SET_LOADING", true);
       commit("SET_ERROR", null);
+      commit("SET_DATA", {})
 
       try {
         const data = await wps({
@@ -87,7 +88,8 @@ export default {
 
         commit("SET_DATA", data);
       } catch (error) {
-        commit("SET_ERROR", error.message);
+        console.log(error)
+        commit("SET_ERROR", { code: error.response.status });
       }
 
       commit("SET_LOADING", false);
