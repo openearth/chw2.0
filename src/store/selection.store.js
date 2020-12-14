@@ -1,4 +1,3 @@
-import pick from "lodash/pick";
 import wps from "../lib/wps";
 
 export default {
@@ -10,51 +9,6 @@ export default {
     loading: false,
     error: null,
     data: {},
-  },
-
-  getters: {
-    dataResults: (state) =>
-      pick(state.data, [
-        "geological_layout",
-        "wave_exposure",
-        "tidal_range",
-        "flora_fauna",
-        "sediment",
-        "storm_climate",
-      ]),
-    coastalEnvironment: (state) =>
-      pick(state.data, [
-        "slope",
-        "coastenv",
-        "erosion",
-      ]),
-    riskData: (state) =>
-      pick(state.data, [
-        "gar_distance",
-        "population",
-        "capital_stock",
-        "roads",
-      ]),
-    measuresData: (state) =>
-      pick(state.data, [
-        "code",
-        "breakwaters",
-        "groynes",
-        "jetties",
-        "revetments",
-        "seawalls",
-        "dikes",
-        "stormsurgebarriers",
-        "beachnourishment",
-        "duneconstab",
-        "cliffstab",
-        "wetlandrest",
-        "floodwarning",
-        "floodproofing",
-        "coastalzoning",
-        "groundwatermgmt",
-        "fluvsedmgmt",
-      ]),
   },
 
   mutations: {

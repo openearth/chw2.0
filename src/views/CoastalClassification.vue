@@ -47,9 +47,6 @@
 
         <results-viewer
           :data="data"
-          :coastalEnvironment="coastalEnvironment"
-          :riskData="riskData"
-          :measuresData="measuresData"
         />
       </div>
     </template>
@@ -57,7 +54,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations, mapState } from 'vuex';
+import { mapActions, mapMutations, mapState } from 'vuex';
 import ResultsViewer from '@/components/results-viewer';
 import SelectionWizard from '@/components/selection-wizard';
 
@@ -85,12 +82,6 @@ export default {
       data: (state) => state.selection.data,
       loading: (state) => state.selection.loading,
       error: (state) => state.selection.error
-    }),
-    ...mapGetters({
-      dataResults: 'selection/dataResults',
-      coastalEnvironment: 'selection/coastalEnvironment',
-      riskData: 'selection/riskData',
-      measuresData: 'selection/measuresData',
     }),
   },
   beforeMount() {
