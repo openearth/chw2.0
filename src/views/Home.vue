@@ -17,7 +17,7 @@
     <div class="d-flex pt-4">
       <v-btn
         class="primary ml-auto"
-        :to="{ name: 'modelling', params: { wizard: true } }"
+        :to="{ name: 'coastal-classification', params: { wizard: true } }"
         >Get started</v-btn
       >
     </div>
