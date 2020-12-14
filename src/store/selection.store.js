@@ -81,7 +81,6 @@ export default {
       commit("SET_ERROR", null);
 
       try {
-        console.log(state.coordinates)
         const data = await wps({
           data:  state.coordinates,
         });
