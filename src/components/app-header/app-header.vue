@@ -10,8 +10,8 @@
 
     <v-tabs background-color="primary" dark right style="width: auto">
       <v-tab :to="{ name: 'home' }" exact> Introduction </v-tab>
-      <v-tab :to="{ name: 'modelling' }"> Modelling </v-tab>
-      <v-tab :to="{ name: 'data' }"> Data </v-tab>
+      <v-tab :to="{ name: 'coastal-classification' }"> Coastal classification </v-tab>
+      <v-tab :to="{ name: 'mapping' }"> Mapping </v-tab>
     </v-tabs>
 
     <v-divider inset vertical></v-divider>

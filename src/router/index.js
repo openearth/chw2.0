@@ -2,8 +2,11 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 // views
-const Modelling = () => import(/* webpackChunkName: "Modelling" */ "../views/Modelling.vue")
-const Data = () => import(/* webpackChunkName: "Data" */ "../views/Data.vue")
+const CoastalClassification = () =>
+  import(
+    /* webpackChunkName: "CoastalClassification" */ "../views/CoastalClassification.vue"
+  );
+const Mapping = () => import(/* webpackChunkName: "Mapping" */ "../views/Mapping.vue")
 const Home = () => import(/* webpackChunkName: "Home" */ "../views/Home.vue")
 const Legal = () => import(/* webpackChunkName: "Legal" */ "../views/Legal.vue")
 
@@ -16,15 +19,15 @@ const routes = [
     component: Home,
   },
   {
-    path: "/modelling",
-    name: "modelling",
-    component: Modelling,
+    path: "/coastal-classification",
+    name: "coastal-classification",
+    component: CoastalClassification,
     props: true,
   },
   {
-    path: "/data",
-    name: "data",
-    component: Data,
+    path: "/mapping",
+    name: "mapping",
+    component: Mapping,
   },
   {
     path: "/legal",
