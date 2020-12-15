@@ -1,5 +1,5 @@
 
-export const xmlRequestTemplate = ({ identifier, functionId, data }) => `
+export const xmlRequestTemplate = ({ identifier, functionId, data, type }) => `
 
 <wps:Execute xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0.0" service="WPS" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd">
    <ows:Identifier xmlns:ows="http://www.opengis.net/ows/1.1">${identifier}</ows:Identifier>
@@ -13,7 +13,7 @@ export const xmlRequestTemplate = ({ identifier, functionId, data }) => `
                         "type": "Feature", 
                         "properties": {}, 
                         "geometry":{ 
-                            "type": "LineString",
+                            "type": "${type}",
                             "coordinates": ${data}
                            } 
                         }   

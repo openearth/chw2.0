@@ -41,6 +41,7 @@ export default {
       const { transect_coordinates, errMsg } = await wps({
         identifier: "create_transect",
         functionId: "point",
+        type: "Point",
         data: JSON.stringify(state.selectedCoordinate),
       });
 
@@ -60,6 +61,7 @@ export default {
           identifier: "chw2_risk_classification",
           functionId: "transect",
           data: JSON.stringify(state.lineCoordinates),
+          type: "LineString"
         });
 
         commit("SET_DATA", data);
