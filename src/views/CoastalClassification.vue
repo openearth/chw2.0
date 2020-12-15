@@ -84,7 +84,7 @@ export default {
       error: (state) => state.selection.error
     }),
   },
-  beforeMount() {
+  async mounted() {
     const { map } = this.$root
 
     this.SET_ENABLED(true);
@@ -92,7 +92,10 @@ export default {
     if (this.lineCoordinates.length >= 1 || this.$route.params.wizard === false) {
       this.wizard = false;
     }
-    map.getCanvas().style.cursor = "crosshair";
+
+    if (map) {
+      map.getCanvas().style.cursor = "crosshair";
+    }
   },
   beforeDestroy() {
     const { map } = this.$root

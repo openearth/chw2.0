@@ -56,7 +56,6 @@ export default {
 
         commit("SET_DATA", data);
       } catch (error) {
-        console.log(error)
         commit("SET_ERROR", { code: error.response.status });
       }
 

@@ -85,6 +85,11 @@ export default {
     window.__map = map
 
     map.on('click', this.handleMapClick)
+
+    // show crosshair cursor if we're on the coastal classification route
+    if (this.$route.name === 'coastal-classification') {
+      map.getCanvas().style.cursor = "crosshair";
+    }
   },
   methods: {
     ...mapMutations({

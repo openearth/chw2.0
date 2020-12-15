@@ -1,43 +1,21 @@
 <template>
-  <div>
-    <v-stepper v-model="step" vertical>
-      <v-stepper-step :complete="step > 2" step="1">
-        Select first point
-      </v-stepper-step>
+  <v-card>
+    <v-card-title> Select point </v-card-title>
 
-      <v-stepper-content step="1">
-        <p>
-          Please zoom in to your area of interest somewhere on the coast, you
-          can do this either by zooming with you mousewheel or by typing in the
-          area of interest in the search bar.
-        </p>
+    <v-card-text>
+      <p>
+        Place a point in sea in front of the coast. The app will create a transect perpendicular on the coastline and will derive the information that will be displayed in the coastal classification screen.
+      </p>
 
-        <p>
-          Set the first point of your transect in see in front of the coast.
-        </p>
-
-        <v-card>
-          <img src="@/assets/step1.png" width="100%" class="d-flex" />
-        </v-card>
-      </v-stepper-content>
-
-      <v-stepper-step :complete="step > 3" step="2">Select second point</v-stepper-step>
-
-      <v-stepper-content step="2">
-        <p>
-          Set the second (and end) point of your transect.
-        </p>
-
-        <v-card>
-          <img src="@/assets/step2.png" width="100%" class="d-flex" />
-        </v-card>
-      </v-stepper-content>
-    </v-stepper>
-  </div>
+      <v-card>
+        <img src="@/assets/img/screenshot-selection.png" width="100%" class="d-flex" />
+      </v-card>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
   data() {
@@ -50,15 +28,15 @@ export default {
       lineCoordinates: (state) => state.selection.lineCoordinates,
     }),
     step() {
-      return this.lineCoordinates.length + 1 
-    }
+      return this.lineCoordinates.length + 1;
+    },
   },
   watch: {
     step(value) {
       if (value === 3) {
-        this.$emit("complete")
+        this.$emit('complete');
       }
-    }
+    },
   },
 };
 </script>
