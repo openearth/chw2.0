@@ -1,24 +1,5 @@
 import wps from "../lib/wps";
 
-async function getLineData(coordinates) {
-  console.log(coordinates)
-  return new Promise((res)  => {
-    setTimeout(() => {
-      // res({
-      //   errMsg: "Please select a point on the sea",
-      // });
-
-      res({
-        transect_coordinates: [
-          [-76.72066509401847, 8.738443673066499],
-          [-76.65362249470581, 8.588214318050433],
-        ],
-      });
-    }, 2000)
-  })
-
-}
-
 export default {
   namespaced: true,
 
@@ -30,7 +11,6 @@ export default {
     error: null,
     data: {},
   },
-
 
   mutations: {
     SET_SELECTED_COORDINATE(state, coordinate) {
@@ -49,18 +29,20 @@ export default {
       state.data = data;
     },
     SET_ENABLED(state, value) {
-      state.enabled = value
-    }
+      state.enabled = value;
+    },
   },
 
   actions: {
     async getSelection({ commit, state }) {
       commit("SET_LOADING", true);
       commit("SET_ERROR", null);
-      
-      const { transect_coordinates, errMsg } = await getLineData(
-        state.selectedCoordinate
-      );
+
+      const { transect_coordinates, errMsg } = await wps({
+        identifier: "create_transect",
+        functionId: "point",
+        data: JSON.stringify(state.selectedCoordinate),
+      });
 
       if (errMsg) {
         commit("SET_ERROR", { message: errMsg });
@@ -71,11 +53,13 @@ export default {
     async getDataForSelection({ state, commit }) {
       commit("SET_LOADING", true);
       commit("SET_ERROR", null);
-      commit("SET_DATA", {})
+      commit("SET_DATA", {});
 
       try {
         const data = await wps({
-          data:  state.lineCoordinates,
+          identifier: "chw2_risk_classification",
+          functionId: "transect",
+          data: JSON.stringify(state.lineCoordinates),
         });
 
         commit("SET_DATA", data);
