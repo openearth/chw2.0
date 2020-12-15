@@ -28,7 +28,6 @@
         </v-row>
       </template>
 
-
       <div v-if="Object.keys(data).length && !loading" class="pa-4">
         <p>
           The points form a line that is used to derive coastal characteristics.
@@ -68,6 +67,11 @@ export default {
     };
   },
   watch: {
+    selectedCoordinate(value) {
+      if (value.length) {
+        this.getSelection();
+      }
+    },
     lineCoordinates(value) {
       if (value && value.length === 2) {
         this.getDataForSelection();
@@ -84,7 +88,10 @@ export default {
     }),
     showWizard() {
       const hasSelectedCoordinate = this.selectedCoordinate;
-      const wizardParam = this.$route.params.wizard === undefined ? true : this.$route.params.wizard
+      const wizardParam =
+        this.$route.params.wizard === undefined
+          ? true
+          : this.$route.params.wizard;
 
       return wizardParam && !hasSelectedCoordinate;
     },
@@ -108,6 +115,7 @@ export default {
   },
   methods: {
     ...mapActions({
+      getSelection: 'selection/getSelection',
       getDataForSelection: 'selection/getDataForSelection',
     }),
     ...mapMutations({

@@ -23,15 +23,24 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async loadProject({ commit }, event) {
+    async loadProject({ commit, dispatch }, event) {
       const data = await openFile(event);
 
       window.__map.setCenter(data.map.center);
       window.__map.setZoom(data.map.zoom);
 
-      commit("selection/SET_LINE_COORDINATES", data.selection.coordinates, {
+      commit(
+        "selection/SET_SELECTED_COORDINATE",
+        data.selection.selectedCoordinate,
+        {
+          root: true,
+        }
+      );
+      
+      dispatch("selection/getSelection", null, {
         root: true,
       });
+
     },
     saveProject({ state }) {
       const map = {
@@ -40,7 +49,7 @@ export default new Vuex.Store({
       };
 
       const project = {
-        selection: pick(state.selection, "coordinates"),
+        selection: pick(state.selection, "selectedCoordinate"),
         map,
       };
 

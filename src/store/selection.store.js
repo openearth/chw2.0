@@ -54,12 +54,13 @@ export default {
   },
 
   actions: {
-    async getSelection({ commit }, coordinates) {
-      commit("SET_SELECTED_COORDINATE", coordinates);
+    async getSelection({ commit, state }) {
       commit("SET_LOADING", true);
       commit("SET_ERROR", null);
       
-      const { transect_coordinates, errMsg } = await getLineData(coordinates);
+      const { transect_coordinates, errMsg } = await getLineData(
+        state.selectedCoordinate
+      );
 
       if (errMsg) {
         commit("SET_ERROR", { message: errMsg });

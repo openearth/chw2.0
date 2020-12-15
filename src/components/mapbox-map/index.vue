@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations, mapState } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { MAP_CENTER, MAP_ZOOM, MAP_BASELAYER_DEFAULT, MAP_BASELAYERS } from '@/lib/constants';
@@ -93,15 +93,12 @@ export default {
   },
   methods: {
     ...mapMutations({
-      setSelectedCoordinates: "selection/SET_SELECTED_COORDINATES",
+      setSelectedCoordinate: "selection/SET_SELECTED_COORDINATE",
       setLineCoordinates: "selection/SET_LINE_COORDINATES"
-    }),
-    ...mapActions({
-      getSelection: "selection/getSelection"
     }),
     handleMapClick(event) {
       const coordinates = Object.values(event.lngLat)
-      this.getSelection(coordinates)
+      this.setSelectedCoordinate(coordinates)
     },
     onMapCreated(map) {
       this.$root.map = map;
