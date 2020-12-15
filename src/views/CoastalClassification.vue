@@ -84,7 +84,7 @@ export default {
     }),
     showWizard() {
       const hasSelectedCoordinate = this.selectedCoordinate;
-      const wizardParam = this.$route.params.wizard
+      const wizardParam = this.$route.params.wizard === undefined ? true : this.$route.params.wizard
 
       return wizardParam && !hasSelectedCoordinate;
     },
