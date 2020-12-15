@@ -47,10 +47,10 @@ export default {
   },
   computed: {
     ...mapState({
-      coordinates: (state) => state.selection.coordinates,
+      lineCoordinates: (state) => state.selection.lineCoordinates,
     }),
     step() {
-      return this.coordinates.length + 1 
+      return this.lineCoordinates.length + 1 
     }
   },
   watch: {

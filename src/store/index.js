@@ -29,7 +29,7 @@ export default new Vuex.Store({
       window.__map.setCenter(data.map.center);
       window.__map.setZoom(data.map.zoom);
 
-      commit("selection/SET_COORDINATES", data.selection.coordinates, {
+      commit("selection/SET_LINE_COORDINATES", data.selection.coordinates, {
         root: true,
       });
     },

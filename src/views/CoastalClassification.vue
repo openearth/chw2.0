@@ -70,7 +70,7 @@ export default {
     };
   },
   watch: {
-    coordinates(value) {
+    lineCoordinates(value) {
       if (value.length === 2) {
         this.getDataForSelection();
       }
@@ -78,22 +78,29 @@ export default {
   },
   computed: {
     ...mapState({
-      coordinates: (state) => state.selection.coordinates,
+      lineCoordinates: (state) => state.selection.lineCoordinates,
       data: (state) => state.selection.data,
       loading: (state) => state.selection.loading,
       error: (state) => state.selection.error
     }),
   },
   beforeMount() {
+    const { map } = this.$root
+
     this.SET_ENABLED(true);
 
-    if (this.coordinates.length >= 1 || this.$route.params.wizard === false) {
+    if (this.lineCoordinates.length >= 1 || this.$route.params.wizard === false) {
       this.wizard = false;
     }
+    map.getCanvas().style.cursor = "crosshair";
   },
   beforeDestroy() {
-    this.SET_COORDINATES([]);
+    const { map } = this.$root
+
+    this.SET_LINE_COORDINATES([]);
     this.SET_ENABLED(false);
+
+    map.getCanvas().style.cursor = "pointer";
   },
   methods: {
     ...mapActions({
@@ -101,7 +108,7 @@ export default {
     }),
     ...mapMutations({
       SET_ENABLED: 'selection/SET_ENABLED',
-      SET_COORDINATES: 'selection/SET_COORDINATES',
+      SET_LINE_COORDINATES: 'selection/SET_LINE_COORDINATES',
     }),
     handleWizardComplete() {
       this.wizard = false;

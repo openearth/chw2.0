@@ -100,46 +100,6 @@ export default {
         },
         filter: ["in", "$type", "LineString"],
       });
-
-      map.on("click", (e) => {
-        if (this.disabled) return;
-
-        const point = this.generateFeature([e.lngLat.lng, e.lngLat.lat]);
-
-        // reset for new line
-        if (!this.drawing) {
-          this.geojson.features = [];
-        }
-
-        this.geojson.features.push(point);
-
-        this.$emit("change", this.points);
-
-        if (this.drawing) {
-          // emit points when line is drawn
-
-          this.drawing = false;
-        }
-
-        if (this.geojson.features.length === 1) {
-          this.drawing = true;
-        }
-
-        map.getSource("geojson")?.setData(this.geojson);
-      });
-
-      map.on("mousemove", (e) => {
-        map.getCanvas().style.cursor = this.disabled ? "pointer" : "crosshair";
-
-        if (this.disabled) return;
-
-        if (this.drawing && this.points.length) {
-          this.setLineString([
-            this.points[0].geometry.coordinates,
-            [e.lngLat.lng, e.lngLat.lat],
-          ]);
-        }
-      });
     },
     generateFeature(coordinates) {
       return {

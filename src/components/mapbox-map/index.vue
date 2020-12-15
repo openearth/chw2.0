@@ -19,8 +19,7 @@
       <!-- Line draw interaction -->
       <map-coordinates-selector
         :disabled="!selectionEnabled"
-        :coordinates="coordinates"
-        @change="handleSelectionUpdated"
+        :coordinates="lineCoordinates"
       />
 
       <!-- Map Layers -->
@@ -36,7 +35,7 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex';
+import { mapActions, mapMutations, mapState } from 'vuex';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { MAP_CENTER, MAP_ZOOM, MAP_BASELAYER_DEFAULT, MAP_BASELAYERS } from '@/lib/constants';
@@ -56,7 +55,7 @@ export default {
   },
   computed: {
     ...mapState({
-      coordinates: (state) => state.selection.coordinates,
+      lineCoordinates: (state) => state.selection.lineCoordinates,
       selectionEnabled: (state) => state.selection.enabled,
       wmsLayers: (state) => state.mapbox.wmsLayers,
       legendLayer: (state) => state.mapbox.legendLayer
@@ -81,12 +80,24 @@ export default {
     }
   },
   mounted() {
-    window.__map = this.$root.map
+    const { map } = this.$root
+
+    window.__map = map
+
+    map.on('click', this.handleMapClick)
   },
   methods: {
     ...mapMutations({
-      setCoordinates: "selection/SET_COORDINATES"
+      setSelectedCoordinates: "selection/SET_SELECTED_COORDINATES",
+      setLineCoordinates: "selection/SET_LINE_COORDINATES"
     }),
+    ...mapActions({
+      getSelection: "selection/getSelection"
+    }),
+    handleMapClick(event) {
+      const coordinates = Object.values(event.lngLat)
+      this.getSelection(coordinates)
+    },
     onMapCreated(map) {
       this.$root.map = map;
       map.on("load", () => {

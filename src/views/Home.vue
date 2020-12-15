@@ -43,11 +43,11 @@ export default {
       });
     }
 
-    this.setCoordinates([]);
+    this.setLineCoordinates([]);
   },
   methods: {
     ...mapMutations({
-      setCoordinates: 'selection/SET_COORDINATES',
+      setLineCoordinates: 'selection/SET_LINE_COORDINATES',
     }),
   },
 };
