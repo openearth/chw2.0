@@ -33,17 +33,19 @@ export default {
   },
   watch: {
     coordinates(value) {
-      const map = this.getMap();
-
-      this.geojson.features = [];
-      this.setLineString(value);
-
-      value.forEach((coordinate) => {
-        const point = this.generateFeature(coordinate);
-        this.geojson.features.push(point);
-      });
-
-      map.getSource("geojson")?.setData(this.geojson);
+      if (value) {
+        const map = this.getMap();
+  
+        this.geojson.features = [];
+        this.setLineString(value);
+  
+        value.forEach((coordinate) => {
+          const point = this.generateFeature(coordinate);
+          this.geojson.features.push(point);
+        });
+  
+        map.getSource("geojson")?.setData(this.geojson);
+      }
     },
   },
   computed: {

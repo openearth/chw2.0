@@ -2,7 +2,21 @@ import wps from "../lib/wps";
 
 async function getLineData(coordinates) {
   console.log(coordinates)
-  return [[-76.72066509401847,8.738443673066499],[-76.65362249470581,8.588214318050433]]
+  return new Promise((res)  => {
+    setTimeout(() => {
+      // res({
+      //   errMsg: "Please select a point on the sea",
+      // });
+
+      res({
+        transect_coordinates: [
+          [-76.72066509401847, 8.738443673066499],
+          [-76.65362249470581, 8.588214318050433],
+        ],
+      });
+    }, 2000)
+  })
+
 }
 
 export default {
@@ -41,8 +55,17 @@ export default {
 
   actions: {
     async getSelection({ commit }, coordinates) {
-      const data = await getLineData(coordinates)
-      commit('SET_LINE_COORDINATES', data)
+      commit("SET_SELECTED_COORDINATE", coordinates);
+      commit("SET_LOADING", true);
+      commit("SET_ERROR", null);
+      
+      const { transect_coordinates, errMsg } = await getLineData(coordinates);
+
+      if (errMsg) {
+        commit("SET_ERROR", { message: errMsg });
+      }
+
+      commit("SET_LINE_COORDINATES", transect_coordinates);
     },
     async getDataForSelection({ state, commit }) {
       commit("SET_LOADING", true);

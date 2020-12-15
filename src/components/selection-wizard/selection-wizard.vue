@@ -13,30 +13,3 @@
     </v-card-text>
   </v-card>
 </template>
-
-<script>
-import { mapState } from 'vuex';
-
-export default {
-  data() {
-    return {
-      zoomCompleted: false,
-    };
-  },
-  computed: {
-    ...mapState({
-      lineCoordinates: (state) => state.selection.lineCoordinates,
-    }),
-    step() {
-      return this.lineCoordinates.length + 1;
-    },
-  },
-  watch: {
-    step(value) {
-      if (value === 3) {
-        this.$emit('complete');
-      }
-    },
-  },
-};
-</script>

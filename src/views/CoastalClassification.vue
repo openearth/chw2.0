@@ -5,11 +5,20 @@
       <v-divider class="mt-4" />
     </div>
 
-    <div v-if="wizard" class="pa-4">
-      <selection-wizard @complete="handleWizardComplete" />
+    <div class="pa-4" v-if="error">
+      <v-alert type="error">
+        <span v-if="error.code">
+          {{ error.code }}
+        </span>
+        {{ error.message || 'There was an error getting the results' }}
+      </v-alert>
     </div>
 
-    <template v-else>
+    <div v-if="!error && showWizard" class="pa-4">
+      <selection-wizard />
+    </div>
+
+    <template v-if="!error && !showWizard">
       <template v-if="loading">
         <v-row class="py-4" justify="center">
           <v-progress-circular
@@ -18,14 +27,6 @@
           ></v-progress-circular>
         </v-row>
       </template>
-
-      <div class="pa-4" v-if="error">
-        <v-alert
-          type="error"
-        >
-          {{ error.code }}: There was an error getting the results
-        </v-alert>
-      </div>
 
 
       <div v-if="Object.keys(data).length && !loading" class="pa-4">
@@ -45,9 +46,7 @@
           foundation.
         </p>
 
-        <results-viewer
-          :data="data"
-        />
+        <results-viewer :data="data" />
       </div>
     </template>
   </div>
@@ -66,44 +65,46 @@ export default {
   data() {
     return {
       activeTab: '',
-      wizard: true,
     };
   },
   watch: {
     lineCoordinates(value) {
-      if (value.length === 2) {
+      if (value && value.length === 2) {
         this.getDataForSelection();
       }
     },
   },
   computed: {
     ...mapState({
+      selectedCoordinate: (state) => state.selection.selectedCoordinate,
       lineCoordinates: (state) => state.selection.lineCoordinates,
       data: (state) => state.selection.data,
       loading: (state) => state.selection.loading,
-      error: (state) => state.selection.error
+      error: (state) => state.selection.error,
     }),
+    showWizard() {
+      const hasSelectedCoordinate = this.selectedCoordinate;
+      const wizardParam = this.$route.params.wizard
+
+      return wizardParam && !hasSelectedCoordinate;
+    },
   },
   async mounted() {
-    const { map } = this.$root
+    const { map } = this.$root;
 
     this.SET_ENABLED(true);
 
-    if (this.lineCoordinates.length >= 1 || this.$route.params.wizard === false) {
-      this.wizard = false;
-    }
-
     if (map) {
-      map.getCanvas().style.cursor = "crosshair";
+      map.getCanvas().style.cursor = 'crosshair';
     }
   },
   beforeDestroy() {
-    const { map } = this.$root
+    const { map } = this.$root;
 
     this.SET_LINE_COORDINATES([]);
     this.SET_ENABLED(false);
 
-    map.getCanvas().style.cursor = "pointer";
+    map.getCanvas().style.cursor = 'pointer';
   },
   methods: {
     ...mapActions({
@@ -113,9 +114,6 @@ export default {
       SET_ENABLED: 'selection/SET_ENABLED',
       SET_LINE_COORDINATES: 'selection/SET_LINE_COORDINATES',
     }),
-    handleWizardComplete() {
-      this.wizard = false;
-    },
   },
 };
 </script>
