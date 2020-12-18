@@ -19,8 +19,7 @@
       <!-- Line draw interaction -->
       <map-coordinates-selector
         :disabled="!selectionEnabled"
-        :coordinates="coordinates"
-        @change="handleSelectionUpdated"
+        :coordinates="lineCoordinates"
       />
 
       <!-- Map Layers -->
@@ -56,7 +55,7 @@ export default {
   },
   computed: {
     ...mapState({
-      coordinates: (state) => state.selection.coordinates,
+      lineCoordinates: (state) => state.selection.lineCoordinates,
       selectionEnabled: (state) => state.selection.enabled,
       wmsLayers: (state) => state.mapbox.wmsLayers,
       legendLayer: (state) => state.mapbox.legendLayer
@@ -81,12 +80,26 @@ export default {
     }
   },
   mounted() {
-    window.__map = this.$root.map
+    const { map } = this.$root
+
+    window.__map = map
+
+    map.on('click', this.handleMapClick)
+
+    // show crosshair cursor if we're on the coastal classification route
+    if (this.$route.name === 'coastal-classification') {
+      map.getCanvas().style.cursor = "crosshair";
+    }
   },
   methods: {
     ...mapMutations({
-      setCoordinates: "selection/SET_COORDINATES"
+      setSelectedCoordinate: "selection/SET_SELECTED_COORDINATE",
+      setLineCoordinates: "selection/SET_LINE_COORDINATES"
     }),
+    handleMapClick(event) {
+      const coordinates = Object.values(event.lngLat)
+      this.setSelectedCoordinate(coordinates)
+    },
     onMapCreated(map) {
       this.$root.map = map;
       map.on("load", () => {

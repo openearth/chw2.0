@@ -5,15 +5,19 @@ export default {
 
   state: {
     enabled: false,
-    coordinates: [],
+    selectedCoordinate: null,
+    lineCoordinates: [],
     loading: false,
     error: null,
     data: {},
   },
 
   mutations: {
-    SET_COORDINATES(state, coordinates) {
-      state.coordinates = coordinates;
+    SET_SELECTED_COORDINATE(state, coordinate) {
+      state.selectedCoordinate = coordinate;
+    },
+    SET_LINE_COORDINATES(state, coordinates) {
+      state.lineCoordinates = coordinates;
     },
     SET_ERROR(state, error) {
       state.error = error;
@@ -25,24 +29,43 @@ export default {
       state.data = data;
     },
     SET_ENABLED(state, value) {
-      state.enabled = value
-    }
+      state.enabled = value;
+    },
   },
 
   actions: {
+    async getSelection({ commit, state }) {
+      commit("SET_LOADING", true);
+      commit("SET_ERROR", null);
+
+      const { transect_coordinates, errMsg } = await wps({
+        identifier: "create_transect",
+        functionId: "point",
+        type: "Point",
+        data: JSON.stringify(state.selectedCoordinate),
+      });
+
+      if (errMsg) {
+        commit("SET_ERROR", { message: errMsg });
+      }
+
+      commit("SET_LINE_COORDINATES", transect_coordinates);
+    },
     async getDataForSelection({ state, commit }) {
       commit("SET_LOADING", true);
       commit("SET_ERROR", null);
-      commit("SET_DATA", {})
+      commit("SET_DATA", {});
 
       try {
         const data = await wps({
-          data:  state.coordinates,
+          identifier: "chw2_risk_classification",
+          functionId: "transect",
+          data: JSON.stringify(state.lineCoordinates),
+          type: "LineString"
         });
 
         commit("SET_DATA", data);
       } catch (error) {
-        console.log(error)
         commit("SET_ERROR", { code: error.response.status });
       }
 
