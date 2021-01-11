@@ -29,7 +29,7 @@
         :options="layer"
       />
 
-      <map-legend v-if="legendLayer" :legendLayer="legendLayer" /> 
+      <map-legend v-if="legendLayer" :legendLayer="legendLayer" :geoserverUrl="legendUrl" /> 
     </v-mapbox>
   </div>
 </template>
@@ -58,7 +58,8 @@ export default {
       lineCoordinates: (state) => state.selection.lineCoordinates,
       selectionEnabled: (state) => state.selection.enabled,
       wmsLayers: (state) => state.mapbox.wmsLayers,
-      legendLayer: (state) => state.mapbox.legendLayer
+      legendLayer: (state) => state.mapbox.legendLayer,
+      legendUrl: (state) => state.mapbox.legendUrl
     }),
     mapBoxToken() {
       return process.env.VUE_APP_MAPBOX_TOKEN; 

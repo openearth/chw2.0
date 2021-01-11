@@ -18,7 +18,12 @@ export default {
     legendLayer: {
       type: String,
       required: true
+    },
+    geoserverUrl: { 
+      type: String, 
+      required: true
     }
+
   },
   data() {
     return {
@@ -28,7 +33,7 @@ export default {
   },
   computed: {
     legendUrl() {
-      return buildLegendUrl(this.legendLayer, 40, 20, this.scale);
+      return buildLegendUrl(this.legendLayer, 40, 20, this.scale, this.geoserverUrl);
     },
   },
   mounted() {

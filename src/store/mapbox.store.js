@@ -8,6 +8,7 @@ export default {
     layers: [],
     layerVisibilityProxies: [],
     legendLayer: null,
+    legendUrl: null,
   },
   mutations: {
     SET_LAYERS(state, layers) {
@@ -19,6 +20,9 @@ export default {
     },
     SET_LEGEND_LAYER(state, layer) {
       state.legendLayer = layer;
+    },
+    SET_LEGEND_URL(state, url) {
+      state.legendUrl = url;
     },
     UPDATE_LAYER_INDEX(state, { id, index }) {
       const wmsLayer = state.wmsLayers.find((layer) => id === layer.id);

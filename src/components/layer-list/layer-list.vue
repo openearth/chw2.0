@@ -17,7 +17,7 @@
           v-if="item.layer && selected"
           icon
           class="ml-auto"
-          @click="handleLegendClick(item.id)"
+          @click="handleLegendClick(item)"
         >
           <v-icon
             >mdi-card-bulleted{{
@@ -111,8 +111,9 @@ export default {
 
       this.emitOutPut()
     },
-    handleLegendClick(id) {
-      this.$emit('legendChange', id);
+    handleLegendClick(item) {
+      this.$emit('legendChange', item.id);
+      this.$emit('geoserverUrlChange', item.url);
     },
     emitOutPut() {
       const withIndex = addIndex(this.layers)

@@ -14,6 +14,7 @@ export default function({
   }
 
   const params = stringify({
+    url,
     service,
     request,
     width,
