@@ -160,5 +160,17 @@
         "url": "https://coastalhazardwheel.avi.deltares.nl/geoserver/ows"
       }
     ]
+  },
+  {
+    "id": "coastline",
+    "name": "Coastline",
+    "children": [
+      {
+        "id": "chw2-vector:osm_coastline",
+        "name": "coastline",
+        "layer": "chw2-vector:osm_coastline",
+        "url": "https://coastalhazardwheel.avi.deltares.nl/geoserver/ows"
+      }
+    ]
   }
 ]
