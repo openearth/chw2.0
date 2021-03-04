@@ -14,6 +14,16 @@ export default {
     SET_LAYERS(state, layers) {
       state.wmsLayers = layers
     },
+    ADD_WMS_LAYER(state, newLayer) {
+      const layerExists = state.wmsLayers.some(storedLayer => storedLayer.id === newLayer.id);
+
+      if(!layerExists) {
+        state.wmsLayers = [
+          ...state.wmsLayers, 
+          newLayer
+        ];
+      }
+    },
     CLEAR_WMS_LAYERS(state) {
       state.wmsLayers = [];
       state.legendLayer = null;

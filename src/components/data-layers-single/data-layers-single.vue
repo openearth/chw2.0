@@ -32,6 +32,7 @@
 <script>
 import findInTree from '@/lib/find-in-tree'
 
+
 export default {
   props: {
     layers: Array,

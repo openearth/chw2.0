@@ -1,10 +1,17 @@
 <template>
   <div>
     <div class="pa-4 pb-0">
+      <h2 class="h2">Hazards</h2>
+      <v-divider class="mt-4" />
+    </div>
+      <data-layers-single
+      :layers="hazardlayers"
+      @change="handleChangeHazard"
+    />
+     <div class="pa-4 pb-0">
       <h2 class="h2">Data</h2>
       <v-divider class="mt-4" />
     </div>
-
     <layer-list
       :layers="layers"
       :active-legend="legendLayer"
@@ -19,16 +26,20 @@
 import { mapMutations, mapState } from 'vuex';
 import buildWmsLayer from "@/lib/build-wms-layer";
 import LayerList from "@/components/layer-list";
+import DataLayersSingle from "@/components/data-layers-single";
 
 import layers from "@/data/datalayers.json";
+import hazardlayers from "@/data/hazardlayers.json";
 
 export default {
   components: {
     LayerList,
+    DataLayersSingle,
   },
   data() {
     return {
       layers,
+      hazardlayers,
     };
   },
   computed: {
@@ -60,6 +71,11 @@ export default {
         this.SET_LEGEND_LAYER(layers[0].id)
         this.SET_LEGEND_URL(layers[0].url)
       }
+    },
+    handleChangeHazard(layer) {
+      const wmsLayer = buildWmsLayer(layer)
+      this.$store.commit("mapbox/CLEAR_WMS_LAYERS") 
+      this.$store.commit("mapbox/ADD_WMS_LAYER", wmsLayer) 
     },
     handleLegendChange(id) {
       this.SET_LEGEND_LAYER(id)

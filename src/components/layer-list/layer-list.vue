@@ -3,7 +3,6 @@
     :items="layersWithParents"
     @input="handleChange"
     selectable
-    open-all
   >
     <template v-slot:label="{ item, selected }">
       <div class="d-flex align-center">
@@ -97,9 +96,8 @@ export default {
     },
     handleChange(ids) {
       this.selected = ids.map((id) => findInTree(this.layers, 'id', id).id);
-
       this.emitOutPut()
-    },
+    }, 
     handleOrderUpdate(event) {
       const { oldDraggableIndex, newDraggableIndex, item: $item } = event;
 
