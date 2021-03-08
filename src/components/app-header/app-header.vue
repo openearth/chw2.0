@@ -8,7 +8,7 @@
 
     <v-spacer />
 
-    <v-tabs background-color="primary" dark right style="width: auto">
+    <v-tabs  right style="width: auto">
       <v-tab :to="{ name: 'home' }" exact> Introduction </v-tab>
       <v-tab :to="{ name: 'coastal-classification' }"> Coastal classification </v-tab>
       <v-tab :to="{ name: 'mapping' }"> Mapping </v-tab>

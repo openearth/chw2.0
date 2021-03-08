@@ -15,8 +15,10 @@
     </div>
 
     <div class="d-flex pt-4">
-      <v-btn
-        class="primary ml-auto"
+      <v-btn 
+        color = "primary"
+        dark
+        class="ml-auto" 
         :to="{ name: 'coastal-classification', params: { wizard: true } }"
         >Get started</v-btn
       >
@@ -53,7 +55,7 @@ export default {
 };
 </script>
 
-<style>
+<style >
 .home {
   height: 100%;
   overflow: hidden;
@@ -72,4 +74,3 @@ export default {
 .home__logos img {
   height: 100%;
 }
-</style>
