@@ -16,22 +16,17 @@
       <v-card-actions>
         <div class="pa-2" style="width:100%">
           <form action="" submit.prevent>
-            <v-checkbox
+            <v-checkbox color= "#1b396d" 
               label="I agree with the Conditions of Use"
               class="ma-0"
-              v-model="accepted1"
+              v-model="accepted"
               hide-details
             />
-            <v-checkbox
-              label="I consent with the use of cookies"
-              class="ma-0"
-              v-model="accepted2"
-              hide-details
-            />
+            
           </form>
           <div class="mt-2 d-flex">
             <v-spacer></v-spacer>
-            <v-btn
+            <v-btn 
               color="primary"
               :disabled="!allAccepted"
               @click="onStartClick"
@@ -52,8 +47,8 @@ import content from '../../content/legal.md'
 export default {
   data: () => ({
     content,
-    accepted1: false,
-    accepted2: false,
+    accepted: false,
+    
   }),
   computed: {
     ...mapState({
@@ -63,7 +58,8 @@ export default {
       return !this.acceptedLegal
     },
     allAccepted() {
-      return this.accepted1 && this.accepted2;
+      console.log('this.accepted')
+      return this.accepted;
     },
   },
   methods: {
