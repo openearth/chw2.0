@@ -44,6 +44,7 @@ import MapCoordinatesSelector from './map-coordinates-selector.js';
 import MapControlBaselayer from './map-control-baselayer';
 import MapControlFitbounds from './map-control-fitbounds';
 import MapLegend from './map-legend';
+import mapboxgl from 'mapbox-gl'
 // import bbox from '@turf/bbox'
 // import { lineString } from '@turf/helpers'
 
@@ -82,11 +83,8 @@ export default {
       this.sortLayers() 
     },
     lineCoordinates() {
-      // zoom to extent
-      this.$root.map.fitBounds(this.lineCoordinates, {
-        padding: 100,
-        maxZoom: 12
-      })
+      // zoom to extent of transect
+      this.zoomToLineExtent()
     }
   },
   mounted() {
@@ -145,6 +143,16 @@ export default {
         map.moveLayer(layer.id, before);
       })
     },
+    // zooms to the enxtent of the created transect
+    zoomToLineExtent() {
+      var sw = new mapboxgl.LngLat(this.lineCoordinates[0][0], this.lineCoordinates[0][1]);
+      var ne = new mapboxgl.LngLat(this.lineCoordinates[1][0], this.lineCoordinates[1][1]);
+      var llb = new mapboxgl.LngLatBounds(sw, ne);
+      this.$root.map.fitBounds(llb, {
+        padding: 100,
+        maxZoom: 12
+      })
+  },
     // listens for when a layer is loaded by mapbox
     async layerLoaded(id) {
       const { map } = this.$root
@@ -167,7 +175,7 @@ export default {
         })
       }
     }
-  }
+  },
 };
 </script>
 
