@@ -44,6 +44,8 @@ import MapCoordinatesSelector from './map-coordinates-selector.js';
 import MapControlBaselayer from './map-control-baselayer';
 import MapControlFitbounds from './map-control-fitbounds';
 import MapLegend from './map-legend';
+// import bbox from '@turf/bbox'
+// import { lineString } from '@turf/helpers'
 
 export default {
   components: {
@@ -78,6 +80,13 @@ export default {
   watch: {
     wmsLayers() {
       this.sortLayers() 
+    },
+    lineCoordinates() {
+      // zoom to extent
+      this.$root.map.fitBounds(this.lineCoordinates, {
+        padding: 100,
+        maxZoom: 12
+      })
     }
   },
   mounted() {
