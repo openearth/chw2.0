@@ -22,7 +22,6 @@
               v-model="accepted"
               hide-details
             />
-            
           </form>
           <div class="mt-2 d-flex">
             <v-spacer></v-spacer>
@@ -58,7 +57,6 @@ export default {
       return !this.acceptedLegal
     },
     allAccepted() {
-      console.log('this.accepted')
       return this.accepted;
     },
   },
