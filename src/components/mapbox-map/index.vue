@@ -29,6 +29,12 @@
         :options="layer"
       />
 
+      <map-layer
+        v-for="layer in wmsHazardLayers"
+        :key="layer.id"
+        :options="layer"
+      />
+
       <map-legend v-if="legendLayer" :legendLayer="legendLayer" :geoserverUrl="legendUrl" /> 
     </v-mapbox>
   </div>
@@ -61,6 +67,7 @@ export default {
       lineCoordinates: (state) => state.selection.lineCoordinates,
       selectionEnabled: (state) => state.selection.enabled,
       wmsLayers: (state) => state.mapbox.wmsLayers,
+      wmsHazardLayers: (state) => state.mapbox.wmsHazardLayers,
       legendLayer: (state) => state.mapbox.legendLayer,
       legendUrl: (state) => state.mapbox.legendUrl
     }),
@@ -84,7 +91,9 @@ export default {
     },
     lineCoordinates() {
       // zoom to extent of transect
-      this.zoomToLineExtent()
+      if (this.lineCoordinates.length) {
+        this.zoomToLineExtent()
+      }  
     }
   },
   mounted() {
@@ -141,6 +150,7 @@ export default {
         }))
 
         map.moveLayer(layer.id, before);
+        console.log('map.movelayer', layer.id, before)
       })
     },
     // zooms to the enxtent of the created transect
