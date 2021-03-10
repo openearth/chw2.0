@@ -4,11 +4,11 @@
       <h2 class="h2">Hazards</h2>
       <v-divider class="mt-4" />
     </div>
-      <data-layers-single
+    <data-layers-single
       :layers="hazardlayers"
       @change="handleChangeHazard"
     />
-     <div class="pa-4 pb-0">
+    <div class="pa-4 pb-0">
       <h2 class="h2">Data</h2>
       <v-divider class="mt-4" />
     </div>
@@ -31,6 +31,7 @@ import DataLayersSingle from "@/components/data-layers-single";
 import layers from "@/data/datalayers.json";
 import hazardlayers from "@/data/hazardlayers.json";
 
+
 export default {
   components: {
     LayerList,
@@ -50,6 +51,7 @@ export default {
   },
   destroyed() {
     this.$store.commit("mapbox/CLEAR_WMS_LAYERS") 
+    this.$store.commit("mapbox/CLEAR_WMS_HAZARD_LAYERS")
   },
   methods: {
     ...mapMutations({
@@ -74,8 +76,7 @@ export default {
     },
     handleChangeHazard(layer) {
       const wmsLayer = buildWmsLayer(layer)
-      // this.$store.commit("mapbox/CLEAR_WMS_LAYERS")  
-      console.log('add hazard layer', wmsLayer)
+      this.$store.commit("mapbox/CLEAR_WMS_HAZARD_LAYERS")  
       this.$store.commit("mapbox/ADD_WMS_HAZARD_LAYER", wmsLayer) 
     },
     handleLegendChange(id) {
