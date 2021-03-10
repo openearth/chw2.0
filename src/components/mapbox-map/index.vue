@@ -21,19 +21,22 @@
         :disabled="!selectionEnabled"
         :coordinates="lineCoordinates"
       />
-
       <!-- Map Layers -->
-      <map-layer
-        v-for="layer in wmsLayers"
-        :key="layer.id"
-        :options="layer"
-      />
 
       <map-layer
         v-for="layer in wmsHazardLayers"
         :key="layer.id"
         :options="layer"
       />
+      
+      <map-layer
+        v-for="layer in wmsLayers"
+        :key="layer.id"
+        :options="layer"
+        :before="wmsHazardId"
+      />
+
+
 
       <map-legend v-if="legendLayer" :legendLayer="legendLayer" :geoserverUrl="legendUrl" /> 
     </v-mapbox>
@@ -85,9 +88,19 @@ export default {
       return MAP_BASELAYERS;
     }
   },
+  data () {
+    return {
+      wmsHazardId: null
+    };
+  },
   watch: {
     wmsLayers() {
       this.sortLayers() 
+    },
+    wmsHazardLayers() {
+      if (this.wmsHazardLayers.length) {
+        this.wmsHazardId = this.wmsHazardLayers[0].id
+      }
     },
     lineCoordinates() {
       // zoom to extent of transect
@@ -142,15 +155,19 @@ export default {
       // processing needs te be done in order, otherwise the internal layer order
       // of mapbox will be messed up
       this.wmsLayers.map(async (layer, index) => {
+        
         const before = this.wmsLayers[index - 1] && this.wmsLayers[index - 1].id
-
+        const hazardId = this.wmsHazardLayers[0] && this.wmsHazardLayers[0].id
+  
         // wait until layers are both loaded before proceeding
-        await Promise.all([layer.id, before].map(async id => {
-          await this.layerLoaded(id) 
+        await Promise.all([layer.id, before, hazardId].map(async id => {
+          await this.layerLoaded(id)  
         }))
-
+        
+        map.moveLayer(layer.id, hazardId);
         map.moveLayer(layer.id, before);
-        console.log('map.movelayer', layer.id, before)
+        
+        
       })
     },
     // zooms to the enxtent of the created transect
