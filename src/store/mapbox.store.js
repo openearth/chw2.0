@@ -9,23 +9,26 @@ export default {
     layerVisibilityProxies: [],
     legendLayer: null,
     legendUrl: null,
+    wmsHazardLayers: [],
   },
   mutations: {
     SET_LAYERS(state, layers) {
       state.wmsLayers = layers
     },
-    ADD_WMS_LAYER(state, newLayer) {
-      const layerExists = state.wmsLayers.some(storedLayer => storedLayer.id === newLayer.id);
+    ADD_WMS_HAZARD_LAYER(state, newLayer) {
+      console.log('committed')
+      const layerExists = state.wmsHazardLayers.some(storedLayer => storedLayer.id === newLayer.id);
 
       if(!layerExists) {
-        state.wmsLayers = [
-          ...state.wmsLayers, 
+        state.wmsHazardLayers = [
+          ...state.wmsHazardLayers, 
           newLayer
         ];
       }
     },
     CLEAR_WMS_LAYERS(state) {
       state.wmsLayers = [];
+      // state.wmsHazardLayers = [];
       state.legendLayer = null;
     },
     SET_LEGEND_LAYER(state, layer) {
