@@ -74,8 +74,9 @@ export default {
     },
     handleChangeHazard(layer) {
       const wmsLayer = buildWmsLayer(layer)
-      this.$store.commit("mapbox/CLEAR_WMS_LAYERS") 
-      this.$store.commit("mapbox/ADD_WMS_LAYER", wmsLayer) 
+      // this.$store.commit("mapbox/CLEAR_WMS_LAYERS")  
+      console.log('add hazard layer', wmsLayer)
+      this.$store.commit("mapbox/ADD_WMS_HAZARD_LAYER", wmsLayer) 
     },
     handleLegendChange(id) {
       this.SET_LEGEND_LAYER(id)
