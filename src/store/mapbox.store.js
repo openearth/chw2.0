@@ -16,7 +16,6 @@ export default {
       state.wmsLayers = layers
     },
     ADD_WMS_HAZARD_LAYER(state, newLayer) {
-      console.log('committed')
       const layerExists = state.wmsHazardLayers.some(storedLayer => storedLayer.id === newLayer.id);
 
       if(!layerExists) {
@@ -28,8 +27,11 @@ export default {
     },
     CLEAR_WMS_LAYERS(state) {
       state.wmsLayers = [];
-      // state.wmsHazardLayers = [];
       state.legendLayer = null;
+    },
+    CLEAR_WMS_HAZARD_LAYERS(state) {
+      state.wmsHazardLayers = [];
+      // add also the legendLayer after.
     },
     SET_LEGEND_LAYER(state, layer) {
       state.legendLayer = layer;
