@@ -28,17 +28,15 @@
         :key="layer.id"
         :options="layer"
       />
-      
+      <map-legend v-if="hazardLegendLayer" :legendLayer="hazardLegendLayer" :geoserverUrl="hazardLegendUrl" />
       <map-layer
         v-for="layer in wmsLayers"
         :key="layer.id"
         :options="layer"
         :before="wmsHazardId"
       />
-
-
-
       <map-legend v-if="legendLayer" :legendLayer="legendLayer" :geoserverUrl="legendUrl" /> 
+      
     </v-mapbox>
   </div>
 </template>
@@ -74,6 +72,12 @@ export default {
       legendLayer: (state) => state.mapbox.legendLayer,
       legendUrl: (state) => state.mapbox.legendUrl
     }),
+    hazardLegendLayer() {
+      return this.$store.getters['mapbox/hazardLegendLayer']
+    },
+    hazardLegendUrl() {
+      return this.$store.getters['mapbox/hazardLegendUrl']
+    },
     mapBoxToken() {
       return process.env.VUE_APP_MAPBOX_TOKEN; 
     },
