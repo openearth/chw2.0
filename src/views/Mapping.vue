@@ -6,7 +6,10 @@
     </div>
     <data-layers-single
       :layers="hazardlayers"
+      :activeLegendLayer="hazardLegendLayer || ''"
       @change="handleChangeHazard"
+      @updateLegend="onLegendChange"
+      
     />
     <div class="pa-4 pb-0">
       <h2 class="h2">Data</h2>
@@ -48,6 +51,12 @@ export default {
       legendLayer: state => state.mapbox.legendLayer,
       wmsLayers: state => state.mapbox.wmsLayers
     }),
+    hazardLegendLayer() {
+      return this.$store.getters['mapbox/hazardLegendLayer'];
+    },
+    hazardLegendUrl() {
+      return this.$store.getters['mapbox/hazardLegendUrl'];
+    },
   },
   destroyed() {
     this.$store.commit("mapbox/CLEAR_WMS_LAYERS") 
@@ -84,7 +93,14 @@ export default {
     },
     handleGeoserverUrlChange(url) {
       this.SET_LEGEND_URL(url)
-    }
+    },
+    onLegendChange(layer) {
+      this.$store.commit('mapbox/SET_HAZARD_LEGEND_LAYER', this.hazardLegendLayer === layer.layer ? null : layer.layer)
+      this.$store.commit('mapbox/SET_HAZARD_LEGEND_URL', this.hazardLegendUrl === layer.url ? null : layer.url)
+    },
+
   },
+
+
 };
 </script>
