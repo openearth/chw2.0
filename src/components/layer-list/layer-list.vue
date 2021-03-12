@@ -3,6 +3,7 @@
     :items="layersWithParents"
     @input="handleChange"
     selectable
+    selected-color="primary"
   >
     <template v-slot:label="{ item, selected }">
       <div class="d-flex align-center">
