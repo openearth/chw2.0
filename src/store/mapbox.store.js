@@ -8,8 +8,15 @@ export default {
     layers: [],
     layerVisibilityProxies: [],
     legendLayer: null,
+    hazardLegendLayer: null,
     legendUrl: null,
+    hazardLegendUrl: null,
     wmsHazardLayers: [],
+  },
+  getters: {
+    hazardLegendLayer: state => state.hazardLegendLayer,
+    hazardLegendUrl: state => state.hazardLegendUrl,
+
   },
   mutations: {
     SET_LAYERS(state, layers) {
@@ -38,6 +45,12 @@ export default {
     },
     SET_LEGEND_URL(state, url) {
       state.legendUrl = url;
+    },
+    SET_HAZARD_LEGEND_LAYER(state, layer) {
+      state.hazardLegendLayer = layer;
+    },
+    SET_HAZARD_LEGEND_URL(state, url) {
+      state.hazardLegendUrl = url;
     },
     UPDATE_LAYER_INDEX(state, { id, index }) {
       const wmsLayer = state.wmsLayers.find((layer) => id === layer.id);
