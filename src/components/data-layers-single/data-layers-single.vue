@@ -16,14 +16,18 @@
       <template
         v-slot:label="{ item }"
       >
+      <div class="d-flex align-center">
         <v-radio
           v-if="item.layer"
           :label="item.name"
           :value="valueFor(item)"
         ></v-radio>
-        <template v-else>
-          {{ item.name }}
-        </template>
+         <v-btn class="ml-auto" icon @click.stop="$emit('updateLegend', item)">
+          <v-icon>mdi-card-bulleted{{
+              item.layer === activeLegendLayer ? '' : '-off'
+            }}-outline</v-icon>
+        </v-btn>
+      </div>
       </template>
     </v-treeview>
   </v-radio-group>
@@ -36,7 +40,11 @@ import findInTree from '@/lib/find-in-tree'
 export default {
   props: {
     layers: Array,
-    value: null
+    value: null,
+    activeLegendLayer: {
+      type: String,
+      required: true
+    }
   },
   data: () => ({
     input: null,
