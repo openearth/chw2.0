@@ -55,7 +55,7 @@ export default {
 };
 </script>
 
-<style >
+<style>
 .home {
   height: 100%;
   overflow: hidden;
@@ -74,3 +74,6 @@ export default {
 .home__logos img {
   height: 100%;
 }
+
+
+</style>
