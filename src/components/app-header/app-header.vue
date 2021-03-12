@@ -37,6 +37,9 @@
         <v-list-item :to="{ name: 'legal' }">
           <v-list-item-title>Legal</v-list-item-title>
         </v-list-item>
+        <v-list-item :to="{ name: 'references' }">
+          <v-list-item-title>References</v-list-item-title>
+        </v-list-item>
       </v-list>
     </v-menu>
   </v-app-bar>
