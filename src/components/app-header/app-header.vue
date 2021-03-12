@@ -8,7 +8,7 @@
 
     <v-spacer />
 
-    <v-tabs background-color="primary" dark right style="width: auto">
+    <v-tabs  right style="width: auto">
       <v-tab :to="{ name: 'home' }" exact> Introduction </v-tab>
       <v-tab :to="{ name: 'coastal-classification' }"> Coastal classification </v-tab>
       <v-tab :to="{ name: 'mapping' }"> Mapping </v-tab>
@@ -36,6 +36,9 @@
       <v-list>
         <v-list-item :to="{ name: 'legal' }">
           <v-list-item-title>Legal</v-list-item-title>
+        </v-list-item>
+        <v-list-item :to="{ name: 'references' }">
+          <v-list-item-title>References</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>

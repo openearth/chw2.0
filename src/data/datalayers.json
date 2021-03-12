@@ -1,41 +1,5 @@
 [
   {
-    "id": "hazardmaps",
-    "name": "Inherent hazard level",
-    "children": [
-      {
-        "name": "Ecosystem disruption",
-        "id": "chw2-vector:coast_segments_ecosystem",
-        "layer": "chw2-vector:coast_segments_ecosystem",
-        "url": "https://coastalhazardwheel.avi.deltares.nl/geoserver/ows"
-      },
-      {
-        "name": "Gradual inundation",
-        "id": "chw2-vector:coast_segments_inundation",
-        "layer": "chw2-vector:coast_segments_inundation",
-        "url": "https://coastalhazardwheel.avi.deltares.nl/geoserver/ows"
-      },
-      {
-        "name": "Salt water intrusion",
-        "id": "chw2-vector:coast_segments_salt",
-        "layer": "chw2-vector:coast_segments_salt",
-        "url": "https://coastalhazardwheel.avi.deltares.nl/geoserver/ows"
-      },
-      {
-        "name": "Erosion",
-        "id": "chw2-vector:coast_segments_erosion",
-        "layer": "chw2-vector:coast_segments_erosion",
-        "url": "https://coastalhazardwheel.avi.deltares.nl/geoserver/ows"
-      },
-      {
-        "id": "chw2-vector:coast_segments_flooding",
-        "name": "Flooding",
-        "layer": "chw2-vector:coast_segments_flooding",
-        "url": "https://coastalhazardwheel.avi.deltares.nl/geoserver/ows"
-      }
-    ]
-  },
-  {
     "id": "socioeconomics",
     "name": "Socio economics",
     "children": [

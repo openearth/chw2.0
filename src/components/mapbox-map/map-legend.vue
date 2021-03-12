@@ -17,11 +17,11 @@ export default {
   props: {
     legendLayer: {
       type: String,
-      required: true
+      required: false
     },
     geoserverUrl: { 
       type: String, 
-      required: true
+      required: false
     }
 
   },

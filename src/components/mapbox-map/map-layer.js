@@ -11,6 +11,11 @@ export default {
       },
       type: [Object, String]
     },
+    // allows to place a layer before another
+    before: {
+      type: String,
+      required: false
+    }
   },
   data() {
     return {

@@ -14,32 +14,24 @@
       <div class="px-5 flex-grow-1 overflow-y-auto" v-html="content" />
 
       <v-card-actions>
-        <div class="pa-2" style="width:100%">
-          <form action="" submit.prevent>
-            <v-checkbox
-              label="I agree with the Conditions of Use"
-              class="ma-0"
-              v-model="accepted1"
-              hide-details
-            />
-            <v-checkbox
-              label="I consent with the use of cookies"
-              class="ma-0"
-              v-model="accepted2"
-              hide-details
-            />
+          <form action="" submit.prevent style="width:100%" >
+            <div class="d-flex pa-2" >
+              <v-checkbox color= "#1b396d" 
+                label="I agree with the Conditions of Use"
+                class="ma-1"
+                v-model="accepted"
+                hide-details
+              />
+              <v-btn 
+                color="primary"
+                :disabled="!allAccepted"
+                @click="onStartClick"
+                class="ml-auto"
+              >
+                Continue
+              </v-btn>
+           </div>
           </form>
-          <div class="mt-2 d-flex">
-            <v-spacer></v-spacer>
-            <v-btn
-              color="primary"
-              :disabled="!allAccepted"
-              @click="onStartClick"
-            >
-              I agree
-            </v-btn>
-          </div>
-        </div>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -52,8 +44,8 @@ import content from '../../content/legal.md'
 export default {
   data: () => ({
     content,
-    accepted1: false,
-    accepted2: false,
+    accepted: false,
+    
   }),
   computed: {
     ...mapState({
@@ -63,7 +55,7 @@ export default {
       return !this.acceptedLegal
     },
     allAccepted() {
-      return this.accepted1 && this.accepted2;
+      return this.accepted;
     },
   },
   methods: {

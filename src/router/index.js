@@ -9,6 +9,7 @@ const CoastalClassification = () =>
 const Mapping = () => import(/* webpackChunkName: "Mapping" */ "../views/Mapping.vue")
 const Home = () => import(/* webpackChunkName: "Home" */ "../views/Home.vue")
 const Legal = () => import(/* webpackChunkName: "Legal" */ "../views/Legal.vue")
+const References = () => import(/* webpackChunkName: "References" */ "../views/References.vue")
 
 Vue.use(VueRouter);
 
@@ -34,6 +35,12 @@ const routes = [
     name: "legal",
     component: Legal,
   },
+  {
+    path: "/references",
+    name: "references",
+    component: References,
+  },
+  /* add refe */
 ];
 
 const router = new VueRouter({

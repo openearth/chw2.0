@@ -1,10 +1,20 @@
 <template>
   <div>
     <div class="pa-4 pb-0">
+      <h2 class="h2">Hazards</h2>
+      <v-divider class="mt-4" />
+    </div>
+    <data-layers-single
+      :layers="hazardlayers"
+      :activeLegendLayer="hazardLegendLayer || ''"
+      @change="handleChangeHazard"
+      @updateLegend="onLegendChange"
+      
+    />
+    <div class="pa-4 pb-0">
       <h2 class="h2">Data</h2>
       <v-divider class="mt-4" />
     </div>
-
     <layer-list
       :layers="layers"
       :active-legend="legendLayer"
@@ -19,16 +29,21 @@
 import { mapMutations, mapState } from 'vuex';
 import buildWmsLayer from "@/lib/build-wms-layer";
 import LayerList from "@/components/layer-list";
+import DataLayersSingle from "@/components/data-layers-single";
 
 import layers from "@/data/datalayers.json";
+import hazardlayers from "@/data/hazardlayers.json";
+
 
 export default {
   components: {
     LayerList,
+    DataLayersSingle,
   },
   data() {
     return {
       layers,
+      hazardlayers,
     };
   },
   computed: {
@@ -36,9 +51,16 @@ export default {
       legendLayer: state => state.mapbox.legendLayer,
       wmsLayers: state => state.mapbox.wmsLayers
     }),
+    hazardLegendLayer() {
+      return this.$store.getters['mapbox/hazardLegendLayer'];
+    },
+    hazardLegendUrl() {
+      return this.$store.getters['mapbox/hazardLegendUrl'];
+    },
   },
   destroyed() {
     this.$store.commit("mapbox/CLEAR_WMS_LAYERS") 
+    this.$store.commit("mapbox/CLEAR_WMS_HAZARD_LAYERS")
   },
   methods: {
     ...mapMutations({
@@ -61,12 +83,24 @@ export default {
         this.SET_LEGEND_URL(layers[0].url)
       }
     },
+    handleChangeHazard(layer) {
+      const wmsLayer = buildWmsLayer(layer)
+      this.$store.commit("mapbox/CLEAR_WMS_HAZARD_LAYERS")  
+      this.$store.commit("mapbox/ADD_WMS_HAZARD_LAYER", wmsLayer) 
+    },
     handleLegendChange(id) {
       this.SET_LEGEND_LAYER(id)
     },
     handleGeoserverUrlChange(url) {
       this.SET_LEGEND_URL(url)
-    }
+    },
+    onLegendChange(layer) {
+      this.$store.commit('mapbox/SET_HAZARD_LEGEND_LAYER', this.hazardLegendLayer === layer.layer ? null : layer.layer)
+      this.$store.commit('mapbox/SET_HAZARD_LEGEND_URL', this.hazardLegendUrl === layer.url ? null : layer.url)
+    },
+
   },
+
+
 };
 </script>

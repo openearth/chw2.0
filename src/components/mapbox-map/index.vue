@@ -21,15 +21,22 @@
         :disabled="!selectionEnabled"
         :coordinates="lineCoordinates"
       />
-
       <!-- Map Layers -->
+
+      <map-layer
+        v-for="layer in wmsHazardLayers"
+        :key="layer.id"
+        :options="layer"
+      />
+      <map-legend v-if="hazardLegendLayer" :legendLayer="hazardLegendLayer" :geoserverUrl="hazardLegendUrl" />
       <map-layer
         v-for="layer in wmsLayers"
         :key="layer.id"
         :options="layer"
+        :before="wmsHazardId"
       />
-
       <map-legend v-if="legendLayer" :legendLayer="legendLayer" :geoserverUrl="legendUrl" /> 
+      
     </v-mapbox>
   </div>
 </template>
@@ -44,6 +51,9 @@ import MapCoordinatesSelector from './map-coordinates-selector.js';
 import MapControlBaselayer from './map-control-baselayer';
 import MapControlFitbounds from './map-control-fitbounds';
 import MapLegend from './map-legend';
+import mapboxgl from 'mapbox-gl'
+// import bbox from '@turf/bbox'
+// import { lineString } from '@turf/helpers'
 
 export default {
   components: {
@@ -58,9 +68,16 @@ export default {
       lineCoordinates: (state) => state.selection.lineCoordinates,
       selectionEnabled: (state) => state.selection.enabled,
       wmsLayers: (state) => state.mapbox.wmsLayers,
+      wmsHazardLayers: (state) => state.mapbox.wmsHazardLayers,
       legendLayer: (state) => state.mapbox.legendLayer,
       legendUrl: (state) => state.mapbox.legendUrl
     }),
+    hazardLegendLayer() {
+      return this.$store.getters['mapbox/hazardLegendLayer']
+    },
+    hazardLegendUrl() {
+      return this.$store.getters['mapbox/hazardLegendUrl']
+    },
     mapBoxToken() {
       return process.env.VUE_APP_MAPBOX_TOKEN; 
     },
@@ -75,9 +92,25 @@ export default {
       return MAP_BASELAYERS;
     }
   },
+  data () {
+    return {
+      wmsHazardId: null
+    };
+  },
   watch: {
     wmsLayers() {
       this.sortLayers() 
+    },
+    wmsHazardLayers() {
+      if (this.wmsHazardLayers.length) {
+        this.wmsHazardId = this.wmsHazardLayers[0].id
+      }
+    },
+    lineCoordinates() {
+      // zoom to extent of transect
+      if (this.lineCoordinates.length) {
+        this.zoomToLineExtent()
+      }  
     }
   },
   mounted() {
@@ -126,16 +159,31 @@ export default {
       // processing needs te be done in order, otherwise the internal layer order
       // of mapbox will be messed up
       this.wmsLayers.map(async (layer, index) => {
+        
         const before = this.wmsLayers[index - 1] && this.wmsLayers[index - 1].id
-
+        const hazardId = this.wmsHazardLayers[0] && this.wmsHazardLayers[0].id
+  
         // wait until layers are both loaded before proceeding
-        await Promise.all([layer.id, before].map(async id => {
-          await this.layerLoaded(id) 
+        await Promise.all([layer.id, before, hazardId].map(async id => {
+          await this.layerLoaded(id)  
         }))
-
+        
+        map.moveLayer(layer.id, hazardId);
         map.moveLayer(layer.id, before);
+        
+        
       })
     },
+    // zooms to the enxtent of the created transect
+    zoomToLineExtent() {
+      var sw = new mapboxgl.LngLat(this.lineCoordinates[0][0], this.lineCoordinates[0][1]);
+      var ne = new mapboxgl.LngLat(this.lineCoordinates[1][0], this.lineCoordinates[1][1]);
+      var llb = new mapboxgl.LngLatBounds(sw, ne);
+      this.$root.map.fitBounds(llb, {
+        padding: 100,
+        maxZoom: 12
+      })
+  },
     // listens for when a layer is loaded by mapbox
     async layerLoaded(id) {
       const { map } = this.$root
@@ -158,7 +206,7 @@ export default {
         })
       }
     }
-  }
+  },
 };
 </script>
 
