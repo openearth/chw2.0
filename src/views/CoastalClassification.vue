@@ -30,19 +30,13 @@
 
       <div v-if="Object.keys(data).length && !loading" class="pa-4">
         <p>
-          The points form a line that is used to derive coastal characteristics.
-          These characteristics are the basis for a description of the coastal
-          environment. Bear in mind that the data used is global data and there
-          can deviate from the local situation. In general the global data can
-          be quite coarse. If you want to use your own datasets, please get in
-          contact with the
+          The coastal classification is displayed below with the line representing the specific coastal location. The information displayed is the coastal classification layers, coastal type, hazard profile, risk parameters and relevant hazard management measures. Please note that the classification is based on global datasets and can deviate from the local situation. If you want to make use of special national datasets, please get in touch with us at 
           <a
             href="https://coastalhazardwheel.org"
             rel="noopener noreferrer"
             target="_blank"
             >coastalhazardwheel.org</a
           >
-          foundation.
         </p>
 
         <results-viewer :data="data" />

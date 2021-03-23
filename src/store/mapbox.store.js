@@ -38,6 +38,7 @@ export default {
     },
     CLEAR_WMS_HAZARD_LAYERS(state) {
       state.wmsHazardLayers = [];
+      state.hazardLegendLayer = null;
       // add also the legendLayer after.
     },
     SET_LEGEND_LAYER(state, layer) {

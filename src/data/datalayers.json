@@ -70,12 +70,6 @@
     "name": "Flora/fauna",
     "children": [
       {
-        "id": "chw2-raster:GLOBCOVER_L4_200901_200912_V2.3",
-        "name": "GLOBCOVER (v2.3)",
-        "layer": "chw2-raster:GLOBCOVER_L4_200901_200912_V2.3",
-        "url": "https://coastalhazardwheel.avi.deltares.nl/geoserver/ows"
-      },
-      {
         "id": "chw2-vector:corals",
         "name": "Corals",
         "layer": "chw2-vector:corals",

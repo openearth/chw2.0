@@ -1,22 +1,6 @@
-The [Coastal Hazard Wheel (CHW)](http://www.coastalhazardwheel.org/) is a universal coastal adaptation support system for use at local, regional and national level. The Coastal Hazard Wheel App is an automated application using the CHW which can be used for classifying a particular coastal location, determining its hazard profile, identifying relevant management options and communicating coastal information. [Read more](https://link.springer.com/article/10.1007%2Fs11852-018-0609-x)
+The Coastal Hazard Wheel App can be used for classifying coastal locations worldwide and producing hazard maps for the hazards of ecosystem disruption, gradual inundation, salt water intrusion, erosion and flooding under the projected climate change. It is an automated version of the Coastal Hazard Wheel based on global datasets.
 
-**It is NOT validated as of yet.**
+In the COASTAL CLASSIFICATION tab, you can classify a specific coastal location, determine its hazard profile and obtain an overview of relevant management measures. This is done by marking a point in the sea at the coastal location to classified.
 
-### How does it work?
-The Coastal Hazard Wheel App currently provides global coastal classification data in low-moderate quality and focuses on erosion hazards. High quality national classifications and the full range of hazard types will become gradually available as various classification projects are implemented. The Coastal Hazard Wheel App uses six geo-biophysical classification layers, namely:
-
-* Geological layout
-* Wave exposure
-* Tidal range
-* Vegetation
-* Sediment balance
-* Storm climate
-
-
-A combination of these variables returns a unique coastal environment that has a hazard level between 1 (low) and 4 (very high) for each hazard type. The hazard level is a general indication of the hazard presence in that coastal environment. The risk assessment is not part of the CHW and is added to give meaning to the hazard. It is a general indication of the risk in the area.
-
-Click the button in the side panel to activate the tool, and to draw a line. Cross-sections are supposed to be drawn perpendicular to the coast with a length of ~2 kilometers.
-
-* CHW version: 2.0
-* Application version: 1.0
-* Erosion version: 1.0
+In the MAPPING tab, you can produce hazard maps for the five hazard types by turning on the specific hazard layers in the menu to the left. It is also possible to display information on capital values on land, population density and relevant background data.
+More information on the Coastal Hazard Wheel is available at (www.coastalhazardwheel.org) 

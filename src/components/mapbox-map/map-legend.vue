@@ -23,7 +23,6 @@ export default {
       type: String, 
       required: true
     }
-
   },
   data() {
     return {
@@ -37,6 +36,7 @@ export default {
     },
   },
   mounted() {
+    console.log('map-legend vue component', this.legendLayer, this.geoserverUrl)
     if (!this.initialized && this.getMap()) {
       this.addZoomListener()
       this.initialized = true
