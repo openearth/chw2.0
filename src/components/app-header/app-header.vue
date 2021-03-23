@@ -2,7 +2,7 @@
   <v-app-bar app color="primary" dark clipped-left>
     <v-toolbar-title
       ><router-link to="/" class="white--text text-decoration-none"
-        >Coastal Hazard Wheel</router-link
+        >Coastal Hazard Wheel App</router-link
       ></v-toolbar-title
     >
 

@@ -8,7 +8,7 @@
   >
     <v-card class="d-flex flex-column" style="max-height: 100%;overflow:hidden">
       <v-card-title class="pa-5">
-        <v-toolbar-title>Coastal Hazard Wheel User Agreement Deltares</v-toolbar-title>
+        <v-toolbar-title>Coastal Hazard Wheel App User Agreement</v-toolbar-title>
       </v-card-title>
 
       <div class="px-5 flex-grow-1 overflow-y-auto" v-html="content" />
