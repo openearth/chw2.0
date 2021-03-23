@@ -70,14 +70,18 @@ export default {
       wmsLayers: (state) => state.mapbox.wmsLayers,
       wmsHazardLayers: (state) => state.mapbox.wmsHazardLayers,
       legendLayer: (state) => state.mapbox.legendLayer,
-      legendUrl: (state) => state.mapbox.legendUrl
+      legendUrl: (state) => state.mapbox.legendUrl ,
+      hazardLegendUrl: (state) => state.mapbox.hazardLegendUrl,
+      hazardLegendLayer: (state) => state.mapbox.hazardLegendLayer
+
     }),
-    hazardLegendLayer() {
+/*     hazardLegendLayer() {
       return this.$store.getters['mapbox/hazardLegendLayer']
     },
     hazardLegendUrl() {
+      console.log('getter is ',  this.$store.getters['mapbox/hazardLegendUrl'])
       return this.$store.getters['mapbox/hazardLegendUrl']
-    },
+    }, */
     mapBoxToken() {
       return process.env.VUE_APP_MAPBOX_TOKEN; 
     },

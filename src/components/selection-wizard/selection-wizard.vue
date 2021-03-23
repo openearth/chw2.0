@@ -4,7 +4,7 @@
 
     <v-card-text>
       <p>
-        Place a point in sea in front of the coast. The app will create a transect perpendicular on the coastline and will derive the information that will be displayed in the coastal classification screen.
+        Place a point in the sea in front of the coast. The app will create a transect for the specific coastal location and display the coastal classification information here.
       </p>
 
       <v-card>

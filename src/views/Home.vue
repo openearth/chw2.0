@@ -8,8 +8,8 @@
 
     <div class="home__content">
       <div class="home__logos mb-6">
-        <img src="@/assets/img/deltares-logo.png" class="mr-8" />
-        <img src="@/assets/img/chw-logo.png" />
+        <img src="@/assets/img/chw-logo.png" class="mr-8"/>
+        <img src="@/assets/img/deltares-logo.png" />
       </div>
       <div v-html="content" />
     </div>

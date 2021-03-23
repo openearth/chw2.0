@@ -1,11 +1,5 @@
 [
   {
-    "id": "chw2-vector:coast_segments_flooding",
-    "name": "Coast flooding",
-    "layer": "chw2-vector:coast_segments_flooding",
-    "url": "https://coastalhazardwheel.avi.deltares.nl/geoserver/ows"
-  },
-  {
     "name": "Ecosystem disruption",
     "id": "chw2-vector:coast_segments_ecosystem",
     "layer": "chw2-vector:coast_segments_ecosystem",
@@ -28,5 +22,17 @@
     "id": "chw2-vector:coast_segments_erosion",
     "layer": "chw2-vector:coast_segments_erosion",
     "url": "https://coastalhazardwheel.avi.deltares.nl/geoserver/ows"
+  },
+  {
+    "id": "chw2-vector:coast_segments_flooding",
+    "name": "Coast flooding",
+    "layer": "chw2-vector:coast_segments_flooding",
+    "url": "https://coastalhazardwheel.avi.deltares.nl/geoserver/ows"
+  },
+  {
+    "name": "Layers off",
+    "id": "",
+    "layer": "Layers off",
+    "url": ""
   }
 ]
