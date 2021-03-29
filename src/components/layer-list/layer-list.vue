@@ -4,6 +4,7 @@
     @input="handleChange"
     selectable
     selected-color="primary"
+    :open="initiallyOpen"
   >
     <template v-slot:label="{ item, selected }">
       <div class="d-flex align-center">
@@ -52,6 +53,7 @@ export default {
   data: () => ({
     input: null,
     selected: [],
+    initiallyOpen: ['socioeconomics']
   }),
   computed: {
     layersWithParents() {
