@@ -16,19 +16,12 @@
       <v-card-actions>
           <form action="" submit.prevent style="width:100%" >
             <div class="d-flex pa-2" >
-              <v-checkbox color= "#1b396d" 
-                label="I agree with the Conditions of Use"
-                class="ma-1"
-                v-model="accepted"
-                hide-details
-              />
               <v-btn 
                 color="primary"
-                :disabled="!allAccepted"
                 @click="onStartClick"
                 class="ml-auto"
               >
-                Continue
+                I agree
               </v-btn>
            </div>
           </form>
@@ -61,6 +54,7 @@ export default {
   methods: {
     ...mapMutations(['SET_ACCEPTED_LEGAL']),
     onStartClick() {
+
       this.SET_ACCEPTED_LEGAL(true)
     },
   },
