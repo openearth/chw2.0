@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-4" v-html="content" />
+  <div class="pa-4" id="references" v-html="content" ref="references"  />
 </template>
 
 <script>
@@ -10,6 +10,9 @@ export default {
     return {
       content
     }
+  },
+  mounted () {
+    console.log('reference', this.$refs.references)
   }
 }
 </script>
