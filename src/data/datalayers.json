@@ -38,6 +38,12 @@
         "name": "Estuaries",
         "layer": "chw2-vector:estuaries",
         "url": "https://coastalhazardwheel.avi.deltares.nl/geoserver/ows"
+      },
+      {
+        "id": "chw2-raster:TAXNWRB_Haplic.Fluvisols_250m_ll",
+        "name": "Deltaic soils",
+        "layer": "chw2-raster:TAXNWRB_Haplic.Fluvisols_250m_ll",
+        "url": "https://coastalhazardwheel.avi.deltares.nl/geoserver/ows"
       }
     ]
   },

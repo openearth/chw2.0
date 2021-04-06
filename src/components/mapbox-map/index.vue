@@ -75,13 +75,6 @@ export default {
       hazardLegendLayer: (state) => state.mapbox.hazardLegendLayer
 
     }),
-/*     hazardLegendLayer() {
-      return this.$store.getters['mapbox/hazardLegendLayer']
-    },
-    hazardLegendUrl() {
-      console.log('getter is ',  this.$store.getters['mapbox/hazardLegendUrl'])
-      return this.$store.getters['mapbox/hazardLegendUrl']
-    }, */
     mapBoxToken() {
       return process.env.VUE_APP_MAPBOX_TOKEN; 
     },

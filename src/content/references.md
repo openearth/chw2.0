@@ -1,4 +1,7 @@
-The Coastal Hazard Wheel application uses spatial data in combination with a classification system created from scratch to categorize coastlines across the globe. The spatial datasets vary greatly in importance, usage and data represented. To create the most accurate classification all data was selected based on: date published, spatial scale/coverage, suitability compared to CHW-manual and terms of service.
+# References
+
+
+The Coastal Hazard Wheel application uses spatial data in combination with a classification system to categorize coastlines across the globe. The spatial datasets vary greatly in importance, usage and data represented. To create the most accurate classification all data was selected based on: date published, spatial scale/coverage, suitability compared to CHW-manual and terms of service.
 
 * [OpenStreetMap coastlines](https://osmdata.openstreetmap.de/data/coastlines.html)
 * [Global Lithological Map (GLiM)](https://www.geo.uni-hamburg.de/en/geologie/forschung/geochemie/glim.html)

@@ -22,11 +22,6 @@
           :label="item.name"
           :value="valueFor(item)"
         ></v-radio>
- <!--         <v-btn class="ml-auto" icon @click.stop="$emit('updateLegend', item)">
-          <v-icon>mdi-card-bulleted{{
-              item.layer === activeLegendLayer ? '' : '-off'
-            }}-outline</v-icon>
-        </v-btn> -->
       </div>
       </template>
     </v-treeview>
@@ -60,14 +55,12 @@ export default {
     },
     changed (value) {
       this.selected = this.valueFor(value)
-      console.log('this.selected', this.selected)
       if (this.selected === 5) {
         this.$store.commit("mapbox/CLEAR_WMS_HAZARD_LAYERS")
       }
       else{
       this.$emit('change', findInTree(this.layers, 'id', this.selected))
-      }
-      
+      } 
     },
     valueFor (value) {
       // eslint-disable-next-line no-prototype-builtins

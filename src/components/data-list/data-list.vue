@@ -2,7 +2,8 @@
   <v-list class="pa-0">
     <v-list-item-group>
       <template v-for="(item, index) in data">
-        <v-list-item :key="item" :tabindex="false">
+        <!-- TODO move href link at json file -->
+        <v-list-item :key="item" :tabindex="false" href="https://coastalhazardwheel.org/media/1218/catalogue-coastal-hazard-wheel.pdf" target="_blank">
           <v-list-item-content>
             <v-list-item-title>{{ item }}</v-list-item-title>
           </v-list-item-content>

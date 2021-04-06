@@ -12,7 +12,7 @@
     "url": "https://coastalhazardwheel.avi.deltares.nl/geoserver/ows"
   },
   {
-    "name": "Saltwater intrusion",
+    "name": "Salt water intrusion",
     "id": "chw2-vector:coast_segments_salt",
     "layer": "chw2-vector:coast_segments_salt",
     "url": "https://coastalhazardwheel.avi.deltares.nl/geoserver/ows"
@@ -25,7 +25,7 @@
   },
   {
     "id": "chw2-vector:coast_segments_flooding",
-    "name": "Coast flooding",
+    "name": "Coastal flooding",
     "layer": "chw2-vector:coast_segments_flooding",
     "url": "https://coastalhazardwheel.avi.deltares.nl/geoserver/ows"
   },

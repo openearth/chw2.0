@@ -82,18 +82,18 @@ export default {
       };
     },
   },
-  mounted() {
+/*   mounted() {
     this.$nextTick(() => {
       this.initSortable();
     });
-  },
+  }, */
   methods: {
-    initSortable() {
+/*     initSortable() {
       const $rootEl = document.querySelector('.v-treeview');
       const $childEls = document.querySelectorAll('.v-treeview-node__children');
       const $sortableEls = [$rootEl, ...$childEls];
       $sortableEls.forEach(this.makeSortable);
-    },
+    }, */
     makeSortable(el) {
       Sortable.create(el, this.sortableConfig);
     },

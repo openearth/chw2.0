@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-4" id="references" v-html="content" ref="references"  />
+  <div class="pa-4 references" v-html="content" ref="references"  />
 </template>
 
 <script>
@@ -11,8 +11,10 @@ export default {
       content
     }
   },
-  mounted () {
-    console.log('reference', this.$refs.references)
-  }
 }
 </script>
+<style scoped>
+.references >>> h1 {
+  margin-bottom: 10px;
+} 
+</style>

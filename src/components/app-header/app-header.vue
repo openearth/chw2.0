@@ -1,6 +1,6 @@
 <template>
   <v-app-bar app color="primary" dark clipped-left>
-    <v-toolbar-title
+    <v-toolbar-title class="font-weight-black"
       ><router-link to="/" class="white--text text-decoration-none"
         >Coastal Hazard Wheel App</router-link
       ></v-toolbar-title

@@ -9,7 +9,6 @@
       :activeLegendLayer="hazardLegendLayer || ''"
       @change="handleChangeHazard"
       @updateLegend="onLegendChange"
-      
     />
     <div class="pa-4 pb-0">
       <h2 class="h2">Data</h2>
@@ -59,7 +58,6 @@ export default {
     },
   },
   destroyed() {
-    console.log('destroy wms layers')
     this.$store.commit("mapbox/CLEAR_WMS_LAYERS") 
     this.$store.commit("mapbox/CLEAR_WMS_HAZARD_LAYERS")
   },
@@ -85,12 +83,9 @@ export default {
       }
     },
     handleChangeHazard(layer) {
-      console.log('layer in handleChangeHazard', layer)
-      // console.log('handleChange')
       const wmsLayer = buildWmsLayer(layer)
       this.$store.commit("mapbox/CLEAR_WMS_HAZARD_LAYERS")  
       this.$store.commit("mapbox/ADD_WMS_HAZARD_LAYER", wmsLayer) 
-      console.log('set hazard layer with', layer.url)
       this.$store.commit("mapbox/SET_HAZARD_LEGEND_URL", layer.url)
       this.$store.commit('mapbox/SET_HAZARD_LEGEND_LAYER',layer.layer)
 
