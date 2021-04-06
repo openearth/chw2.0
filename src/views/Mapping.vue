@@ -3,7 +3,7 @@
     <div class="pa-4 pb-0">
       <h2 class="h2">Hazards</h2>
       <v-divider class="mt-4" />
-    </div>
+  </div>
     <data-layers-single
       :layers="hazardlayers"
       :activeLegendLayer="hazardLegendLayer || ''"
