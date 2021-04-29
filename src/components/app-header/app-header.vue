@@ -8,9 +8,11 @@
 
     <v-spacer />
 
-    <v-tabs  right style="width: auto">
+    <v-tabs right style="width: auto">
       <v-tab :to="{ name: 'home' }" exact> Introduction </v-tab>
-      <v-tab :to="{ name: 'coastal-classification' }"> Coastal classification </v-tab>
+      <v-tab :to="{ name: 'coastal-classification' }">
+        Coastal classification
+      </v-tab>
       <v-tab :to="{ name: 'mapping' }"> Mapping </v-tab>
     </v-tabs>
 
@@ -46,18 +48,24 @@
 </template>
 
 <script>
-import LoadProjectButton from '@/components/load-project-button';
-import { mapActions } from 'vuex';
+import LoadProjectButton from "@/components/load-project-button";
+import { mapActions } from "vuex";
 
 export default {
   components: {
     LoadProjectButton,
   },
   methods: {
-    ...mapActions(['loadProject', 'saveProject']),
+    ...mapActions(["loadProject", "saveProject"]),
     handleSaveClick() {
       this.saveProject();
     },
   },
 };
 </script>
+<style scoped>
+.v-toolbar__title {
+  font-size: 1.5rem !important;
+}
+</style>
+

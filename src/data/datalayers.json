@@ -89,7 +89,7 @@
       },
       {
         "id": "chw2-vector:saltmarshes",
-        "name": "saltmarshes",
+        "name": "Saltmarshes",
         "layer": "chw2-vector:saltmarshes",
         "url": "https://coastalhazardwheel.avi.deltares.nl/geoserver/ows"
       }

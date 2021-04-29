@@ -10,7 +10,7 @@
         <span v-if="error.code">
           {{ error.code }}
         </span>
-        {{ error.message || 'There was an error getting the results' }}
+        {{ error.message || "There was an error getting the results" }}
       </v-alert>
     </div>
 
@@ -30,7 +30,13 @@
 
       <div v-if="Object.keys(data).length && !loading" class="pa-4">
         <p>
-          The coastal classification is displayed below with the line representing the specific coastal location. The information displayed is the coastal classification layers, coastal type, hazard profile, risk parameters and relevant hazard management measures. Please note that the classification is based on global datasets and can deviate from the local situation. If you want to make use of special national datasets, please get in touch with us at 
+          The coastal classification is displayed below for the line
+          representing the specific coastal location. The information displayed
+          is the coastal classification layers, coastal type, hazard profile,
+          risk parameters and relevant hazard management measures. Please note
+          that the classification is based on global datasets and can deviate
+          from the local situation. If you want to make use of special national
+          datasets, please get in touch with us at
           <a
             href="https://coastalhazardwheel.org"
             rel="noopener noreferrer"
@@ -46,9 +52,9 @@
 </template>
 
 <script>
-import { mapActions, mapMutations, mapState } from 'vuex';
-import ResultsViewer from '@/components/results-viewer';
-import SelectionWizard from '@/components/selection-wizard';
+import { mapActions, mapMutations, mapState } from "vuex";
+import ResultsViewer from "@/components/results-viewer";
+import SelectionWizard from "@/components/selection-wizard";
 
 export default {
   components: {
@@ -57,7 +63,7 @@ export default {
   },
   data() {
     return {
-      activeTab: '',
+      activeTab: "",
     };
   },
   watch: {
@@ -96,7 +102,7 @@ export default {
     this.SET_ENABLED(true);
 
     if (map) {
-      map.getCanvas().style.cursor = 'crosshair';
+      map.getCanvas().style.cursor = "crosshair";
     }
   },
   beforeDestroy() {
@@ -105,16 +111,16 @@ export default {
     this.SET_LINE_COORDINATES([]);
     this.SET_ENABLED(false);
 
-    map.getCanvas().style.cursor = 'pointer';
+    map.getCanvas().style.cursor = "pointer";
   },
   methods: {
     ...mapActions({
-      getSelection: 'selection/getSelection',
-      getDataForSelection: 'selection/getDataForSelection',
+      getSelection: "selection/getSelection",
+      getDataForSelection: "selection/getDataForSelection",
     }),
     ...mapMutations({
-      SET_ENABLED: 'selection/SET_ENABLED',
-      SET_LINE_COORDINATES: 'selection/SET_LINE_COORDINATES',
+      SET_ENABLED: "selection/SET_ENABLED",
+      SET_LINE_COORDINATES: "selection/SET_LINE_COORDINATES",
     }),
   },
 };
