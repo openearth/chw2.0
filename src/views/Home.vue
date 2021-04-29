@@ -6,19 +6,31 @@
       <v-divider class="mt-4 mb-4" />
     </div>
 
+    <!--           <a
+            href="https://coastalhazardwheel.org"
+            rel="noopener noreferrer"
+            target="_blank"
+            >coastalhazardwheel.org</a
+            https://www.deltares.nl/
+          > -->
+
     <div class="home__content">
-      <div class="home__logos mb-6">
-        <img src="@/assets/img/chw-logo.png" class="mr-8"/>
-        <img src="@/assets/img/deltares-logo.png" />
+      <div class="home__logos mb-6 ml-10 pl-2">
+        <a href="https://coastalhazardwheel.org" target="_blank">
+          <img src="@/assets/img/chw-logo.png" class="mr-8" />
+        </a>
+        <a href="https://www.deltares.nl" target="_blank">
+          <img src="@/assets/img/deltares-logo.png" />
+        </a>
       </div>
       <div v-html="content" />
     </div>
 
     <div class="d-flex pt-4">
-      <v-btn 
-        color = "primary"
+      <v-btn
+        color="primary"
         dark
-        class="ml-auto" 
+        class="ml-auto"
         :to="{ name: 'coastal-classification', params: { wizard: true } }"
         >Get started</v-btn
       >
@@ -27,9 +39,9 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-import content from '@/content/introduction.md';
-import { MAP_CENTER, MAP_ZOOM } from '@/lib/constants';
+import { mapMutations } from "vuex";
+import content from "@/content/introduction.md";
+import { MAP_CENTER, MAP_ZOOM } from "@/lib/constants";
 
 export default {
   data() {
@@ -49,7 +61,7 @@ export default {
   },
   methods: {
     ...mapMutations({
-      setLineCoordinates: 'selection/SET_LINE_COORDINATES',
+      setLineCoordinates: "selection/SET_LINE_COORDINATES",
     }),
   },
 };
@@ -74,6 +86,4 @@ export default {
 .home__logos img {
   height: 100%;
 }
-
-
 </style>
