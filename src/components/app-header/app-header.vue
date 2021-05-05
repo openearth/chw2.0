@@ -5,6 +5,10 @@
         >Coastal Hazard Wheel App</router-link
       ></v-toolbar-title
     >
+    <v-app-bar-nav-icon
+      class="nav-icon"
+      @click.stop="drawer = !drawer"
+    ></v-app-bar-nav-icon>
 
     <v-spacer />
 
@@ -55,6 +59,17 @@ export default {
   components: {
     LoadProjectButton,
   },
+  data() {
+    return {
+      drawer: true,
+    };
+  },
+  watch: {
+    drawer() {
+      console.log("drawer", this.drawer);
+      this.$emit("onHide", this.drawer);
+    },
+  },
   methods: {
     ...mapActions(["loadProject", "saveProject"]),
     handleSaveClick() {
@@ -66,6 +81,9 @@ export default {
 <style scoped>
 .v-toolbar__title {
   font-size: 1.5rem !important;
+}
+.nav-icon {
+  margin-left: 100px;
 }
 </style>
 
