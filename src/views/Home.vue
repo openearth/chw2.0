@@ -58,11 +58,20 @@ export default {
     }
 
     this.setLineCoordinates([]);
+    this.setTargetBlank();
   },
   methods: {
     ...mapMutations({
       setLineCoordinates: "selection/SET_LINE_COORDINATES",
     }),
+    setTargetBlank() {
+      var links = document.links;
+      links.forEach((link) => {
+        if (link.hostname != window.location.hostname) {
+          link.target = "_blank";
+        }
+      });
+    },
   },
 };
 </script>
@@ -87,3 +96,4 @@ export default {
   height: 100%;
 }
 </style>
+

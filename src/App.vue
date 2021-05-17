@@ -40,7 +40,6 @@ export default {
   },
   methods: {
     hideNavigation(event) {
-      console.log("drawer in app", event);
       this.drawer = event;
     },
   },
