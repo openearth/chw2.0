@@ -66,7 +66,6 @@ export default {
   },
   watch: {
     drawer() {
-      console.log("drawer", this.drawer);
       this.$emit("onHide", this.drawer);
     },
   },
