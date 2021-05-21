@@ -10,6 +10,7 @@ The Coastal Hazard Wheel application uses spatial data in combination with the C
 * [OSM Beaches](https://wiki.openstreetmap.org/wiki/Tag:natural=beach)
 * [Deltaic Deposits](https://www.isric.org/explore/world-soil-distribution/fluvisols)
 * [Global Exposure Database](https://data.humdata.org/dataset/exposed-economic-stock)
+* [GlobCover 2009](http://due.esrin.esa.int/page_globcover.php)
 
 
 

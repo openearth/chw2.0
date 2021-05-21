@@ -44,12 +44,6 @@
         "name": "Deltaic soils",
         "layer": "chw2-raster:TAXNWRB_Haplic.Fluvisols_250m_ll",
         "url": "https://coastalhazardwheel.avi.deltares.nl/geoserver/ows"
-      },
-      {
-        "id": "chw2-raster:GLOBCOVER_L4_200901_200912_V2.3",
-        "name": "Globcover",
-        "layer": "chw2-raster:GLOBCOVER_L4_200901_200912_V2.3",
-        "url": "https://coastalhazardwheel.avi.deltares.nl/geoserver/ows"
       }
     ]
   },
@@ -97,6 +91,12 @@
         "id": "chw2-vector:saltmarshes",
         "name": "Saltmarshes",
         "layer": "chw2-vector:saltmarshes",
+        "url": "https://coastalhazardwheel.avi.deltares.nl/geoserver/ows"
+      },
+      {
+        "id": "chw2-raster:GLOBCOVER_L4_200901_200912_V2.3",
+        "name": "GlobCover",
+        "layer": "chw2-raster:GLOBCOVER_L4_200901_200912_V2.3",
         "url": "https://coastalhazardwheel.avi.deltares.nl/geoserver/ows"
       }
     ]
