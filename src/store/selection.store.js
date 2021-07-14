@@ -61,7 +61,7 @@ export default {
       commit("SET_ERROR", null);
       commit("SET_DATA", {});
 
-      try {
+      
         const data = await wps({
           identifier: "chw_risk_classification",
           functionId: "transect",
@@ -69,13 +69,15 @@ export default {
           type: "LineString",
           coastId: state.coastline_id,
         });
-
+  
+       if (data.errMsg) {
+        commit("SET_ERROR", {message: data.errMsg});
+      }else{
         commit("SET_DATA", data);
-      } catch (error) {
-        commit("SET_ERROR", { code: error.response.status });
+        commit("SET_LOADING", false);
       }
 
-      commit("SET_LOADING", false);
+      
     },
   },
 };
