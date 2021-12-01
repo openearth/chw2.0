@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="pa-4 pb-0">
-      <h2 class="h2">Hazards</h2>
+      <h2 class="h2">Hazards (load maps)</h2>
       <v-divider class="mt-4" />
   </div>
     <data-layers-single

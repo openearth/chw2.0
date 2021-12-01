@@ -14,7 +14,7 @@
           @change="onFileInput"
         >
       </template>
-      <span>Open project</span>
+      <span>Open classification point</span>
     </v-tooltip>
   </div>
 </template>

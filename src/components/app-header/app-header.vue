@@ -30,7 +30,7 @@
           <v-icon>mdi-content-save</v-icon>
         </v-btn>
       </template>
-      <span>Save project</span>
+      <span>Save classification point</span>
     </v-tooltip>
 
     <v-menu bottom left>
