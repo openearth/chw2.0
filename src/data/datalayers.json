@@ -49,7 +49,7 @@
   },
   {
     "id": "wave-exposure",
-    "name": "Wave exposure",
+    "name": "Wave exposure (outer coast)",
     "children": [
       {
         "id": "chw2-vector:wave_exposure",

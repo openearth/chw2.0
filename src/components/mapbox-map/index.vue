@@ -12,7 +12,7 @@
     >
       <!-- Map Controls -->
       <v-mapbox-geocoder />
-      <v-mapbox-navigation-control position="bottom-right" />
+      <v-mapbox-navigation-control :options="navigationOptions" position="bottom-right" />
       <map-control-baselayer :layers="mapBaseLayers" position="bottom-right" />
       <map-control-fitbounds :fitToBounds="fitToBounds" position="bottom-right" />
 
@@ -91,7 +91,10 @@ export default {
   },
   data () {
     return {
-      wmsHazardId: null
+      wmsHazardId: null,
+      navigationOptions: {
+        showCompass: false
+      }
     };
   },
   watch: {
@@ -116,6 +119,11 @@ export default {
     window.__map = map
 
     map.on('click', this.handleMapClick)
+    // disable map rotation using right click + drag
+    map.dragRotate.disable();
+ 
+    // disable map rotation using touch rotation gesture
+    map.touchZoomRotate.disableRotation();
 
     // show crosshair cursor if we're on the coastal classification route
     if (this.$route.name === 'coastal-classification') {
