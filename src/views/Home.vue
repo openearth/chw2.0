@@ -17,7 +17,7 @@
     <div class="home__content">
       <div class="home__logos mb-6 ml-10 pl-2">
         <a href="https://coastalhazardwheel.org" target="_blank">
-          <img src="@/assets/img/chw-logo.png" class="mr-8" />
+          <img src="@/assets/img/chw-logo.png" class="chw_logo"  />
         </a>
         <a href="https://www.deltares.nl" target="_blank">
           <img src="@/assets/img/deltares-logo.png" />
@@ -90,6 +90,11 @@ export default {
 .home__logos {
   display: flex;
   height: 3rem;
+}
+
+.chw_logo {
+  width: 60px;
+  height: 60px !important;
 }
 
 .home__logos img {

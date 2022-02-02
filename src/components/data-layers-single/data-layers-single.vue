@@ -4,6 +4,7 @@
     @change="changed"
     v-model="input"
     :mandatory="false"
+    
   >
     <v-treeview
       :items="layers"
@@ -41,15 +42,16 @@ export default {
     }
   },
   data: () => ({
-    input: null,
-    selected: null
+    input: 'chw2-vector:coast_segments_flooding', // 
+    selected: 'chw2-vector:coast_segments_flooding'
   }),
   mounted() {
     this.selectFirst()
   },
   methods: {
     selectFirst() {
-      this.selected = this.layers[0].layer || this.layers[0].children[0]?.layer
+      console.log('this.layers in select first', this.layers)
+      this.selected = this.layers[4].layer 
       this.opened()
       this.$emit('change', findInTree(this.layers, 'id', this.selected))
     },

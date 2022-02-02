@@ -1,12 +1,12 @@
-export const NETHERLANDS_CENTER_LATITUDE =  49.42429;
-export const NETHERLANDS_CENTER_LONGITUDE = 16.4747;
+export const CENTER_LATITUDE =  25;
+export const CENTER_LONGITUDE = -40;
 
 export const MAP_CENTER = [
-  NETHERLANDS_CENTER_LONGITUDE,
-  NETHERLANDS_CENTER_LATITUDE,
+  CENTER_LONGITUDE,
+  CENTER_LATITUDE,
 ];
 
-export const MAP_ZOOM = 2
+export const MAP_ZOOM = 3
 
 export const MAP_BASELAYERS = [
   'light',
