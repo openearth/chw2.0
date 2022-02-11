@@ -1,5 +1,5 @@
-export const CENTER_LATITUDE =  25;
-export const CENTER_LONGITUDE = -40;
+export const CENTER_LATITUDE =  35;
+export const CENTER_LONGITUDE = -35;
 
 export const MAP_CENTER = [
   CENTER_LONGITUDE,

@@ -1,5 +1,5 @@
 
-export const xmlRequestTemplate = ({ identifier, functionId, data, type, coastId }) => `
+export const xmlRequestTemplate = ({ identifier, functionId, data, type, coastId, notification  }) => `
 
 <wps:Execute xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0.0" service="WPS" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd">
    <ows:Identifier xmlns:ows="http://www.opengis.net/ows/1.1">${identifier}</ows:Identifier>
@@ -11,7 +11,7 @@ export const xmlRequestTemplate = ({ identifier, functionId, data, type, coastId
             <wps:LiteralData>
                     { 
                         "type": "Feature", 
-                        "properties": {${coastId ? coastlineInput(coastId): ""}}, 
+                        "properties": {${coastId  ? propertiesInput(coastId, notification): ""}}, 
                         "geometry":{ 
                             "type": "${type}",
                             "coordinates": ${data}
@@ -28,6 +28,6 @@ export const xmlRequestTemplate = ({ identifier, functionId, data, type, coastId
    </wps:ResponseForm>
 </wps:Execute>`;
 
-function coastlineInput(coastId) {
-   return `"coastline_id": ${coastId}`
+function propertiesInput(coastId, notification) {
+   return `"coastline_id": ${coastId}, "notification": ${notification}`
 }

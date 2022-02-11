@@ -10,7 +10,9 @@ export default {
     loading: false,
     error: null,
     data: {},
-    coastline_id: {},
+    coastlineId: null, 
+    notification: null, //Notification message for special cases. Dont confuse it with Error message. 
+                        //When no classification happens then it passes in the error message
   },
 
   mutations: {
@@ -21,7 +23,7 @@ export default {
       state.lineCoordinates = coordinates;
     },
     SET_COAST_LINE_ID(state, id) {
-      state.coastline_id = id;
+      state.coastlineId = id;
     },
     SET_ERROR(state, error) {
       state.error = error;
@@ -35,6 +37,9 @@ export default {
     SET_ENABLED(state, value) {
       state.enabled = value;
     },
+    SET_NOTIFICATION(state, notification) {
+      state.notification = notification
+    }
   },
 
   actions: {
@@ -42,7 +47,7 @@ export default {
       commit("SET_LOADING", true);
       commit("SET_ERROR", null);
 
-      const { transect_coordinates, coastline_id, errMsg } = await wps({
+      const { transect_coordinates, coastline_id, notification, errMsg } = await wps({
         identifier: "create_transect",
         functionId: "sea_point",
         type: "Point",
@@ -52,22 +57,27 @@ export default {
       if (errMsg) {
         commit("SET_ERROR", { message: errMsg });
       }
-
+      console.log('notification', notification)
+      commit("SET_NOTIFICATION", notification)
       commit("SET_LINE_COORDINATES", transect_coordinates);
       commit("SET_COAST_LINE_ID", coastline_id);
     },
     async getDataForSelection({ state, commit }) {
+     
       commit("SET_LOADING", true);
       commit("SET_ERROR", null);
       commit("SET_DATA", {});
 
-      
+        console.log('state', state.coastId, state.notification)
         const data = await wps({
           identifier: "chw_risk_classification",
           functionId: "transect",
           data: JSON.stringify(state.lineCoordinates),
           type: "LineString",
-          coastId: state.coastline_id,
+          coastId: state.coastlineId,
+          notification: JSON.stringify(state.notification)
+
+          
         });
   
        if (data.errMsg) {
