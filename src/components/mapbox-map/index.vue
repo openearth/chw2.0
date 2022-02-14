@@ -112,7 +112,8 @@ export default {
     },
     lineCoordinates() {
       // zoom to extent of transect
-      if (this.lineCoordinates.length) {
+      
+      if (this.lineCoordinates) {
         this.zoomToLineExtent()
       }  
     }

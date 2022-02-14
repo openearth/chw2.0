@@ -47,12 +47,12 @@ export default {
         });
   
         map.getSource("geojson")?.setData(this.geojson);
+
+        this.removeNotification(this.notification)
+        this.addNotification(this.notification)
       }
     },
-    notification() {
-      this.removeNotification(this.notification)
-      this.addNotification(this.notification)
-    }
+
   },
   computed: {
     points() {
@@ -143,6 +143,7 @@ export default {
       map.getSource("geojson")?.setData(this.geojson);
     },
     addNotification(notification) {
+     
       const map = this.getMap();
       if (notification) {
         map.addLayer({
