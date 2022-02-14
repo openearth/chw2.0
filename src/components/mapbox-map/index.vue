@@ -18,8 +18,10 @@
 
       <!-- Line draw interaction -->
       <map-coordinates-selector
+        v-if="lineCoordinates"
         :disabled="!selectionEnabled"
         :coordinates="lineCoordinates"
+        :exceptionMessage="notification"
       />
       <!-- Map Layers -->
 
@@ -35,6 +37,7 @@
         :options="layer"
         :before="wmsHazardId"
       />
+
       <map-legend v-if="legendLayer" :legendLayer="legendLayer" :geoserverUrl="legendUrl" /> 
       
     </v-mapbox>
@@ -52,8 +55,7 @@ import MapControlBaselayer from './map-control-baselayer';
 import MapControlFitbounds from './map-control-fitbounds';
 import MapLegend from './map-legend';
 import mapboxgl from 'mapbox-gl'
-// import bbox from '@turf/bbox'
-// import { lineString } from '@turf/helpers'
+
 
 export default {
   components: {
@@ -61,20 +63,21 @@ export default {
     MapCoordinatesSelector,
     MapControlBaselayer,
     MapControlFitbounds,
-    MapLegend
+    MapLegend,
   },
   computed: {
     ...mapState({
       lineCoordinates: (state) => state.selection.lineCoordinates,
+      notification:(state) => state.selection.notification, 
       selectionEnabled: (state) => state.selection.enabled,
       wmsLayers: (state) => state.mapbox.wmsLayers,
       wmsHazardLayers: (state) => state.mapbox.wmsHazardLayers,
       legendLayer: (state) => state.mapbox.legendLayer,
       legendUrl: (state) => state.mapbox.legendUrl ,
       hazardLegendUrl: (state) => state.mapbox.hazardLegendUrl,
-      hazardLegendLayer: (state) => state.mapbox.hazardLegendLayer
-
+      hazardLegendLayer: (state) => state.mapbox.hazardLegendLayer,
     }),
+   
     mapBoxToken() {
       return process.env.VUE_APP_MAPBOX_TOKEN; 
     },
@@ -87,7 +90,8 @@ export default {
     },
     mapBaseLayers() {
       return MAP_BASELAYERS;
-    }
+    },
+
   },
   data () {
     return {

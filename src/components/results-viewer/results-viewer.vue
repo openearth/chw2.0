@@ -11,7 +11,9 @@
           :key="item.title"
           :title="item.title"
         >
-          <data-table v-if="item.info" :data="item.info" />
+
+          <coastal-environment-table v-if="item.info && item.title ==='Coastal environment'" :data="item.info" />
+          <data-table v-if="item.info && item.title !== 'Coastal environment'"  :data="item.info" />
           <data-list v-if="item.measures" :data="item.measures" />
         </collapsible-card>
       </v-tab-item>
@@ -23,12 +25,14 @@
 import CollapsibleCard from '@/components/collapsible-card';
 import DataTable from '@/components/data-table';
 import DataList from '@/components/data-list';
+import CoastalEnvironmentTable from '@/components/coastal-environment-table'
 
 export default {
   components: {
     CollapsibleCard,
     DataTable,
     DataList,
+    CoastalEnvironmentTable
   },
   props: {
     data: {

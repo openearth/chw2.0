@@ -11,7 +11,7 @@ export default {
     error: null,
     data: {},
     coastlineId: null, 
-    notification: null, //Notification message for special cases. Dont confuse it with Error message. 
+    notification: "", //Notification message for special cases. Dont confuse it with Error message. 
                         //When no classification happens then it passes in the error message
   },
 
@@ -57,7 +57,7 @@ export default {
       if (errMsg) {
         commit("SET_ERROR", { message: errMsg });
       }
-      console.log('notification', notification)
+
       commit("SET_NOTIFICATION", notification)
       commit("SET_LINE_COORDINATES", transect_coordinates);
       commit("SET_COAST_LINE_ID", coastline_id);
@@ -67,8 +67,6 @@ export default {
       commit("SET_LOADING", true);
       commit("SET_ERROR", null);
       commit("SET_DATA", {});
-
-        console.log('state', state.coastId, state.notification)
         const data = await wps({
           identifier: "chw_risk_classification",
           functionId: "transect",
