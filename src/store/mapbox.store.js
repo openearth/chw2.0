@@ -1,5 +1,6 @@
 import Vue from "vue";
 
+
 export default {
   namespaced: true,
 
@@ -12,11 +13,17 @@ export default {
     legendUrl: null,
     hazardLegendUrl: null,
     wmsHazardLayers: [],
+
   },
   getters: {
     hazardLegendLayer: state => state.hazardLegendLayer,
     hazardLegendUrl: state => state.hazardLegendUrl,
-
+    selectedWmsHazardLayerId(state) {
+      if (!state.wmsHazardLayers.length) {
+        return null
+      }
+      return state.wmsHazardLayers[0].id
+    }
   },
   mutations: {
     SET_LAYERS(state, layers) {

@@ -1,3 +1,4 @@
+import { mapState } from "vuex";
 export default {
   name: "map-coordinates-selector",
   inject: ["getMap"],
@@ -13,6 +14,7 @@ export default {
       type: Boolean,
       required: true,
     },
+
   },
   data() {
     return {
@@ -47,6 +49,10 @@ export default {
         map.getSource("geojson")?.setData(this.geojson);
       }
     },
+    notification() {
+      this.removeNotification(this.notification)
+      this.addNotification(this.notification)
+    }
   },
   computed: {
     points() {
@@ -54,8 +60,12 @@ export default {
         (feature) => feature.geometry.type === "Point"
       );
     },
+    ...mapState({
+      notification:(state) => state.selection.notification, 
+    }),
   },
   mounted() {
+    
     if (this.getMap()) {
       this.rerender();
       this.isInitialized = true;
@@ -102,6 +112,10 @@ export default {
         },
         filter: ["in", "$type", "LineString"],
       });
+     
+
+
+
     },
     generateFeature(coordinates) {
       return {
@@ -128,5 +142,37 @@ export default {
 
       map.getSource("geojson")?.setData(this.geojson);
     },
+    addNotification(notification) {
+      const map = this.getMap();
+      if (notification) {
+        map.addLayer({
+          id: "exception-message",
+          type: "symbol",
+          source: "geojson",
+          layout: {
+            "symbol-placement": "point",
+            "text-padding": 40,
+            "text-field": notification,
+            'text-justify': 'left',
+            'text-offset': [6,6],
+            "text-max-width": 40,
+            "text-size": 12,
+            'text-font': [
+              'literal',
+              ["Open Sans Regular", "Arial Unicode MS Regular"]
+            ]
+          },
+          minzoom: 6
+      });
+      }
+
+    },
+    removeNotification() {
+      const map = this.getMap();
+      const exceptionLayer = map.getLayer("exception-message");
+      if (exceptionLayer) {
+        map.removeLayer("exception-message");
+      }
+    }
   },
 };
