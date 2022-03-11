@@ -10,7 +10,7 @@
       <tbody>
         <tr v-for="(value, key) in data" :key="key">
           <td class="font-weight-bold">{{ mapPropertyToTitle(key) }}</td>
-          <td class="font-weight-bold" v-if="value.includes('!')">{{ value }} </td>
+          <td v-if="value.includes('!')">{{ `(${value.replace('!',')').split(' ').join('')}`}} </td> <!-- TODO: pass it from back-end -->
           <td v-else>{{ value.replace('None', '') }}</td>
         </tr>
       </tbody>
