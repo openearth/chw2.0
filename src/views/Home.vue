@@ -15,12 +15,12 @@
           > -->
 
     <div class="home__content">
-      <div class="home__logos mb-6 ml-10 pl-2">
+      <div class="home__logos mb-6 ml-2 ">
         <a href="https://coastalhazardwheel.org" target="_blank">
           <img src="@/assets/img/chw-logo.png" class="chw_logo"  />
         </a>
         <a href="https://www.deltares.nl" target="_blank">
-          <img src="@/assets/img/deltares-logo.png" />
+          <img style="max-width:200px;" src="@/assets/img/deltares-logo.png" />
         </a>
       </div>
       <div v-html="content" />
@@ -93,12 +93,12 @@ export default {
 }
 
 .chw_logo {
-  width: 60px;
-  height: 60px !important;
+  max-width: 120px;
+  padding-top: 13px;
 }
 
-.home__logos img {
+/* .home__logos img {
   height: 100%;
-}
+} */
 </style>
 
