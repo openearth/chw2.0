@@ -20,7 +20,7 @@
           <img src="@/assets/img/chw-logo.png" class="chw_logo"  />
         </a>
         <a href="https://www.deltares.nl" target="_blank">
-          <img style="max-width:200px;" src="@/assets/img/deltares-logo.png" />
+          <img src="@/assets/img/deltares-logo.png" class="deltares_logo"/>
         </a>
       </div>
       <div v-html="content" />
@@ -97,8 +97,9 @@ export default {
   padding-top: 13px;
 }
 
-/* .home__logos img {
-  height: 100%;
-} */
+.deltares_logo {
+  max-width: 120px;
+  padding-top: 12px;
+}
 </style>
 
