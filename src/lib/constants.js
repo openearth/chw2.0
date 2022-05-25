@@ -9,7 +9,7 @@ export const MAP_CENTER = [
 export const MAP_ZOOM = 2.5
 
 export const MAP_BASELAYERS = [
-  'iomic/cl3lbgec7005i15lda7raqrqd', 
+  'iomic/cl3ld9ecp005114p8o9eky4t0', 
   'mapbox/satellite-v9',
 ].map(layer => ({
   style: `mapbox://styles/${ layer }`,
@@ -18,3 +18,4 @@ export const MAP_BASELAYERS = [
 }));
 
 export const MAP_BASELAYER_DEFAULT = MAP_BASELAYERS[0];
+
