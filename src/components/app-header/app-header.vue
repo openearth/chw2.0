@@ -6,9 +6,20 @@
       ></v-toolbar-title
     >
     <v-app-bar-nav-icon
+      v-if="drawer"
       class="nav-icon"
       @click.stop="drawer = !drawer"
-    ></v-app-bar-nav-icon>
+    >
+    <v-icon>mdi-arrow-left</v-icon>
+    </v-app-bar-nav-icon>
+    <v-app-bar-nav-icon
+      v-else
+      class="nav-icon"
+      @click.stop="drawer = !drawer"
+    >
+    <v-icon>mdi-arrow-right</v-icon>
+    </v-app-bar-nav-icon>
+
 
     <v-spacer />
 

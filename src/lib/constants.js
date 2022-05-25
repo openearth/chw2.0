@@ -9,7 +9,7 @@ export const MAP_CENTER = [
 export const MAP_ZOOM = 2.5
 
 export const MAP_BASELAYERS = [
-  'iomic/cl02755g2000a14qn9pmoz4j2', 
+  'iomic/cl3lbgec7005i15lda7raqrqd', 
   'mapbox/satellite-v9',
 ].map(layer => ({
   style: `mapbox://styles/${ layer }`,
