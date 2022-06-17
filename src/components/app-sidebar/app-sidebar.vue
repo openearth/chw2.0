@@ -3,9 +3,10 @@
     clipped
     app
     touchless
+    disable-resize-watcher
     width="400"
-    class="hello"
-    v-model="drawer"
+    :value="hide"
+    :mobile-breakpoint="0"
   >
     <router-view />
   </v-navigation-drawer>
@@ -17,16 +18,6 @@ export default {
     hide: {
       type: Boolean,
       required: true,
-    },
-  },
-  data() {
-    return {
-      drawer: null,
-    };
-  },
-  watch: {
-    hide() {
-      this.drawer = this.hide;
     },
   },
 };
