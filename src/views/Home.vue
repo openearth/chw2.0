@@ -19,7 +19,7 @@
         <a href="https://coastalhazardwheel.org" target="_blank">
           <img src="@/assets/img/chw-logo.png" class="chw_logo"  />
         </a>
-        <a href="https://www.deltares.nl" target="_blank">
+        <a href="https://www.deltares.nl/en/" target="_blank">
           <img src="@/assets/img/deltares-logo.png" class="deltares_logo"/>
         </a>
       </div>
