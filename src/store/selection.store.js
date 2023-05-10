@@ -10,9 +10,9 @@ export default {
     loading: false,
     error: null,
     data: {},
-    coastlineId: null, 
+    coastlineId: null,
     notification: "", //Notification message for special cases. Dont confuse it with Error message. 
-                        //When no classification happens then it passes in the error message
+    //When no classification happens then it passes in the error message
   },
 
   mutations: {
@@ -63,29 +63,29 @@ export default {
       commit("SET_COAST_LINE_ID", coastline_id);
     },
     async getDataForSelection({ state, commit }) {
-     
+
       commit("SET_LOADING", true);
       commit("SET_ERROR", null);
       commit("SET_DATA", {});
-        const data = await wps({
-          identifier: "chw_risk_classification",
-          functionId: "transect",
-          data: JSON.stringify(state.lineCoordinates),
-          type: "LineString",
-          coastId: state.coastlineId,
-          notification: JSON.stringify(state.notification)
+      const data = await wps({
+        identifier: "chw_risk_classification_test",
+        functionId: "transect",
+        data: JSON.stringify(state.lineCoordinates),
+        type: "LineString",
+        coastId: state.coastlineId,
+        notification: JSON.stringify(state.notification)
 
-          
-        });
-  
-       if (data.errMsg) {
-        commit("SET_ERROR", {message: data.errMsg});
-      }else{
+
+      });
+
+      if (data.errMsg) {
+        commit("SET_ERROR", { message: data.errMsg });
+      } else {
         commit("SET_DATA", data);
         commit("SET_LOADING", false);
       }
 
-      
+
     },
   },
 };
