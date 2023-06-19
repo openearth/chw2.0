@@ -11,7 +11,7 @@ export default {
     error: null,
     data: {},
     coastlineId: null,
-    notification: "", //Notification message for special cases. Dont confuse it with Error message. 
+    notification: "", //Notification message for special cases. Dont confuse it with Error message.
     //When no classification happens then it passes in the error message
   },
 
@@ -38,8 +38,8 @@ export default {
       state.enabled = value;
     },
     SET_NOTIFICATION(state, notification) {
-      state.notification = notification
-    }
+      state.notification = notification;
+    },
   },
 
   actions: {
@@ -47,7 +47,12 @@ export default {
       commit("SET_LOADING", true);
       commit("SET_ERROR", null);
 
-      const { transect_coordinates, coastline_id, notification, errMsg } = await wps({
+      const {
+        transect_coordinates,
+        coastline_id,
+        notification,
+        errMsg,
+      } = await wps({
         identifier: "create_transect",
         functionId: "sea_point",
         type: "Point",
@@ -58,24 +63,21 @@ export default {
         commit("SET_ERROR", { message: errMsg });
       }
 
-      commit("SET_NOTIFICATION", notification)
+      commit("SET_NOTIFICATION", notification);
       commit("SET_LINE_COORDINATES", transect_coordinates);
       commit("SET_COAST_LINE_ID", coastline_id);
     },
     async getDataForSelection({ state, commit }) {
-
       commit("SET_LOADING", true);
       commit("SET_ERROR", null);
       commit("SET_DATA", {});
       const data = await wps({
-        identifier: "chw_risk_classification_test",
+        identifier: "chw_risk_classification_fabdem_test_environment",
         functionId: "transect",
         data: JSON.stringify(state.lineCoordinates),
         type: "LineString",
         coastId: state.coastlineId,
-        notification: JSON.stringify(state.notification)
-
-
+        notification: JSON.stringify(state.notification),
       });
 
       if (data.errMsg) {
@@ -84,8 +86,6 @@ export default {
         commit("SET_DATA", data);
         commit("SET_LOADING", false);
       }
-
-
     },
   },
 };
