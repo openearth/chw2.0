@@ -68,7 +68,7 @@ export default {
       commit("SET_ERROR", null);
       commit("SET_DATA", {});
         const data = await wps({
-          identifier: "chw_risk_classification_test",
+          identifier: "chw_risk_classification_fabdem_test_environment",
           functionId: "transect",
           data: JSON.stringify(state.lineCoordinates),
           type: "LineString",
