@@ -2,6 +2,7 @@ The Coastal Hazard Wheel application uses spatial data in combination with the C
 
 * [OpenStreetMap coastlines](https://osmdata.openstreetmap.de/data/coastlines.html)
 * [Global Lithological Map (GLiM)](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2012GC004370)
+* [FABDEM](https://www.fathom.global/product/global-terrain-data-fabdem/)
 * [Multi-Error-Removed Improved-Terrain DEM (MERIT DEM) ](http://hydro.iis.u-tokyo.ac.jp/~yamadai/MERIT_DEM/)
 * [Global Estuary Database ](https://data.unep-wcmc.org/datasets/23)
 * [Global Distribution of Coral Reefs ](https://data.unep-wcmc.org/datasets/1)
